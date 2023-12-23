@@ -1,0 +1,26 @@
+[
+  {
+    "id": "45a72d36d0432a06341cc29d",
+    "name": "Usuario 1",
+    "photo": "Foto usuario 1",
+    "email": "Email usuario 1"
+  },
+  {
+    "id": "1c6beeca43b7dfc4635d2851",
+    "name": "Usuario 3",
+    "photo": "Foto usuario 3",
+    "email": "Email usuario 3"
+  },
+  {
+    "id": "a57e700ed910c08a9436201e",
+    "name": "Usuario 4",
+    "photo": "Foto usuario 4",
+    "email": "Email usuario 4"
+  },
+  {
+    "id": "eff79b500d8200d060729c6d",
+    "name": "Usuario 5",
+    "photo": "Foto usuario 5",
+    "email": "Email usuario 5"
+  }
+]
