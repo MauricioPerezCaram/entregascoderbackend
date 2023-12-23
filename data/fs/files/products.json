@@ -1,0 +1,30 @@
+[
+  {
+    "id": "34676823c12f390dd80b551e",
+    "title": "producto 1",
+    "photo": "foto producto 1",
+    "price": 10,
+    "stock": 50
+  },
+  {
+    "id": "bcaf0c2b39e42ec4c97e74ec",
+    "title": "producto 2",
+    "photo": "foto producto 2",
+    "price": 10,
+    "stock": 50
+  },
+  {
+    "id": "d3b76d4de8ee7e563e563947",
+    "title": "producto 4",
+    "photo": "foto producto 4",
+    "price": 10,
+    "stock": 50
+  },
+  {
+    "id": "6fa0122a419c583564842692",
+    "title": "producto 5",
+    "photo": "foto producto 5",
+    "price": 10,
+    "stock": 50
+  }
+]

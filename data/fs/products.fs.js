@@ -1,22 +1,15 @@
 import fs from "fs";
 import crypto from "crypto";
 
-class EventsManager {
-  static #perGain = 0.3;
-  static #totalGain = 0;
-  //static para que sea una propiedad de la clase
-  //# para que sea una propiedad privada
+class ProductsManager {
   init() {
     try {
       const exists = fs.existsSync(this.path);
-      //console.log(exists);
       if (!exists) {
         const data = JSON.stringify([], null, 2);
         fs.writeFileSync(this.path, data);
       } else {
-        //opcional, para mejora del programa
-        this.events = JSON.parse(fs.readFileSync(this.path, "utf-8"));
-        //console.log(this.events);
+        this.products = JSON.parse(fs.readFileSync(this.path, "utf-8"));
       }
     } catch (error) {
       return error.message;
@@ -24,53 +17,53 @@ class EventsManager {
   }
   constructor(path) {
     this.path = path;
-    this.events = [];
+    this.products = [];
     this.init();
   }
-  async createEvent(data) {
+  async createProduct(data) {
     try {
-      if (!data.name || !data.place) {
-        throw new Error("Name & Place are required");
+      if (!data.title || !data.photo) {
+        throw new Error("El nombre y la foto del producto es necesario");
       }
-      const event = {
+      const product = {
         id: crypto.randomBytes(12).toString("hex"),
-        name: data.name,
-        place: data.place,
+        title: data.title,
+        photo: data.photo,
         price: data.price || 10,
-        capacity: data.capacity || 50,
-        date: data.date || new Date(),
+        stock: data.stock || 50,
       };
-      this.events.push(event);
-      const jsonData = JSON.stringify(this.events, null, 2);
-      //console.log(jsonData);
+      this.products.push(product);
+      const jsonData = JSON.stringify(this.products, null, 2);
       await fs.promises.writeFile(this.path, jsonData);
-      console.log("create " + event.id);
-      return event.id;
+      console.log("create " + product.id);
+      return product.id;
     } catch (error) {
       console.log(error.message);
       return error.message;
     }
   }
-  readEvents() {
+  readProducts() {
     try {
-      if (this.events.length === 0) {
-        throw new Error("There are not events!");
+      if (this.products.length === 0) {
+        throw new Error("No hay productos");
       } else {
-        console.log(this.events);
-        return this.events;
+        console.log(this.products);
+        return this.products;
       }
     } catch (error) {
       console.log(error.message);
       return error.message;
     }
   }
-  readEventById(id) {
+  readProductById(id) {
     try {
-      const one = this.events.find((each) => each.id === id);
+      const one = this.products.find((each) => each.id === id);
       if (!one) {
-        throw new Error("There isn't any event with id=" + id);
+        throw new Error("No hay producto con el id " + id);
       } else {
-        console.log("read " + one);
+        console.log(
+          "Leer el producto con id " + id + " " + JSON.stringify(one, null, 2)
+        );
         return one;
       }
     } catch (error) {
@@ -78,16 +71,16 @@ class EventsManager {
       return error.message;
     }
   }
-  async removeEventById(id) {
+  async destroyProductById(id) {
     try {
-      let one = this.events.find((each) => each.id === id);
+      let one = this.products.find((each) => each.id === id);
       if (!one) {
-        throw new Error("There isn't any event with id=" + id);
+        throw new Error("No hay producto para borrar con el id " + id);
       } else {
-        this.events = this.events.filter((each) => each.id !== id);
-        const jsonData = JSON.stringify(this.events, null, 2);
+        this.products = this.products.filter((each) => each.id !== id);
+        const jsonData = JSON.stringify(this.products, null, 2);
         await fs.promises.writeFile(this.path, jsonData);
-        console.log("deleted " + id);
+        console.log("Eliminado el producto con id " + id);
         return id;
       }
     } catch (error) {
@@ -95,29 +88,17 @@ class EventsManager {
       return error.message;
     }
   }
-  async soldticket(quantity, eid) {
-    try {
-      const one = this.readEventById(eid);
-      if (one) {
-        if (one.capacity >= quantity) {
-          one.capacity = one.capacity - quantity;
-          EventsManager.#totalGain =
-            EventsManager.#totalGain +
-            one.price * quantity * EventsManager.#perGain;
-          const jsonData = JSON.stringify(this.events, null, 2);
-          await fs.promises.writeFile(this.path, jsonData);
-          console.log("capacity available " + one.capacity);
-          return one.capacity;
-        } else {
-          //condicionar en caso de que no haya capacidad en el evento
-        }
-      }
-    } catch (error) {}
-  }
 }
 
-const events = new EventsManager("./data/fs/files/events.json");
-events.createEvent({ name: "hp", place: "sala 1" });
-events.readEvents();
-events.readEventById("1d4e8eae493337d6a3069df4");
-export default events;
+const products = new ProductsManager("./data/fs/files/products.json");
+// products.createProduct({ title: "producto 1", photo: "foto producto 1" });
+// products.createProduct({ title: "producto 2", photo: "foto producto 2" });
+// products.createProduct({ title: "producto 3", photo: "foto producto 3" });
+// products.createProduct({ title: "producto 4", photo: "foto producto 4" });
+// products.createProduct({ title: "producto 5", photo: "foto producto 5" });
+// products.readProducts();
+// products.readProductById("bcaf0c2b39e42ec4c97e74ec");
+// products.destroyProductById("6cb65ddb0bead4399592d012");
+
+// node data/fs/products.fs.js
+export default products;
