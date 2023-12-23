@@ -96,9 +96,9 @@ const products = new ProductsManager("./data/fs/files/products.json");
 // products.createProduct({ title: "producto 3", photo: "foto producto 3" });
 // products.createProduct({ title: "producto 4", photo: "foto producto 4" });
 // products.createProduct({ title: "producto 5", photo: "foto producto 5" });
-// products.readProducts();
-// products.readProductById("bcaf0c2b39e42ec4c97e74ec");
-// products.destroyProductById("6cb65ddb0bead4399592d012");
+products.readProducts();
+products.readProductById("943e5d396ec8245388be7057");
+products.destroyProductById("");
 
 // node data/fs/products.fs.js
 export default products;

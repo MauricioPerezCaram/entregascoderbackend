@@ -1,0 +1,37 @@
+[
+  {
+    "id": "3688c07af0971dd4ef9efecb",
+    "title": "producto 1",
+    "photo": "foto producto 1",
+    "price": 10,
+    "stock": 50
+  },
+  {
+    "id": "943e5d396ec8245388be7057",
+    "title": "producto 2",
+    "photo": "foto producto 2",
+    "price": 10,
+    "stock": 50
+  },
+  {
+    "id": "7404bb227bf8ac7c2a3a8e5f",
+    "title": "producto 3",
+    "photo": "foto producto 3",
+    "price": 10,
+    "stock": 50
+  },
+  {
+    "id": "ac7a698e0edcd5e705a22bbc",
+    "title": "producto 4",
+    "photo": "foto producto 4",
+    "price": 10,
+    "stock": 50
+  },
+  {
+    "id": "62325669c73f305734fce9af",
+    "title": "producto 5",
+    "photo": "foto producto 5",
+    "price": 10,
+    "stock": 50
+  }
+]
