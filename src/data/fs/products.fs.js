@@ -100,5 +100,5 @@ products.readProducts();
 products.readProductById("943e5d396ec8245388be7057");
 products.destroyProductById("");
 
-// node data/fs/products.fs.js
+// node ./src/data/fs/products.fs.js
 export default products;
