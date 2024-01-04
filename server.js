@@ -9,8 +9,6 @@ const ready = () => console.log("Servidor listo en puerto " + PORT);
 
 server.use(express.urlencoded({ extended: true }));
 
-server.listen(PORT, ready);
-
 // PRODUCTS
 server.get("/api/products", (req, res) => {
   try {
@@ -82,3 +80,5 @@ server.get("/api/users/:uid", (req, res) => {
     });
   }
 });
+
+server.listen(PORT, ready);
