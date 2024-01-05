@@ -24,9 +24,6 @@ class ProductsManager {
   }
   async createProduct(data) {
     try {
-      if (!data.title || !data.photo) {
-        throw new Error("El nombre y la foto del producto es necesario");
-      }
       const product = {
         id: crypto.randomBytes(12).toString("hex"),
         title: data.title,

@@ -1,34 +1,24 @@
 import { Router } from "express";
 import products from "../../data/fs/products.fs.js";
+import propsProducts from "../../middlewares/propsProducts.mid.js";
 
 const productsRouter = Router();
 
 // definir los endpoints (CRUD)
-productsRouter.post("/", async (req, res) => {
+productsRouter.post("/", propsProducts, async (req, res, next) => {
   try {
     const data = req.body;
     const response = await products.createProduct(data);
-    if (response === "El nombre y la foto del producto es necesario") {
-      return res.json({
-        statusCode: 400,
-        message: response,
-      });
-    } else {
-      return res.json({
-        statusCode: 201,
-        message: "Producto creado",
-        response,
-      });
-    }
-  } catch (error) {
-    console.log(error);
     return res.json({
-      statusCode: 500,
-      message: error.message,
+      statusCode: 201,
+      message: "Producto creado",
+      response,
     });
+  } catch (error) {
+    return next(error);
   }
 });
-productsRouter.get("/", async (req, res) => {
+productsRouter.get("/", async (req, res, next) => {
   try {
     const all = await products.readProducts();
 
@@ -44,14 +34,10 @@ productsRouter.get("/", async (req, res) => {
       });
     }
   } catch (error) {
-    console.log(error);
-    return res.json({
-      statusCode: 500,
-      message: error.message,
-    });
+    return next(error);
   }
 });
-productsRouter.get("/:pid", async (req, res) => {
+productsRouter.get("/:pid", async (req, res, next) => {
   try {
     const { pid } = req.params;
     const one = await products.readProductById(pid);
@@ -67,14 +53,10 @@ productsRouter.get("/:pid", async (req, res) => {
       });
     }
   } catch (error) {
-    console.log(error);
-    return res.json({
-      statusCode: 500,
-      message: error.message,
-    });
+    return next(error);
   }
 });
-productsRouter.put("/:pid", async (req, res) => {
+productsRouter.put("/:pid", async (req, res, next) => {
   try {
     const { pid, quantity } = req.params;
     const response = await products.soldProduct(quantity, pid);
@@ -95,14 +77,10 @@ productsRouter.put("/:pid", async (req, res) => {
       });
     }
   } catch (error) {
-    console.log(error);
-    return res.json({
-      statusCode: 500,
-      message: error.message,
-    });
+    return next(error);
   }
 });
-productsRouter.delete("/:pid", async (req, res) => {
+productsRouter.delete("/:pid", async (req, res, next) => {
   try {
     const { pid } = req.params;
     const response = await products.destroyProductById(pid);
@@ -118,11 +96,7 @@ productsRouter.delete("/:pid", async (req, res) => {
       });
     }
   } catch (error) {
-    console.log(error);
-    return res.json({
-      statusCode: 500,
-      message: error.message,
-    });
+    return next(error);
   }
 });
 

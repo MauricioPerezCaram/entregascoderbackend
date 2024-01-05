@@ -19,5 +19,33 @@
     "photo": "Foto Producto 3",
     "price": 10,
     "stock": 50
+  },
+  {
+    "id": "5ca80dfd98714dcc8477128b",
+    "title": "Producto 4",
+    "photo": "Foto Producto 4",
+    "price": 10,
+    "stock": 50
+  },
+  {
+    "id": "493e455ccafab2905a89749c",
+    "title": "Producto 5",
+    "photo": "Foto Producto 5",
+    "price": 10,
+    "stock": 50
+  },
+  {
+    "id": "9cb6bce32b5fab476b77f64f",
+    "title": "Producto 7",
+    "photo": "Photo Producto 7",
+    "price": 10,
+    "stock": 50
+  },
+  {
+    "id": "0c40d0435d16dfe9e8041865",
+    "title": "Producto 8",
+    "photo": "Producto 8",
+    "price": 10,
+    "stock": 50
   }
 ]
