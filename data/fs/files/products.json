@@ -1,22 +1,15 @@
 [
   {
-    "id": "ac43cf7f77171958c06d8b70",
-    "title": "Ontan las Rubiolas",
-    "photo": "Foto Ontan las Rubiolas",
-    "price": 10,
-    "stock": 50
-  },
-  {
-    "id": "40e79f170bbe942c8285c593",
-    "title": "Scary movie",
-    "photo": "Foto Scary movie",
-    "price": 10,
-    "stock": 50
-  },
-  {
     "id": "e7f81f21740edf5a07048af3",
     "title": "El planeta del Tesoro",
     "photo": "Foto El planeta del tesoro",
+    "price": 10,
+    "stock": 50
+  },
+  {
+    "id": "b89d8eef54fcc4490f038aa0",
+    "title": "El sonido de la libertad",
+    "photo": "Foto El sonido de la libertad",
     "price": 10,
     "stock": 50
   }

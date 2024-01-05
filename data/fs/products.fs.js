@@ -2,6 +2,8 @@ import fs from "fs";
 import crypto from "crypto";
 
 class ProductsManager {
+  static #perGain = 0.3;
+  static #totalGain = 0;
   init() {
     try {
       const exists = fs.existsSync(this.path);
@@ -82,6 +84,31 @@ class ProductsManager {
         await fs.promises.writeFile(this.path, jsonData);
         console.log("Eliminado el producto con id " + id);
         return id;
+      }
+    } catch (error) {
+      console.log(error.message);
+      return error.message;
+    }
+  }
+
+  async soldProduct(quantity, eid) {
+    try {
+      const one = this.readProductById(eid);
+      if (one) {
+        if (one.stock >= quantity) {
+          one.stock = one.stock - quantity;
+          ProductsManager.#totalGain =
+            ProductsManager.#totalGain +
+            one.price * quantity * ProductsManager.#perGain;
+          const jsonData = JSON.stringify(this.products, null, 2);
+          await fs.promises.writeFile(this.path, jsonData);
+          console.log("Stock disponible " + one.stock);
+          return one.stock;
+        } else {
+          throw new Error("No hay stock");
+        }
+      } else {
+        throw new Error("No existe ese producto");
       }
     } catch (error) {
       console.log(error.message);
