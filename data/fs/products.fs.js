@@ -91,14 +91,4 @@ class ProductsManager {
 }
 
 const products = new ProductsManager("./data/fs/files/products.json");
-// products.createProduct({ title: "producto 1", photo: "foto producto 1" });
-// products.createProduct({ title: "producto 2", photo: "foto producto 2" });
-// products.createProduct({ title: "producto 3", photo: "foto producto 3" });
-// products.createProduct({ title: "producto 4", photo: "foto producto 4" });
-// products.createProduct({ title: "producto 5", photo: "foto producto 5" });
-products.readProducts();
-products.readProductById("943e5d396ec8245388be7057");
-products.destroyProductById("");
-
-// node ./data/fs/products.fs.js
 export default products;
