@@ -91,6 +91,7 @@ class ProductsManager {
     }
   }
 
+  // Este sold product sería un update?
   async soldProduct(quantity, eid) {
     try {
       const one = this.readProductById(eid);
