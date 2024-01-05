@@ -1,0 +1,23 @@
+[
+  {
+    "id": "911eac7a8baf5d5d85df6438",
+    "title": "Producto 1",
+    "photo": "Foto Producto 1",
+    "price": 10,
+    "stock": 50
+  },
+  {
+    "id": "40fa85284ed655b215911d4f",
+    "title": "Producto 2",
+    "photo": "Foto Producto 2",
+    "price": 10,
+    "stock": 50
+  },
+  {
+    "id": "a3f411ea4dafe892a57e198d",
+    "title": "Producto 3",
+    "photo": "Foto Producto 3",
+    "price": 10,
+    "stock": 50
+  }
+]
