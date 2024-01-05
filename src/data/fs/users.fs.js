@@ -1,7 +1,7 @@
 import fs from "fs";
 import crypto from "crypto";
 
-class UserManager {
+class UsersManager {
   static #perGain = 0.3;
   static #totalGain = 0;
   init() {
@@ -22,11 +22,8 @@ class UserManager {
     this.users = [];
     this.init();
   }
-  async createUsers(data) {
+  async createUser(data) {
     try {
-      if (!data.name || !data.photo || !data.email) {
-        throw new Error("El nombre,la foto y el mail del usuario es necesario");
-      }
       const user = {
         id: crypto.randomBytes(12).toString("hex"),
         name: data.name,
@@ -56,7 +53,7 @@ class UserManager {
       return error.message;
     }
   }
-  readUserById(id) {
+  readUsersById(id) {
     try {
       const one = this.users.find((each) => each.id === id);
       if (!one) {
@@ -90,17 +87,17 @@ class UserManager {
     }
   }
 
-  // Editar usuario?
+  // Este sold product sería un update?
   // async soldProduct(quantity, eid) {
   //   try {
   //     const one = this.readProductById(eid);
   //     if (one) {
   //       if (one.stock >= quantity) {
   //         one.stock = one.stock - quantity;
-  //         ProductsManager.#totalGain =
-  //           ProductsManager.#totalGain +
-  //           one.price * quantity * ProductsManager.#perGain;
-  //         const jsonData = JSON.stringify(this.products, null, 2);
+  //         UsersManager.#totalGain =
+  //           UsersManager.#totalGain +
+  //           one.price * quantity * UsersManager.#perGain;
+  //         const jsonData = JSON.stringify(this.users, null, 2);
   //         await fs.promises.writeFile(this.path, jsonData);
   //         console.log("Stock disponible " + one.stock);
   //         return one.stock;
@@ -117,5 +114,5 @@ class UserManager {
   // }
 }
 
-const users = new UserManager("./src/data/fs/files/users.json");
+const users = new UsersManager("./src/data/fs/files/users.json");
 export default users;
