@@ -35,16 +35,9 @@
     "stock": 50
   },
   {
-    "id": "9cb6bce32b5fab476b77f64f",
-    "title": "Producto 7",
-    "photo": "Photo Producto 7",
-    "price": 10,
-    "stock": 50
-  },
-  {
-    "id": "0c40d0435d16dfe9e8041865",
-    "title": "Producto 8",
-    "photo": "Producto 8",
+    "id": "b35b0e7b289960b7dc5a2d0f",
+    "title": "Producto 6",
+    "photo": "Producto 6",
     "price": 10,
     "stock": 50
   }
