@@ -90,34 +90,4 @@ class UserManager {
 }
 
 const users = new UserManager("./data/fs/files/users.json");
-// users.createUsers({
-//   name: "Usuario 1",
-//   photo: "Foto usuario 1",
-//   email: "Email usuario 1",
-// });
-// users.createUsers({
-//   name: "Usuario 2",
-//   photo: "Foto usuario 2",
-//   email: "Email usuario 2",
-// });
-// users.createUsers({
-//   name: "Usuario 3",
-//   photo: "Foto usuario 3",
-//   email: "Email usuario 3",
-// });
-// users.createUsers({
-//   name: "Usuario 4",
-//   photo: "Foto usuario 4",
-//   email: "Email usuario 4",
-// });
-// users.createUsers({
-//   name: "Usuario 5",
-//   photo: "Foto usuario 5",
-//   email: "Email usuario 5",
-// });
-users.readUsers();
-users.readUserById("0efb3a7b7e19fc96d7c1f4ca");
-users.destroyUserById("");
-
-// node ./data/fs/users.fs.js
 export default users;

@@ -1,7 +1,6 @@
 {
   "name": "entregascoderbackend",
   "version": "1.0.0",
-  "description": "",
   "main": "server.js",
   "type": "module",
   "scripts": {
@@ -16,5 +15,6 @@
   },
   "devDependencies": {
     "nodemon": "^3.0.2"
-  }
+  },
+  "description": ""
 }
