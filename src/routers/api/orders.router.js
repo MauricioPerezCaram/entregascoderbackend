@@ -1,6 +1,6 @@
 import { Router } from "express";
 
-const usersRouter = Router();
+const ordersRouter = Router();
 
 // definir los endpoints (CRUD)
 // productsRouter.post("/", propsProducts, async (req, res, next) => {
@@ -54,4 +54,4 @@ const usersRouter = Router();
 //   }
 // });
 
-export default usersRouter;
+export default ordersRouter;
