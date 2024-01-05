@@ -1,25 +1,3 @@
-// Programar una clase “UserManager” que gestione un conjunto de usuarios.
-
-// Debe crearse con una variable privada y de la clase que guarde todos los productos/usuarios en un arreglo
-
-// Cada usuario tiene las propiedades:
-// id (código identificador)
-// name (titulo)
-// photo (ruta de imagen)
-// email (precio)
-
-// Cada clase de contar con los métodos:
-// create(data) el cual agregará un producto/usuario al arreglo de productos/usuarios inicial.
-// Todos los campos son obligatorios menos id que debe agregarse automáticamente  y auto- incrementable.
-// read() el cual debe devolver el arreglo con todos los productos/usuarios
-// readOne(id) el cual debe devolver el objeto producto/usuario buscado
-
-// Formato del entregable
-// Pull Request (PR) de rama sprint1 hacia main/master según corresponda
-// Probar los métodos y realizar algunas capturas de pantalla para incluir en la PR.
-// Incluir readme.md explicando lo que se entregó
-// La entrega es individual, en caso de trabajar en parejas, informar al tutor con quién trabajaron (ambos deben avisar).
-
 class UserManager {
   static usuarios = [];
   constructor(data) {
@@ -81,5 +59,3 @@ usuarios.create({
 
 console.log(usuarios.read());
 console.log(usuarios.readOne(4));
-
-// node data/memory/users.memory.js

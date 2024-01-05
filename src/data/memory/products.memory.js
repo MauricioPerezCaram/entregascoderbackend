@@ -63,5 +63,3 @@ productos.create({
 productos.create({ title: "Ipad", photo: "Ipad Foto", price: 44, stock: 44 });
 console.log(productos.read());
 console.log(productos.readOne(3));
-
-// node data/memory/products.memory.js

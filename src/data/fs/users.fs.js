@@ -87,25 +87,21 @@ class UsersManager {
     }
   }
 
-  // Este sold product sería un update?
-  // async soldProduct(quantity, eid) {
+  // async updateUser(name, uid) {
   //   try {
-  //     const one = this.readProductById(eid);
+  //     const one = this.readUsersById(uid);
   //     if (one) {
-  //       if (one.stock >= quantity) {
-  //         one.stock = one.stock - quantity;
-  //         UsersManager.#totalGain =
-  //           UsersManager.#totalGain +
-  //           one.price * quantity * UsersManager.#perGain;
+  //       if (one.name != name) {
+  //         one.name = name;
   //         const jsonData = JSON.stringify(this.users, null, 2);
   //         await fs.promises.writeFile(this.path, jsonData);
-  //         console.log("Stock disponible " + one.stock);
-  //         return one.stock;
+  //         console.log("Nombre cambiado a " + one.name);
+  //         return one.name;
   //       } else {
-  //         throw new Error("No hay stock");
+  //         throw new Error("QSYM");
   //       }
   //     } else {
-  //       throw new Error("No existe ese producto");
+  //       throw new Error("No existe ese usuario");
   //     }
   //   } catch (error) {
   //     console.log(error.message);

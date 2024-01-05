@@ -46,7 +46,7 @@ productsRouter.get("/:pid", async (req, res, next) => {
 productsRouter.put("/:pid/:quantity", async (req, res, next) => {
   try {
     const { pid, quantity } = req.params;
-    const response = await products.soldProduct(quantity, pid);
+    const response = await products.updateProduct(quantity, pid);
     return res.json({
       statusCode: 200,
       response: "Stock disponible: " + response,

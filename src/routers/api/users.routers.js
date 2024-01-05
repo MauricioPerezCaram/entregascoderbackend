@@ -43,6 +43,19 @@ usersRouter.get("/:uid", async (req, res, next) => {
   }
 });
 
+// usersRouter.put("/:pid/:name", async (req, res, next) => {
+//   try {
+//     const { uid, name } = req.params;
+//     const response = await users.updateUser(name, uid);
+//     return res.json({
+//       statusCode: 200,
+//       response: response,
+//     });
+//   } catch (error) {
+//     return next(error);
+//   }
+// });
+
 usersRouter.delete("/:uid", async (req, res, next) => {
   try {
     const { uid } = req.params;

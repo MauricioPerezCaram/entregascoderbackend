@@ -88,9 +88,9 @@ class ProductsManager {
     }
   }
 
-  async soldProduct(quantity, eid) {
+  async updateProduct(quantity, pid) {
     try {
-      const one = this.readProductById(eid);
+      const one = this.readProductById(pid);
       if (one) {
         if (one.stock >= quantity) {
           one.stock = one.stock - quantity;

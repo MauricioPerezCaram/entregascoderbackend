@@ -22,6 +22,7 @@ class OrdersManager {
     this.orders = [];
     this.init();
   }
+
   async createOrder(data) {
     try {
       const order = {
@@ -41,6 +42,7 @@ class OrdersManager {
       return error.message;
     }
   }
+
   readOrders() {
     try {
       if (this.orders.length === 0) {
@@ -54,6 +56,7 @@ class OrdersManager {
       return error.message;
     }
   }
+
   readOrderById(id) {
     try {
       const one = this.orders.find((each) => each.id === id);
@@ -70,6 +73,7 @@ class OrdersManager {
       return error.message;
     }
   }
+
   async destroyOrderById(id) {
     try {
       let one = this.orders.find((each) => each.id === id);
