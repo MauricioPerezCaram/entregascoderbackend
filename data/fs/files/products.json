@@ -4,12 +4,19 @@
     "title": "El planeta del Tesoro",
     "photo": "Foto El planeta del tesoro",
     "price": 10,
+    "stock": 0
+  },
+  {
+    "id": "9562e1833455e5c492e97a1e",
+    "title": "El sonido de la libertad",
+    "photo": "Foto El sonido de la libertad",
+    "price": 10,
     "stock": 50
   },
   {
-    "id": "b89d8eef54fcc4490f038aa0",
-    "title": "El sonido de la libertad",
-    "photo": "Foto El sonido de la libertad",
+    "id": "4daf3531ef003074c058ee52",
+    "title": "Ontan las Rubiolas",
+    "photo": "Foto Ontan las Rubiolas",
     "price": 10,
     "stock": 50
   }
