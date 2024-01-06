@@ -87,10 +87,7 @@ class UsersManager {
       if (!userToUpdate) {
         throw new Error("No hay usuario con ese ID para cambiar " + id);
       } else {
-        // Actualizar el campo 'name' con el nuevo valor proporcionado en 'data.newName'
-        userToUpdate.name = data.newName || userToUpdate.name;
-
-        // Guardar la lista actualizada en el archivo
+        userToUpdate.name = data.newname || userToUpdate.name;
         const jsonData = JSON.stringify(this.users, null, 2);
         await fs.promises.writeFile(this.path, jsonData);
 

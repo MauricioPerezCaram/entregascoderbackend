@@ -43,6 +43,22 @@ ordersRouter.get("/:oid", async (req, res, next) => {
   }
 });
 
+ordersRouter.put("/:oid/:newquantity/:newstate", async (req, res, next) => {
+  try {
+    const { oid, newquantity, newstate } = req.params;
+    const one = await orders.update(oid, {
+      quantity: newquantity,
+      state: newstate,
+    });
+    return res.json({
+      statusCode: 200,
+      response: one,
+    });
+  } catch (error) {
+    return next(error);
+  }
+});
+
 ordersRouter.delete("/:oid", async (req, res, next) => {
   try {
     const { oid } = req.params;

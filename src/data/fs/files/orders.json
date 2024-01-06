@@ -1,1 +1,23 @@
-[]
+[
+  {
+    "id": "8c986c194cc7adf692e2352c",
+    "pid": "5a41ef3e43df26182d7e1f67",
+    "uid": "ac3e842f177de6e8e562c405",
+    "quantity": 10,
+    "state": "Compra realizada"
+  },
+  {
+    "id": "2682dbf1255d9cdc3055e7f2",
+    "pid": "9d9c01cc69a09deb3a33106a",
+    "uid": "b59f75de4fb1885353214808",
+    "quantity": 1000,
+    "state": "Compra realizada"
+  },
+  {
+    "id": "b49ea363a9cd9712c870c244",
+    "pid": "194ecbc876d3613e465abc99",
+    "uid": "7b0ce81fec43f222a2e26cbf",
+    "quantity": "999",
+    "state": "cancelada"
+  }
+]

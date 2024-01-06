@@ -74,6 +74,25 @@ class OrdersManager {
     }
   }
 
+  async update(id, data) {
+    try {
+      let orderToUpdate = this.orders.find((each) => each.id === id);
+      if (!orderToUpdate) {
+        throw new Error("No hay orden con ese ID para cambiar " + id);
+      } else {
+        orderToUpdate.quantity = data.quantity || orderToUpdate.quantity;
+        orderToUpdate.state = data.state || orderToUpdate.state;
+        const jsonData = JSON.stringify(this.orders, null, 2);
+        await fs.promises.writeFile(this.path, jsonData);
+
+        console.log("Orden actualizada con id " + id);
+        return id;
+      }
+    } catch (error) {
+      throw error;
+    }
+  }
+
   async destroyOrderById(id) {
     try {
       let one = this.orders.find((each) => each.id === id);

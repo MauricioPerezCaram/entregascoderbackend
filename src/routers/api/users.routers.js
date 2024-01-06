@@ -43,10 +43,10 @@ usersRouter.get("/:uid", async (req, res, next) => {
   }
 });
 
-usersRouter.put("/:uid/:newName", async (req, res, next) => {
+usersRouter.put("/:uid/:newname", async (req, res, next) => {
   try {
-    const { uid, newName } = req.params; // Obtener ambos parámetros de la URL
-    const one = await users.update(uid, { newName }); // Pasar ambos parámetros a la función update
+    const { uid, newname } = req.params;
+    const one = await users.update(uid, { newname });
     return res.json({
       statusCode: 200,
       response: one,
