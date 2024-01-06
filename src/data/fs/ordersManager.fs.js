@@ -46,7 +46,7 @@ class OrdersManager {
   readOrders() {
     try {
       if (this.orders.length === 0) {
-        throw new Error("No hay orden");
+        throw new Error("No hay ordenenes cargadas");
       } else {
         console.log(this.orders);
         return this.orders;

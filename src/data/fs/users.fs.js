@@ -2,8 +2,6 @@ import fs from "fs";
 import crypto from "crypto";
 
 class UsersManager {
-  static #perGain = 0.3;
-  static #totalGain = 0;
   init() {
     try {
       const exists = fs.existsSync(this.path);
@@ -36,8 +34,7 @@ class UsersManager {
       console.log("create " + user.id);
       return user.id;
     } catch (error) {
-      console.log(error.message);
-      return error.message;
+      throw error;
     }
   }
   readUsers() {
@@ -49,8 +46,7 @@ class UsersManager {
         return this.users;
       }
     } catch (error) {
-      console.log(error.message);
-      return error.message;
+      throw error;
     }
   }
   readUsersById(id) {
@@ -65,8 +61,7 @@ class UsersManager {
         return one;
       }
     } catch (error) {
-      console.log(error.message);
-      return error.message;
+      throw error;
     }
   }
   async destroyUserById(id) {
@@ -82,32 +77,30 @@ class UsersManager {
         return id;
       }
     } catch (error) {
-      console.log(error.message);
-      return error.message;
+      throw error;
     }
   }
 
-  // async updateUser(name, uid) {
-  //   try {
-  //     const one = this.readUsersById(uid);
-  //     if (one) {
-  //       if (one.name != name) {
-  //         one.name = name;
-  //         const jsonData = JSON.stringify(this.users, null, 2);
-  //         await fs.promises.writeFile(this.path, jsonData);
-  //         console.log("Nombre cambiado a " + one.name);
-  //         return one.name;
-  //       } else {
-  //         throw new Error("QSYM");
-  //       }
-  //     } else {
-  //       throw new Error("No existe ese usuario");
-  //     }
-  //   } catch (error) {
-  //     console.log(error.message);
-  //     return error.message;
-  //   }
-  // }
+  async update(id, data) {
+    try {
+      let userToUpdate = this.users.find((each) => each.id === id);
+      if (!userToUpdate) {
+        throw new Error("No hay usuario con ese ID para cambiar " + id);
+      } else {
+        // Actualizar el campo 'name' con el nuevo valor proporcionado en 'data.newName'
+        userToUpdate.name = data.newName || userToUpdate.name;
+
+        // Guardar la lista actualizada en el archivo
+        const jsonData = JSON.stringify(this.users, null, 2);
+        await fs.promises.writeFile(this.path, jsonData);
+
+        console.log("Usuario actualizado con id " + id);
+        return id;
+      }
+    } catch (error) {
+      throw error;
+    }
+  }
 }
 
 const users = new UsersManager("./src/data/fs/files/users.json");

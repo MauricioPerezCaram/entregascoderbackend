@@ -43,18 +43,18 @@ usersRouter.get("/:uid", async (req, res, next) => {
   }
 });
 
-// usersRouter.put("/:pid/:name", async (req, res, next) => {
-//   try {
-//     const { uid, name } = req.params;
-//     const response = await users.updateUser(name, uid);
-//     return res.json({
-//       statusCode: 200,
-//       response: response,
-//     });
-//   } catch (error) {
-//     return next(error);
-//   }
-// });
+usersRouter.put("/:uid/:newName", async (req, res, next) => {
+  try {
+    const { uid, newName } = req.params; // Obtener ambos parámetros de la URL
+    const one = await users.update(uid, { newName }); // Pasar ambos parámetros a la función update
+    return res.json({
+      statusCode: 200,
+      response: one,
+    });
+  } catch (error) {
+    return next(error);
+  }
+});
 
 usersRouter.delete("/:uid", async (req, res, next) => {
   try {

@@ -34,6 +34,42 @@ class ProductManager {
   readOne(id) {
     return ProductManager.productos.find((each) => each.id === Number(id));
   }
+
+  update(id, data) {
+    try {
+      const productToUpdate = ProductManager.productos.find(
+        (producto) => producto.id === Number(id)
+      );
+      if (!productToUpdate) {
+        throw new Error("Producto no encontrado");
+      }
+      productToUpdate.title = data.title || productToUpdate.title;
+      productToUpdate.photo = data.photo || productToUpdate.photo;
+      productToUpdate.price = data.price || productToUpdate.price;
+      productToUpdate.stock = data.stock || productToUpdate.stock;
+      return productToUpdate;
+    } catch (error) {
+      return next(error);
+    }
+  }
+
+  delete(id) {
+    try {
+      const productIndex = ProductManager.productos.findIndex(
+        (producto) => producto.id === Number(id)
+      );
+      if (productIndex === -1) {
+        throw new Error("Producto no encontrado");
+      }
+      const deletedProducto = ProductManager.productos.splice(
+        productIndex,
+        1
+      )[0];
+      return deletedProducto;
+    } catch (error) {
+      return next(error);
+    }
+  }
 }
 
 const productos = new ProductManager({
