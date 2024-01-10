@@ -1,15 +1,21 @@
 <main>
-  <h1>
-    Pagina de eventos
-  </h1>
-  <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Beatae dolores
-    nihil asperiores voluptatum rem repellendus soluta maxime debitis modi!
-    Atque ullam fuga neque sequi odio commodi tenetur et, laboriosam saepe
-    corporis eaque officia, doloremque cum quos optio totam magnam, incidunt
-    aliquid similique? Autem laborum vero magnam cumque quasi officiis ea illo
-    laboriosam, molestias enim excepturi aliquam eveniet labore ipsam nam. Ipsam
-    doloremque modi ex quo consequatur quasi. Fugiat quia odit quasi. Ipsa
-    labore aliquid est nobis vitae dolorum voluptatibus nulla dolor reiciendis
-    illum eos assumenda numquam minus neque, vel laboriosam deleniti
-    consequuntur autem animi impedit saepe nostrum quae? Nemo, esse.</p>
+  <h1>Pagina de eventos</h1>
+  <h3>{{date}}</h3>
+  {{#if details}}
+    <p>{{details}}</p>
+  {{else}}
+    <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Beatae dolores
+      nihil asperiores voluptatum rem repellendus soluta maxime debitis modi!
+      Atque ullam fuga neque sequi odio commodi tenetur et, laboriosam saepe
+      corporis eaque officia, doloremque cum quos optio totam magnam, incidunt
+      aliquid similique? Autem laborum vero magnam cumque quasi officiis ea illo
+      laboriosam, molestias enim excepturi aliquam eveniet labore ipsam nam.
+      Ipsam doloremque modi ex quo consequatur quasi. Fugiat quia odit quasi.
+      Ipsa labore aliquid est nobis vitae dolorum voluptatibus nulla dolor
+      reiciendis illum eos assumenda numquam minus neque, vel laboriosam
+      deleniti consequuntur autem animi impedit saepe nostrum quae? Nemo, esse.</p>
+  {{/if}}
+  {{#each products}}
+    <h3>{{this}}</h3>
+  {{/each}}
 </main>
