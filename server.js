@@ -9,17 +9,21 @@ import __dirname from "./utils.js";
 
 const server = express();
 const PORT = 8080;
-const ready = () => console.log("Servidor listo en puerto " + PORT);
+const ready = () => console.log("server ready on port " + PORT);
 server.listen(PORT, ready);
 
+//templates
 server.engine("handlebars", engine());
 server.set("view engine", "handlebars");
 server.set("views", __dirname + "/src/views");
 
+//middlewares
 server.use(express.json());
 server.use(express.urlencoded({ extended: true }));
 server.use(express.static(__dirname + "/public"));
 server.use(morgan("dev"));
+
+//routers
 server.use("/", router);
 server.use(errorHandler);
 server.use(pathHandler);

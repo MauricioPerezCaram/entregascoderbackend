@@ -9,11 +9,7 @@ viewsRouter.get("/", (req, res, next) => {
   try {
     const mainProducts = ["Producto 1", "Producto 2", "Producto 3"];
     const date = new Date();
-    return res.render("index", {
-      products: mainProducts,
-      date,
-      //   details: "Detalle de página de inicio",
-    });
+    return res.render("index", { products: mainProducts, date });
   } catch (error) {
     next(error);
   }

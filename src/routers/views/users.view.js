@@ -4,11 +4,14 @@ import users from "../../data/fs/users.fs.js";
 
 const usersRouter = Router();
 
-usersRouter.use("/profile", (req, res, next) => {
+usersRouter.use("/:uid", (req, res, next) => {
   try {
-    const one = users.readUsersById("505457baee5c05601a2bc613");
-    console.log(one);
-    return res.render("profile", { one });
+    const { uid } = req.params;
+    const one = users.readOne(uid);
+    if (!one) {
+      return res.render("notFound", { not: "user" });
+    }
+    return res.render("profile", { profile: one });
   } catch (error) {
     next(error);
   }
