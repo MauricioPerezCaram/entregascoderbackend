@@ -19,5 +19,12 @@
     "photo": "Producto 3",
     "price": 10,
     "stock": 50
+  },
+  {
+    "id": "cbdb852e4b2f9dc2bfa59d53",
+    "title": "producto 1",
+    "photo": "photo 1",
+    "price": 10,
+    "stock": 50
   }
 ]

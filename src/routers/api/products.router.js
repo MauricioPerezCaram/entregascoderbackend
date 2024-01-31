@@ -1,5 +1,7 @@
 import { Router } from "express";
-import products from "../../data/fs/products.fs.js";
+// import products from "../../data/fs/products.fs.js";
+import { products } from "../../data/mongo/manager.mongo.js";
+
 import propsProducts from "../../middlewares/propsProducts.mid.js";
 
 const productsRouter = Router();
@@ -8,7 +10,7 @@ const productsRouter = Router();
 productsRouter.post("/", propsProducts, async (req, res, next) => {
   try {
     const data = req.body;
-    const response = await products.createProduct(data);
+    const response = await products.create(data);
     return res.json({
       statusCode: 201,
       response,
@@ -20,7 +22,7 @@ productsRouter.post("/", propsProducts, async (req, res, next) => {
 
 productsRouter.get("/", async (req, res, next) => {
   try {
-    const all = await products.readProducts();
+    const all = await products.read();
     return res.json({
       statusCode: 200,
       response: all,
@@ -33,7 +35,7 @@ productsRouter.get("/", async (req, res, next) => {
 productsRouter.get("/:pid", async (req, res, next) => {
   try {
     const { pid } = req.params;
-    const one = await products.readProductById(pid);
+    const one = await products.readOne(pid);
     return res.json({
       statusCode: 200,
       response: one,
@@ -46,7 +48,7 @@ productsRouter.get("/:pid", async (req, res, next) => {
 productsRouter.put("/:pid/:quantity", async (req, res, next) => {
   try {
     const { pid, quantity } = req.params;
-    const response = await products.updateProduct(quantity, pid);
+    const response = await products.update(quantity, pid);
     return res.json({
       statusCode: 200,
       response: "Stock disponible: " + response,
@@ -59,7 +61,7 @@ productsRouter.put("/:pid/:quantity", async (req, res, next) => {
 productsRouter.delete("/:pid", async (req, res, next) => {
   try {
     const { pid } = req.params;
-    const response = await products.destroyProductById(pid);
+    const response = await products.destroy(pid);
     return res.json({
       statusCode: 200,
       response,
