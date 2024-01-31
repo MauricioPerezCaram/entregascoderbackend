@@ -45,6 +45,7 @@ productsRouter.get("/:pid", async (req, res, next) => {
   }
 });
 
+// NO SE USA ESTE
 productsRouter.put("/:pid/:quantity", async (req, res, next) => {
   try {
     const { pid, quantity } = req.params;
