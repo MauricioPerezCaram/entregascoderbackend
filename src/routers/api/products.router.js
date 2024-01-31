@@ -22,7 +22,9 @@ productsRouter.post("/", propsProducts, async (req, res, next) => {
 
 productsRouter.get("/", async (req, res, next) => {
   try {
-    const all = await products.read();
+    const filter = { category: req.query.category };
+    const order = { order: req.query.order };
+    const all = await products.read({ filter, order: {} });
     return res.json({
       statusCode: 200,
       response: all,
@@ -45,6 +47,7 @@ productsRouter.get("/:pid", async (req, res, next) => {
   }
 });
 
+// NO SE USA ESTE
 productsRouter.put("/:pid/:quantity", async (req, res, next) => {
   try {
     const { pid, quantity } = req.params;

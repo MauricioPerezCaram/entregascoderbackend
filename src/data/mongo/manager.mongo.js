@@ -1,5 +1,6 @@
 import User from "./models/user.model.js";
 import Product from "./models/products.model.js";
+import Order from "./models/orders.model.js";
 
 class MongoManager {
   constructor(model) {
@@ -13,6 +14,7 @@ class MongoManager {
       throw error;
     }
   }
+
   async read() {
     try {
       const all = await this.model.find();
@@ -31,6 +33,19 @@ class MongoManager {
       const one = await this.model.findById(id);
       if (!one) {
         const error = new Error("No hay producto con ese id");
+        error.statusCode = 404;
+        throw error;
+      }
+      return one;
+    } catch (error) {
+      throw error;
+    }
+  }
+  async readByEmail(email) {
+    try {
+      const one = await this.model.findByEmail(email);
+      if (!one) {
+        const error = new Error("No hay producto con ese mail");
         error.statusCode = 404;
         throw error;
       }
@@ -70,5 +85,6 @@ class MongoManager {
 
 const users = new MongoManager(User);
 const products = new MongoManager(Product);
+const orders = new MongoManager(Order);
 
-export { users, products };
+export { users, products, orders };
