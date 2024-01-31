@@ -14,6 +14,7 @@ class MongoManager {
       throw error;
     }
   }
+
   async read() {
     try {
       const all = await this.model.find();
@@ -32,6 +33,19 @@ class MongoManager {
       const one = await this.model.findById(id);
       if (!one) {
         const error = new Error("No hay producto con ese id");
+        error.statusCode = 404;
+        throw error;
+      }
+      return one;
+    } catch (error) {
+      throw error;
+    }
+  }
+  async readByEmail(email) {
+    try {
+      const one = await this.model.findByEmail(email);
+      if (!one) {
+        const error = new Error("No hay producto con ese mail");
         error.statusCode = 404;
         throw error;
       }
