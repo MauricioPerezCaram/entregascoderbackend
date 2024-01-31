@@ -1,5 +1,6 @@
 import { Router } from "express";
-import users from "../../data/fs/users.fs.js";
+// import users from "../../data/fs/users.fs.js";
+import { users } from "../../data/mongo/manager.mongo.js";
 import propsUsers from "../../middlewares/propsUsers.mid.js";
 
 const usersRouter = Router();
@@ -8,7 +9,7 @@ const usersRouter = Router();
 usersRouter.post("/", propsUsers, async (req, res, next) => {
   try {
     const data = req.body;
-    const response = await users.createUser(data);
+    const response = await users.create(data);
     return res.json({
       statusCode: 201,
       response,
@@ -20,7 +21,7 @@ usersRouter.post("/", propsUsers, async (req, res, next) => {
 
 usersRouter.get("/", async (req, res, next) => {
   try {
-    const all = await users.readUsers();
+    const all = await users.read();
     return res.json({
       statusCode: 200,
       response: all,
@@ -33,7 +34,7 @@ usersRouter.get("/", async (req, res, next) => {
 usersRouter.get("/:uid", async (req, res, next) => {
   try {
     const { uid } = req.params;
-    const one = await users.readUsersById(uid);
+    const one = await users.readOne(uid);
     return res.json({
       statusCode: 200,
       response: one,
@@ -59,7 +60,7 @@ usersRouter.put("/:uid/:newname", async (req, res, next) => {
 usersRouter.delete("/:uid", async (req, res, next) => {
   try {
     const { uid } = req.params;
-    const response = await users.destroyUserById(uid);
+    const response = await users.destroy(uid);
     return res.json({
       statusCode: 200,
       response,
