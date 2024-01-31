@@ -1,14 +1,14 @@
 import { Router } from "express";
-import orders from "../../data/fs/ordersManager.fs.js";
-import propsOrders from "../../middlewares/propsOrders.mid.js";
+// import orders from "../../data/fs/ordersManager.fs.js";
+import { orders } from "../../data/mongo/manager.mongo.js";
 
 const ordersRouter = Router();
 
 // definir los endpoints (CRUD)
-ordersRouter.post("/", propsOrders, async (req, res, next) => {
+ordersRouter.post("/", async (req, res, next) => {
   try {
     const data = req.body;
-    const response = await orders.createOrder(data);
+    const response = await orders.create(data);
     return res.json({
       statusCode: 201,
       response,
@@ -20,7 +20,35 @@ ordersRouter.post("/", propsOrders, async (req, res, next) => {
 
 ordersRouter.get("/", async (req, res, next) => {
   try {
-    const all = await orders.readOrders();
+    const { oid } = req.params;
+    const filter = { order_id: oid };
+    const all = await orders.read({ filter });
+    return res.json({
+      statusCode: 200,
+      response: all,
+    });
+  } catch (error) {
+    return next(error);
+  }
+});
+
+ordersRouter.get("/:uid", async (req, res, next) => {
+  try {
+    const { uid } = req.params;
+    const filter = { user_id: uid };
+    const all = await orders.read({ filter });
+    return res.json({
+      statusCode: 201,
+      response: all,
+    });
+  } catch (error) {
+    return next(error);
+  }
+});
+
+ordersRouter.get("/", async (req, res, next) => {
+  try {
+    const all = await orders.read();
     return res.json({
       statusCode: 200,
       response: all,
@@ -33,7 +61,7 @@ ordersRouter.get("/", async (req, res, next) => {
 ordersRouter.get("/:oid", async (req, res, next) => {
   try {
     const { oid } = req.params;
-    const one = await orders.readOrderById(oid);
+    const one = await orders.readOne(oid);
     return res.json({
       statusCode: 200,
       response: one,
@@ -43,13 +71,11 @@ ordersRouter.get("/:oid", async (req, res, next) => {
   }
 });
 
-ordersRouter.put("/:oid/:newquantity/:newstate", async (req, res, next) => {
+ordersRouter.put("/:oid", async (req, res, next) => {
   try {
-    const { oid, newquantity, newstate } = req.params;
-    const one = await orders.update(oid, {
-      quantity: newquantity,
-      state: newstate,
-    });
+    const { oid } = req.params;
+    const data = req.body;
+    const one = await orders.update(oid, data);
     return res.json({
       statusCode: 200,
       response: one,
@@ -62,7 +88,7 @@ ordersRouter.put("/:oid/:newquantity/:newstate", async (req, res, next) => {
 ordersRouter.delete("/:oid", async (req, res, next) => {
   try {
     const { oid } = req.params;
-    const response = await orders.destroyOrderById(oid);
+    const response = await orders.destroy(oid);
     return res.json({
       statusCode: 200,
       response,
