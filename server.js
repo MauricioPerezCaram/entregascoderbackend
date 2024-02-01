@@ -1,5 +1,4 @@
 import "dotenv/config.js";
-
 import express from "express";
 import { createServer } from "http";
 import { Server } from "socket.io";
@@ -14,7 +13,7 @@ import pathHandler from "./src/middlewares/pathHandler.mid.js";
 import __dirname from "./utils.js";
 
 const server = express();
-const PORT = 8080;
+const PORT = process.env.PORT || 8080;
 const ready = () => {
   console.log("server ready on port " + PORT);
   dbConnection();
