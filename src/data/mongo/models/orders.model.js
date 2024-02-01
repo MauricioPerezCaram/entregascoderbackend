@@ -8,12 +8,17 @@ const schema = new Schema(
     quantity: { type: Number, default: 1 },
     state: {
       type: String,
-      default: "reserved",
       enum: ["reserved", "paid", "delivered"],
+      default: "reserved",
     },
   },
   { timestamps: true }
 );
+
+schema.pre("find", function () {
+  this.populate("user_id", "-password -createdAt -updatedAt -__v");
+  this.populate("product_id", "title price stock");
+});
 
 const Order = model(collection, schema);
 export default Order;

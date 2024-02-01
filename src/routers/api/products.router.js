@@ -22,9 +22,9 @@ productsRouter.post("/", propsProducts, async (req, res, next) => {
 
 productsRouter.get("/", async (req, res, next) => {
   try {
-    const filter = { category: req.query.category };
-    const order = { order: req.query.order };
-    const all = await products.read({ filter, order: {} });
+    const { pid } = req.params;
+    const filter = { product_id: pid };
+    const all = await products.read({ filter });
     return res.json({
       statusCode: 200,
       response: all,
@@ -47,14 +47,14 @@ productsRouter.get("/:pid", async (req, res, next) => {
   }
 });
 
-// NO SE USA ESTE
-productsRouter.put("/:pid/:quantity", async (req, res, next) => {
+productsRouter.put("/:pid", async (req, res, next) => {
   try {
-    const { pid, quantity } = req.params;
-    const response = await products.update(quantity, pid);
+    const { pid } = req.params;
+    const data = req.body;
+    const one = await products.update(pid, data);
     return res.json({
       statusCode: 200,
-      response: "Stock disponible: " + response,
+      response: one,
     });
   } catch (error) {
     return next(error);

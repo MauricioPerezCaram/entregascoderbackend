@@ -21,7 +21,9 @@ usersRouter.post("/", propsUsers, async (req, res, next) => {
 
 usersRouter.get("/", async (req, res, next) => {
   try {
-    const all = await users.read();
+    const { uid } = req.params;
+    const filter = { users_id: uid };
+    const all = await users.read({ filter });
     return res.json({
       statusCode: 200,
       response: all,
@@ -44,10 +46,11 @@ usersRouter.get("/:uid", async (req, res, next) => {
   }
 });
 
-usersRouter.put("/:uid/:newname", async (req, res, next) => {
+usersRouter.put("/:uid", async (req, res, next) => {
   try {
-    const { uid, newname } = req.params;
-    const one = await users.update(uid, { newname });
+    const { uid } = req.params;
+    const data = req.body;
+    const one = await users.update(uid, data);
     return res.json({
       statusCode: 200,
       response: one,
