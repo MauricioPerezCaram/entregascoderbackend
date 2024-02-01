@@ -21,7 +21,7 @@ class MongoManager {
     try {
       const all = await this.model.find(filter).sort(order);
       if (all.length === 0) {
-        const error = new Error("No hay productos");
+        const error = new Error("No hay usuarios / productos / ordenes");
         error.statusCode = 404;
         throw error;
       }
