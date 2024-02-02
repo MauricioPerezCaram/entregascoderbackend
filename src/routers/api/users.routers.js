@@ -21,9 +21,23 @@ usersRouter.post("/", propsUsers, async (req, res, next) => {
 
 usersRouter.get("/", async (req, res, next) => {
   try {
-    const { uid } = req.params;
-    const filter = { users_id: uid };
-    const all = await users.read({ filter });
+    const orderAndPaginate = {
+      limit: req.query.limit || 20,
+      page: req.query.page || 1,
+      sort: { name: 1 },
+    };
+    //ojo que esto no esta en lo que dice el profe (min 17:34)
+    // const { uid } = req.params;
+    // const filter = { users_id: uid };
+    const filter = {};
+    if (req.query.email) {
+      // meter esto a los productos
+      filter.email = new RegExp(req.query.email.trim(), "i");
+    }
+    if (req.query.name === "desc") {
+      orderAndPaginate.sort.name = -1;
+    }
+    const all = await users.read({ filter, orderAndPaginate });
     return res.json({
       statusCode: 200,
       response: all,
