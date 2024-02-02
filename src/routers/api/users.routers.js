@@ -26,12 +26,8 @@ usersRouter.get("/", async (req, res, next) => {
       page: req.query.page || 1,
       sort: { name: 1 },
     };
-    //ojo que esto no esta en lo que dice el profe (min 17:34)
-    // const { uid } = req.params;
-    // const filter = { users_id: uid };
     const filter = {};
     if (req.query.email) {
-      // meter esto a los productos
       filter.email = new RegExp(req.query.email.trim(), "i");
     }
     if (req.query.name === "desc") {
