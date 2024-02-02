@@ -1,8 +1,8 @@
 import User from "./models/user.model.js";
 import Product from "./models/products.model.js";
 import Order from "./models/orders.model.js";
-
 import notFoundOne from "../../utils/notFoundOne.utils.js";
+import { Types } from "mongoose";
 
 class MongoManager {
   constructor(model) {
@@ -26,6 +26,50 @@ class MongoManager {
         throw error;
       }
       return all;
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  async reporBill(uid) {
+    try {
+      const report = await this.model.aggregate([
+        { $match: { user_id: new Types.ObjectId(uid) } },
+
+        {
+          $lookup: {
+            from: "products",
+            foreignField: "_id",
+            localField: "product_id",
+            as: "product_id",
+          },
+        },
+        {
+          $replaceRoot: {
+            newRoot: {
+              $mergeObjects: [{ $arrayElemAt: ["$product_id", 0] }, "$$ROOT"],
+            },
+          },
+        },
+        { $set: { subtotal: { $multiply: ["$price", "$quantity"] } } },
+        {
+          $group: {
+            _id: "$user_id",
+            total: { $sum: "$subtotal" },
+          },
+        },
+        {
+          $project: {
+            _id: 0,
+            user_id: "$_id",
+            total: "$total",
+            date: new Date(),
+            currency: "USD",
+          },
+        },
+        // { $merge: { into: "bills" } },
+      ]);
+      return report;
     } catch (error) {
       throw error;
     }
