@@ -31,20 +31,6 @@ class MongoManager {
     }
   }
 
-  // async read({ filter, order }) {
-  //   try {
-  //     const all = await this.model.find(filter).sort(order);
-  //     if (all.length === 0) {
-  //       const error = new Error("No hay productos");
-  //       error.statusCode = 404;
-  //       throw error;
-  //     }
-  //     return all;
-  //   } catch (error) {
-  //     throw error;
-  //   }
-  // }
-
   async readOne(id) {
     try {
       const one = await this.model.findById(id);
