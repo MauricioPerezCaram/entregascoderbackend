@@ -20,9 +20,13 @@ ordersRouter.post("/", async (req, res, next) => {
 
 ordersRouter.get("/", async (req, res, next) => {
   try {
-    const { oid } = req.params;
-    const filter = { order_id: oid };
-    const all = await orders.read({ filter });
+    const orderAndPaginate = {
+      limit: req.query.limit || 20,
+      page: req.query.page || 1,
+      sort: { _id: 1 },
+    };
+    const filter = {};
+    const all = await orders.read({ filter, orderAndPaginate });
     return res.json({
       statusCode: 200,
       response: all,
@@ -32,13 +36,23 @@ ordersRouter.get("/", async (req, res, next) => {
   }
 });
 
-ordersRouter.get("/:uid", async (req, res, next) => {
+ordersRouter.get("/", async (req, res, next) => {
   try {
-    const { uid } = req.params;
-    const filter = { user_id: uid };
-    const all = await orders.read({ filter });
+    const orderAndPaginate = {
+      limit: req.query.limit || 20,
+      page: req.query.page || 1,
+      // sort: { _id: 1 },
+    };
+    const filter = {};
+    if (req.query._id) {
+      filter._id = new RegExp(req.query._id.trim(), "i");
+    }
+    if (req.query._id === "desc") {
+      orderAndPaginate.sort._id = -1;
+    }
+    const all = await orders.read({ filter, orderAndPaginate });
     return res.json({
-      statusCode: 201,
+      statusCode: 200,
       response: all,
     });
   } catch (error) {

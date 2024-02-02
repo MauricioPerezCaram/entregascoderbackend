@@ -22,9 +22,19 @@ productsRouter.post("/", propsProducts, async (req, res, next) => {
 
 productsRouter.get("/", async (req, res, next) => {
   try {
-    const { pid } = req.params;
-    const filter = { product_id: pid };
-    const all = await products.read({ filter });
+    const orderAndPaginate = {
+      limit: req.query.limit || 20,
+      page: req.query.page || 1,
+      sort: { price: 1 },
+    };
+    const filter = {};
+    if (req.query.title) {
+      filter.title = new RegExp(req.query.title.trim(), "i");
+    }
+    if (req.query.price === "desc") {
+      orderAndPaginate.sort.price = -1;
+    }
+    const all = await products.read({ filter, orderAndPaginate });
     return res.json({
       statusCode: 200,
       response: all,
