@@ -1,4 +1,4 @@
-import { Router } from "express";
+import { Router, response } from "express";
 // import orders from "../../data/fs/ordersManager.fs.js";
 import { orders } from "../../data/mongo/manager.mongo.js";
 
@@ -30,6 +30,19 @@ ordersRouter.get("/", async (req, res, next) => {
     return res.json({
       statusCode: 200,
       response: all,
+    });
+  } catch (error) {
+    return next(error);
+  }
+});
+
+ordersRouter.get("/bills/:uid", async (req, res, next) => {
+  try {
+    const { uid } = req.params;
+    const report = await orders.reporBill(uid);
+    return res.json({
+      statusCode: 200,
+      response: report,
     });
   } catch (error) {
     return next(error);
