@@ -31,7 +31,7 @@ class MongoManager {
     }
   }
 
-  async reporBill(uid) {
+  async reporTotal(uid) {
     try {
       const report = await this.model.aggregate([
         { $match: { user_id: new Types.ObjectId(uid) } },
@@ -67,7 +67,7 @@ class MongoManager {
             currency: "USD",
           },
         },
-        // { $merge: { into: "bills" } },
+        // { $merge: { into: "total" } },
       ]);
       return report;
     } catch (error) {

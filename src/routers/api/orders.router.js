@@ -36,10 +36,10 @@ ordersRouter.get("/", async (req, res, next) => {
   }
 });
 
-ordersRouter.get("/bills/:uid", async (req, res, next) => {
+ordersRouter.get("/total/:uid", async (req, res, next) => {
   try {
     const { uid } = req.params;
-    const report = await orders.reporBill(uid);
+    const report = await orders.reporTotal(uid);
     return res.json({
       statusCode: 200,
       response: report,
