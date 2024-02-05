@@ -2,28 +2,28 @@
   {
     "id": "830d3382f24db9a49c5f0762",
     "title": "Producto 1",
-    "photo": "Producto 1",
+    "photo": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ5ak0wyLkKvPBdPg5W-Mm70bbBOOEDJRY4jg&usqp=CAU",
     "price": 10,
     "stock": 50
   },
   {
     "id": "8efbbfa0ebe134665e73f428",
     "title": "Producto 2",
-    "photo": "Producto 2",
+    "photo": "https://c8.alamy.com/compes/e041mm/ilustracion-de-una-historieta-numero-2-e041mm.jpg",
     "price": 10,
     "stock": 21
   },
   {
     "id": "0db371924ca2d5503e8598af",
     "title": "Producto 3",
-    "photo": "Producto 3",
+    "photo": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQewX6PcU4Qd-PGoAD14h-Xqs52DgKy8n2Ujg&usqp=CAU",
     "price": 10,
     "stock": 50
   },
   {
     "id": "cbdb852e4b2f9dc2bfa59d53",
     "title": "producto 1",
-    "photo": "photo 1",
+    "photo": "https://www.educima.com/imagen-numero-4-dl20175.jpg",
     "price": 10,
     "stock": 50
   }
