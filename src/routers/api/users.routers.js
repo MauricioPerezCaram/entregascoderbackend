@@ -30,6 +30,9 @@ usersRouter.get("/", async (req, res, next) => {
     if (req.query.email) {
       filter.email = new RegExp(req.query.email.trim(), "i");
     }
+    if (req.query.name) {
+      filter.name = new RegExp(req.query.name.trim(), "i");
+    }
     if (req.query.name === "desc") {
       orderAndPaginate.sort.name = -1;
     }
