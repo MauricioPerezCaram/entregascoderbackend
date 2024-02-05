@@ -1,17 +1,19 @@
 import { Router } from "express";
-
 import users from "../../data/fs/users.fs.js";
 
 const usersRouter = Router();
 
-usersRouter.use("/:uid", (req, res, next) => {
+usersRouter.get("/", async (req, res, next) => {
   try {
-    const { uid } = req.params;
-    const one = users.readOne(uid);
-    if (!one) {
-      return res.render("notFound", { not: "user" });
-    }
-    return res.render("profile", { profile: one });
+    const all = await users.readUsers();
+    return res.render("users", { users: all });
+  } catch (error) {
+    next(error);
+  }
+});
+usersRouter.get("/newuser", (req, res, next) => {
+  try {
+    return res.render("newuser");
   } catch (error) {
     next(error);
   }
