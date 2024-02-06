@@ -23,7 +23,7 @@ productsRouter.post("/", propsProducts, async (req, res, next) => {
 productsRouter.get("/", async (req, res, next) => {
   try {
     const orderAndPaginate = {
-      limit: req.query.limit || 20,
+      limit: req.query.limit || 10,
       page: req.query.page || 1,
       sort: { price: 1 },
     };
