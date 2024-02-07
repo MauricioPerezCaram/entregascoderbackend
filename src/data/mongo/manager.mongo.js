@@ -19,7 +19,7 @@ class MongoManager {
 
   async read({ filter, orderAndPaginate }) {
     try {
-      const all = await this.model.paginate(filter, orderAndPaginate);
+      const all = await this.model.paginate(filter, orderAndPaginate || 10);
       if (all.totalPages === 0) {
         const error = new Error("No hay usuarios / productos / ordenes");
         error.statusCode = 404;
