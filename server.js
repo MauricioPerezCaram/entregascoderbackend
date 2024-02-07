@@ -6,6 +6,7 @@ import morgan from "morgan";
 import { engine } from "express-handlebars";
 import socketUtils from "./src/utils/socket.utils.js";
 import dbConnection from "./src/utils/db.js";
+import expressSesion from "express-session";
 
 import router from "./src/routers/index.router.js";
 import errorHandler from "./src/middlewares/errorHandler.mid.js";
@@ -31,6 +32,15 @@ server.set("views", __dirname + "/src/views");
 
 //middlewares
 server.use(cookieParser(process.env.SECRET_KEY));
+server.use(
+  expressSesion({
+    secret: "process.env.SECRET_SESSION",
+    resave: true,
+    saveUninitialized: true,
+    cookie: { maxAge: 6000 },
+  })
+);
+
 server.use(express.json());
 server.use(express.urlencoded({ extended: true }));
 server.use(express.static(__dirname + "/public"));
