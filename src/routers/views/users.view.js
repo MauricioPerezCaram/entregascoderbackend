@@ -18,5 +18,12 @@ usersRouter.get("/newuser", (req, res, next) => {
     next(error);
   }
 });
+usersRouter.get("/login", (req, res, next) => {
+  try {
+    return res.render("login");
+  } catch (error) {
+    next(error);
+  }
+});
 
 export default usersRouter;
