@@ -11,9 +11,9 @@ usersRouter.get("/", async (req, res, next) => {
     next(error);
   }
 });
-usersRouter.get("/newuser", (req, res, next) => {
+usersRouter.get("/register", (req, res, next) => {
   try {
-    return res.render("newuser");
+    return res.render("register");
   } catch (error) {
     next(error);
   }
