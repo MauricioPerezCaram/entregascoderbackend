@@ -1,0 +1,90 @@
+* {
+  margin: 0;
+  padding: 0px;
+  box-sizing: content-box;
+}
+
+body {
+  background-color: rgb(201, 198, 198);
+}
+
+.navbar {
+  display: flex;
+  justify-content: space-evenly;
+  background-color: black;
+}
+
+.navbar li {
+  list-style-type: none;
+  font-size: 25px;
+  margin: 10px;
+}
+
+.navbar li a {
+  text-decoration: none;
+  color: antiquewhite;
+}
+
+.logotitulo {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  width: 50%;
+  margin: auto;
+  padding: 20px;
+}
+
+.titulo {
+  font-size: 40px;
+}
+
+.logo img {
+  width: 100px;
+}
+
+.container {
+  max-width: 50%;
+  margin: auto;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  gap: 25px;
+  text-align: justify;
+}
+
+.msjbienvenida {
+  font-size: 25px;
+}
+
+.texto {
+  font-size: 20px;
+}
+
+.productos {
+  display: flex;
+  flex-wrap: wrap;
+  width: 50%;
+  margin: auto;
+  justify-content: space-evenly;
+  padding: 25px;
+}
+
+.producto {
+  background-color: aquamarine;
+  border: solid 2px white;
+  margin: 20px;
+  border-radius: 10px;
+  text-align: center;
+}
+
+.producto img {
+  width: 350px;
+  height: 450px;
+}
+
+button {
+  margin: 10px;
+  padding: 10px;
+  border-radius: 5px;
+  border: solid 1px;
+}

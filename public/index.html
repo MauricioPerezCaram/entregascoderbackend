@@ -1,15 +1,95 @@
-<!-- aca maquetar la pagina de inicio -->
-<!-- borrar la carpeta views y en server // views -->
-<!-- profe explica inicio clase 08/02 -->
-<!-- los que lo hacemos con react seguir esperando -->
-
 <!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="shortcut icon"
+      href="./images/Apple-Logo.jpg"
+      type="image/x-icon"
+    />
     <title>Apple Store Mendoza</title>
-    <h1>index.html en public</h1>
+    <link rel="stylesheet" href="./style/style.css" />
   </head>
-  <body></body>
+  <body>
+    <header>
+      <nav>
+        <ul class="navbar">
+          <li>
+            <a href="">Inicio</a>
+          </li>
+          <li>
+            <a href="http://localhost:8080/products">Productos</a>
+          </li>
+          <li>
+            <a href="http://localhost:8080/products/new">Crea un producto</a>
+          </li>
+          <li>
+            <a href="http://localhost:8080/users">Perfiles</a>
+          </li>
+          <li>
+            <a href="http://localhost:8080/users/newuser">Crea un perfil</a>
+          </li>
+        </ul>
+      </nav>
+    </header>
+    <main>
+      <div class="logotitulo">
+        <div class="logo"><img src="./images/Apple-Logo.jpg" alt="" /></div>
+        <div class="titulo">
+          <h1>Apple Store Mendoza</h1>
+        </div>
+      </div>
+      <div class="container">
+        <div class="msjbienvenida">
+          <h2>Tu tienda de todos los productos Apple en Mendoza</h2>
+        </div>
+        <div class="texto">
+          <p>
+            ¡Bienvenido a mi página dedicada al fascinante mundo de Apple!
+            Sumérgete en la excelencia tecnológica con la gama más exclusiva de
+            productos de la marca icónica. Desde los revolucionarios iPhones
+            hasta las potentes MacBooks y los versátiles iPads, aquí encontrarás
+            la perfección en cada dispositivo. Navega por nuestra selección
+            cuidadosamente curada y descubre la innovación en cada detalle. Nos
+            enorgullece ofrecer la última tecnología, fusionando estilo y
+            funcionalidad. Únete a la comunidad Apple y eleva tu experiencia
+            digital a nuevas alturas. ¡Explora, elige y disfruta de la
+            excelencia de Apple, directamente en tu vida!
+          </p>
+        </div>
+      </div>
+      <section class="productos">
+        <div class="producto">
+          <h3>iPhone 15 pro</h3>
+          <img src="./images/iphone.webp" alt="iphone" />
+          <h4>$999</h4>
+          <button>Ver detalle</button>
+          <button>Agregar al carrito</button>
+        </div>
+        <div class="producto">
+          <h3>Airpods pro 2</h3>
+          <img src="./images/airpods.webp" alt="airpods" />
+          <h4>$249</h4>
+          <button>Ver detalle</button>
+          <button>Agregar al carrito</button>
+        </div>
+        <div class="producto">
+          <h3>Mac Book Air</h3>
+          <img src="./images/mac.webp" alt="mac" />
+          <h4>$999</h4>
+          <button>Ver detalle</button>
+          <button>Agregar al carrito</button>
+        </div>
+        <div class="producto">
+          <h3>Watch</h3>
+          <img src="./images/watch.webp" alt="watch" />
+          <h4>$399</h4>
+          <button>Ver detalle</button>
+          <button>Agregar al carrito</button>
+        </div>
+      </section>
+    </main>
+    <footer></footer>
+  </body>
 </html>
