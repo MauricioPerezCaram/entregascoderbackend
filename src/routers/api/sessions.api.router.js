@@ -2,7 +2,15 @@ import { Router } from "express";
 
 const sessionRouter = Router();
 
-// login
+// Register
+sessionRouter.post("/register", async (req, res, next) => {
+  try {
+  } catch (error) {
+    return next(error);
+  }
+});
+
+// Login
 sessionRouter.post("/login", async (req, res, next) => {
   try {
     const { email, password } = req.body;
