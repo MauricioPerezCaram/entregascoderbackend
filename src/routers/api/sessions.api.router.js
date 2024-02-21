@@ -38,6 +38,33 @@ sessionRouter.post(
       return res.json({
         statusCode: 200,
         message: "Logged in",
+        token: req.token,
+      });
+    } catch (error) {
+      return next(error);
+    }
+  }
+);
+
+// Google
+// CAMBIAR A POST
+sessionRouter.get(
+  "/google",
+  passport.authenticate("google", { scope: ["email", "profile"] })
+);
+
+// Google-Callback
+sessionRouter.get(
+  "/google/callback",
+  passport.authenticate("google", {
+    session: false,
+    failureRedirect: "/api/sessions/badauth",
+  }),
+  async (req, res, next) => {
+    try {
+      return res.json({
+        statusCode: 200,
+        message: "Logged in with Google",
         session: req.session,
       });
     } catch (error) {
@@ -52,11 +79,11 @@ sessionRouter.post("/", async (req, res, next) => {
     if (req.session.email) {
       return res.json({
         statusCode: 200,
-        message: "Session con email: " + req.session.email,
+        message: "Session with email: " + req.session.email,
       });
     } else {
       const error = new Error("No Auth");
-      error.statusCode = 401;
+      error.statusCode = 400;
       throw error;
     }
   } catch (error) {
