@@ -1,6 +1,8 @@
+import { verifyToken } from "../utils/token.utils.js";
 export default (req, res, next) => {
   try {
-    const { role } = req.session;
+    const data = verifyToken(req.headers);
+    const { role } = data;
     console.log(role);
     if (role === "admin") {
       return next();
