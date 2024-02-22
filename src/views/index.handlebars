@@ -1,32 +1,72 @@
-<main class="flex-grow-1 p-3 m-auto my-2">
-  <h1 class="text-center">Apple Store Mendoza</h1>
-  {{#if details}}
-    <p>{{details}}</p>
-  {{else}}
-    <p>
-      ¡Bienvenido a nuestro exclusivo mundo Apple, donde la innovación y la
-      elegancia se encuentran en cada clic! En nuestro e-commerce, nos
-      enorgullece ofrecerte la más amplia gama de productos Apple, diseñados
-      para elevar tu experiencia tecnológica a nuevos horizontes. Desde los
-      icónicos iPhones hasta los potentes MacBooks, pasando por los versátiles
-      iPads y accesorios de alta calidad, cada artículo en nuestro catálogo ha
-      sido cuidadosamente seleccionado para satisfacer tus necesidades y superar
-      tus expectativas.
-    </p>
-    <p>
-      En nuestro compromiso de brindarte lo mejor, nos esforzamos por
-      mantenernos a la vanguardia de las últimas tendencias tecnológicas,
-      asegurándonos de que siempre encuentres lo último y lo mejor en nuestro
-      sitio. Además, nuestro equipo de expertos está aquí para guiarte en cada
-      paso del camino, proporcionándote asesoramiento personalizado y atención
-      al cliente excepcional.
-    </p>
-    <p>
-      Al elegirnos, te sumerges en un universo de calidad, confianza y estilo.
-      Explora nuestra tienda con la seguridad de saber que estás adquiriendo
-      productos Apple auténticos y disfruta de la comodidad de comprar desde la
-      comodidad de tu hogar. ¡Bienvenido a una experiencia de compra única,
-      donde la perfección se encuentra en cada detalle!
-    </p>
-  {{/if}}
+<main class="flex-grow-1 w-100 d-flex flex-column">
+  <section id="background">
+    <h1 class="title">Apple Store Mendoza</h1>
+    <p>En Apple Store Mendoza ofrecemos una experiencia única para los
+      entusiastas de la tecnología en la región. Ubicada en el corazón de la
+      ciudad, esta tienda especializada en productos Apple se destaca por su
+      elegante diseño y personal altamente capacitado. Desde los últimos modelos
+      de iPhone hasta los innovadores dispositivos Mac y accesorios exclusivos,
+      la tienda cuenta con un inventario completo. Los clientes pueden explorar
+      las últimas novedades y recibir asesoramiento experto sobre sus
+      necesidades tecnológicas. Además, la Apple Store Mendoza organiza eventos
+      y talleres para mantener a la comunidad actualizada sobre las últimas
+      tendencias de la marca.</p>
+  </section>
+  <h2 class="subtitle mt-4 mb-2 text-center">Nuestros productos</h2>
+  <span class="m-auto d-flex justify-content-between align-items-center">
+    <input
+      id="text"
+      type="text"
+      style="width: 360px"
+      class="p-2 text-center"
+      placeholder="Buscar"
+    />
+    <img
+      style="width: 44px; padding: 2px"
+      id="search"
+      src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAAAXNSR0IArs4c6QAABFdJREFUaEPtmWnIlUUUx38m2qYlGJmYJZWlRBJI+CEiTM0PttCOJFGpUaiIgiSZUmqmImUoRqCmFdkepKUGrpQSBX6JJG1R6YOgpeWCii3zl5kYnubeZ859vHRfeA9cXl7umf+Z/8yZs90OtHHp0Mb3TzuB//sGq9zAecCdwL1AP+AS/xGng/6zE/gQ+BQ40QyyjRDoAcwGHgbOz9zUceANYAZwIHNNlpqVwExgCqDTb0RE5EV/AI2s/8+aXALdgbXOFW46K1ZhE3AP8HtVvBwC/f3mr0wYOwR8ArwH/AT84nUuB64B7gfuBrol1u4GhgL7qpAoI9AL+ArQ31h+9q7wOnC6ZAPnAqPdI54K9C7oisQgQAfRkNQjcJE7oS9cFLmhgPw+MAo4ZbR4AfAucEdh3XZgMHDSiHdGvR6BxS5ijCuAzgeebsRQtOZV4MkCxvPu/+cawa1FoI875R+AjhGo4rl8uqqcA3wGDI+AjgFXAL9ZwWsReBsYGYH96B+lFb+WvtxTmEp+QV4GJlsNpAgoOR0GOkdg9wEfWcFL9J8ClkQ6yt6XAn9b7KQIPOgfW8D5DrjeAmrQVVaOb+EWHziyIVIE3vJlQgCZ5UuAbFCD4jKXBx6P9M1BIkXgG2BgBHozsM2wKYvqAz4JhjV63CMsACkCyoxxwlFE2msBNeje6DL1jkj/20TeqQuXIqAE1SladSGgIqwZohIjzsJ/ABdbDKUIHAG6RCBdgaMWUIOu7MheEB2UDixbUgRUn6gQC9LXJ7VsUIPitS7ffB/py1XlstmSIrAVUDgLMgTYmI1oUxwGfB4tUQAxlewpAq8BT0Sg5tBm4PCS6wkmRfpLgbGG9cliTtXi6ghELqWrboaoLI9dRrWWaq5sSd2ASghFBpW/QRSvP8hGzVN8BFgZqeoxX2aNeLWKueUu9j8WgavbujpvX1laOhxVuz0j7Xm+6ckCCEq1CKgl1KbjfKBGRnVSVZFNtaFxY/MXoJY1tKTZNuo1NAudK00sIGmcMj0bPa24yM2Mxhe+mgNMawS3HgElmS9dGT2gALyi4F65duU2q4C7CgsqVbtlTb0e1deAXCoW+e8L7l286W7kzxIGaurH+Fa02NRrqer/R/3gK/cw/tUrIyBFjQ3X+5avaOBX4GMfofZ4HxamNqoMHsYq6sDKRGW1phwmySEgQDUda/wIxGSghrKy7+2J78wkcgkEW2punq3AQJO4Cd71bnMly4YElmZICuNZYiUgUA255vrZUJYR38C/4hOXSuYgmkysq0KiEQLBnspexfKH3AO8CtD8VK6mR73fv4fN3vVUpNWSYukS9FQTqTaqK1UIlGFbvldo1dQjnkNlRadWISCyiljvWEm0EgGR0I8mmooU5TpgV+pKW41AIKEEGfamH1QW1PLHViSgvSofaGakX3OeqfeYWpWA9nyrG7tvKYsErUygbO9nvm8nkHVMTVRqv4EmHm4WdJu/gX8AUZOmMeH+ThoAAAAASUVORK5CYII="
+    />
+  </span>
+  <section
+    id="movies"
+    class="d-flex flex-wrap justify-content-evenly w-100 mt-2 mb-4"
+  >
+
+    {{#each products}}
+      <div class="card m-2" style="width: 320px;">
+        <img
+          src="{{this.photo}}"
+          style="height: 200px;"
+          class="card-img-top object-fit-cover"
+          alt="{{this.name}}"
+        />
+        <div class="card-body d-flex flex-column justify-content-center">
+          <h5 class="card-title text-center">{{this.name}}</h5>
+          <p class="card-text text-center">
+            {{#if this.description}}
+              {{this.description}}
+            {{else}}
+              Descripcion del producto
+            {{/if}}
+          </p>
+          <button type="button" class="btn btn-dark">Agregar al carrito</button>
+        </div>
+      </div>
+    {{/each}}
+  </section>
+  <span class="w-100 d-flex justify-content-center">
+    {{#if prev}}
+      <a
+        class="btn btn-danger fs-5 m-4 mt-0"
+        href="/?title={{filter}}&page={{prev}}"
+      >PREV</a>
+    {{/if}}
+    {{#if next}}
+      <a
+        class="btn btn-danger fs-5 m-4 mt-0"
+        href="/?title={{filter}}&page={{next}}"
+      >NEXT</a>
+    {{/if}}
+  </span>
 </main>
+<script src="/scripts/index.js"></script>
