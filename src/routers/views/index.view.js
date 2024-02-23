@@ -38,11 +38,8 @@ viewsRouter.get("/", async (req, res, next) => {
 });
 
 viewsRouter.use("/products", productsRouter);
-
 viewsRouter.use("/users", usersRouter);
-
 viewsRouter.use("/orders", ordersRouter);
-
 viewsRouter.use("/sessions", sessionsRouter);
 
 export default viewsRouter;
