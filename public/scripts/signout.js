@@ -4,7 +4,6 @@ document.querySelector("#signout").addEventListener("click", async () => {
     const otps = {
       method: "POST",
       headers: { "Content-Type": "application/json", token },
-      body: JSON.stringify(data),
     };
     let response = await fetch("/api/sessions/signout", otps);
     response = await response.json();

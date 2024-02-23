@@ -96,7 +96,7 @@ sessionRouter.post("/signout", async (req, res, next) => {
   try {
     return res.json({
       statusCode: 200,
-      message: "Signed out",
+      message: "Cerraste sesion",
     });
   } catch (error) {
     return next(error);
