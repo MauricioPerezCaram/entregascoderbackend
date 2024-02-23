@@ -3,6 +3,7 @@ import { users } from "../../data/mongo/manager.mongo.js";
 import has8char from "../../middlewares/has8char.mid.js";
 import isValidPass from "../../middlewares/isValidPass.mid.js";
 import passport from "../../middlewares/passport.mid.js";
+import passCallBackMid from "../../middlewares/passCallBack.mid.js";
 
 const sessionRouter = Router();
 
@@ -10,10 +11,11 @@ const sessionRouter = Router();
 sessionRouter.post(
   "/register",
   has8char,
-  passport.authenticate("register", {
-    session: false,
-    failureRedirect: "/api/sessions/badauth",
-  }),
+  // passport.authenticate("register", {
+  //   session: false,
+  //   failureRedirect: "/api/sessions/badauth",
+  // }),
+  passCallBackMid("register"),
   async (req, res, next) => {
     try {
       return res.json({
@@ -29,10 +31,11 @@ sessionRouter.post(
 // Login
 sessionRouter.post(
   "/login",
-  passport.authenticate("login", {
-    session: false,
-    failureRedirect: "/api/sessions/badauth",
-  }),
+  // passport.authenticate("login", {
+  //   session: false,
+  //   failureRedirect: "/api/sessions/badauth",
+  // }),
+  passCallBackMid("login"),
   async (req, res, next) => {
     try {
       return res
@@ -90,23 +93,43 @@ sessionRouter.post("/", async (req, res, next) => {
 });
 
 // signout
-sessionRouter.post("/signout", async (req, res, next) => {
+sessionRouter.post(
+  "/signout",
+  // passport.authenticate("jwt", {
+  //   session: false,
+  //   failureRedirect: "/api/sessions/signout/cb",
+  // }),
+  passCallBackMid("jwt"),
+  async (req, res, next) => {
+    try {
+      return res.clearCookie("token").json({
+        statusCode: 200,
+        message: "Cerraste sesion",
+      });
+    } catch (error) {
+      return next(error);
+    }
+  }
+);
+
+// Bad auth
+sessionRouter.get("/badauth", (req, res, next) => {
   try {
-    return res.clearCookie("token").json({
-      statusCode: 200,
-      message: "Cerraste sesion",
+    return res.json({
+      statusCode: 401,
+      message: "Bad auth",
     });
   } catch (error) {
     return next(error);
   }
 });
 
-// Bad auth
-sessionRouter.get("/badauth", (req, res, next) => {
+// Sign out/cb
+sessionRouter.get("/signout/cb", (req, res, next) => {
   try {
-    return res.clearCookie("token").json({
-      statusCode: 401,
-      message: "Bad auth",
+    return res.json({
+      statusCode: 400,
+      message: "Ya saliste de la sesión",
     });
   } catch (error) {
     return next(error);

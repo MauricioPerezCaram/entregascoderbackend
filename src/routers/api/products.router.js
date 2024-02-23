@@ -2,15 +2,15 @@ import { Router } from "express";
 // import products from "../../data/fs/products.fs.js";
 import { products } from "../../data/mongo/manager.mongo.js";
 import isAdmin from "../../middlewares/isAdmin.mid.js";
-import isAuth from "../../middlewares/isAuth.mid.js";
 import propsProducts from "../../middlewares/propsProducts.mid.js";
+import passport from "../../middlewares/passport.mid.js";
 
 const productsRouter = Router();
 
 // definir los endpoints (CRUD)
 productsRouter.post(
   "/",
-  isAuth,
+  passport.authenticate("jwt", { session: false }),
   isAdmin,
   propsProducts,
   async (req, res, next) => {

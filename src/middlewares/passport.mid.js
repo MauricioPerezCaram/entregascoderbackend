@@ -1,11 +1,12 @@
 import passport from "passport";
 import { Strategy as LocalStrategy } from "passport-local";
 import { Strategy as GoogleStrategy } from "passport-google-oauth2";
+import { ExtractJwt, Strategy as JwtStrategy } from "passport-jwt";
 import { createHash, verifyHash } from "../utils/hash.utils.js";
 import { users } from "../data/mongo/manager.mongo.js";
 import { createToken } from "../utils/token.utils.js";
 
-const { GOOGLE_ID, GOOGLE_CLIENT } = process.env;
+const { GOOGLE_ID, GOOGLE_CLIENT, SECRET } = process.env;
 
 passport.use(
   "register",
@@ -13,15 +14,17 @@ passport.use(
     { passReqToCallback: true, usernameField: "email" },
     async (req, email, password, done) => {
       try {
-        // let one = await users.readByEmail(req.body.email);
         let one = await users.readByEmail(email);
-        if (one) {
-          return done(null, false);
-        } else {
+        if (!one) {
           let data = req.body;
           data.password = createHash(password);
           let user = await users.create(data);
           return done(null, user);
+        } else {
+          return done(null, false, {
+            message: "El usuario ya existe",
+            statusCode: 400,
+          });
         }
       } catch (error) {
         return done(error);
@@ -46,7 +49,9 @@ passport.use(
             req.token = token;
             return done(null, user);
           } else {
-            return done(null, false);
+            return done(null, false, {
+              message: "Bad auth de passport callback",
+            });
           }
         } else {
           return done(null, false);
@@ -87,6 +92,31 @@ passport.use(
           req.session.email = user.email;
           req.session.role = user.role;
           return done(null, user);
+        }
+      } catch (error) {
+        return done(error);
+      }
+    }
+  )
+);
+
+passport.use(
+  "jwt",
+  new JwtStrategy(
+    {
+      jwtFromRequest: ExtractJwt.fromExtractors([
+        (req) => req?.cookies["token"],
+      ]),
+      secretOrKey: SECRET,
+    },
+    async (payload, done) => {
+      try {
+        const user = await users.readByEmail(payload.email);
+        if (user) {
+          user.password = null;
+          return done(null, user);
+        } else {
+          return done(null, false, info);
         }
       } catch (error) {
         return done(error);
