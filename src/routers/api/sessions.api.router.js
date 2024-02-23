@@ -54,8 +54,7 @@ sessionRouter.post(
 );
 
 // Google
-// CAMBIAR A POST
-sessionRouter.get(
+sessionRouter.post(
   "/google",
   passport.authenticate("google", { scope: ["email", "profile"] })
 );
