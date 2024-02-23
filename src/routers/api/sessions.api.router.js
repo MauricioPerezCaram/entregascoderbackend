@@ -35,11 +35,15 @@ sessionRouter.post(
   }),
   async (req, res, next) => {
     try {
-      return res.json({
-        statusCode: 200,
-        message: "Logged in",
-        token: req.token,
-      });
+      return res
+        .cookie("token", req.token, {
+          maxAge: 7 * 24 * 60 * 60,
+          httpOnly: true,
+        })
+        .json({
+          statusCode: 200,
+          message: "Iniciaste sesión correctamente",
+        });
     } catch (error) {
       return next(error);
     }
@@ -76,16 +80,10 @@ sessionRouter.get(
 // me
 sessionRouter.post("/", async (req, res, next) => {
   try {
-    if (req.session.email) {
-      return res.json({
-        statusCode: 200,
-        message: "Session with email: " + req.session.email,
-      });
-    } else {
-      const error = new Error("No Auth");
-      error.statusCode = 400;
-      throw error;
-    }
+    return res.json({
+      statusCode: 200,
+      message: "Session with email: " + req.session.email,
+    });
   } catch (error) {
     return next(error);
   }
@@ -94,7 +92,7 @@ sessionRouter.post("/", async (req, res, next) => {
 // signout
 sessionRouter.post("/signout", async (req, res, next) => {
   try {
-    return res.json({
+    return res.clearCookie("token").json({
       statusCode: 200,
       message: "Cerraste sesion",
     });
@@ -103,9 +101,10 @@ sessionRouter.post("/signout", async (req, res, next) => {
   }
 });
 
+// Bad auth
 sessionRouter.get("/badauth", (req, res, next) => {
   try {
-    return res.json({
+    return res.clearCookie("token").json({
       statusCode: 401,
       message: "Bad auth",
     });

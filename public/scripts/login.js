@@ -17,7 +17,7 @@ selector.addEventListener("click", async () => {
     alert(response.message);
     if (response.statusCode === 200) {
       location.replace("/");
-      localStorage.setItem("token", response.token);
+      // localStorage.setItem("token", response.token);
     }
   } catch (error) {
     alert(error.message);
