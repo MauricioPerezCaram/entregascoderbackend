@@ -83,10 +83,6 @@ passport.use(
         } else {
           user = {
             email: profile.id,
-            name: profile.name.givenName,
-            lastName: profile.name.familyName,
-            photo: profile.coverPhoto,
-            password: createHash(profile.id),
           };
           user = await users.create(user);
           req.session.email = user.email;
