@@ -2,22 +2,25 @@ const selector = document.querySelector("#createproduct");
 selector.addEventListener("click", async () => {
   try {
     const data = {
-      nombre: document.querySelector("#nombre").value,
-      foto: document.querySelector("#foto").value,
-      precio: document.querySelector("#precio").value,
-      stock: document.querySelector("#stock").value,
+      title: document.querySelector("#title").value,
     };
-    // console.log(data);
+    document.querySelector("#photo").value &&
+      (data.photo = document.querySelector("#photo").value);
+    document.querySelector("#precio").value &&
+      (data.precio = document.querySelector("#precio").value);
+    document.querySelector("#stock").value &&
+      (data.stock = document.querySelector("#stock").value);
+
     const opts = {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(data),
     };
-    let response = await fetch("/api/products/new", opts);
+    let response = await fetch("/api/products", opts);
     response = await response.json();
-    // console.log(response);
-    alert(response.message);
-    // response.session && location.replace("/sessions/login");
+    response.statusCode === 201
+      ? alert("Producto creado!")
+      : alert("ERROR: " + response.message);
   } catch (error) {
     alert(error.message);
   }
