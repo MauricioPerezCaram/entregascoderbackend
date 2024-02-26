@@ -6,7 +6,9 @@ export default (req, res, next) => {
     if (role === 1) {
       return next();
     } else {
-      const error = new Error("Forbidden");
+      const error = new Error(
+        "No podes crear un producto si no sos administrador"
+      );
       error.statusCode = 403;
       throw error;
     }
