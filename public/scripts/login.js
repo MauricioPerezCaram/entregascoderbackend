@@ -5,7 +5,7 @@ selector.addEventListener("click", async () => {
       email: document.querySelector("#email").value,
       password: document.querySelector("#password").value,
     };
-    // console.log(data);
+    //console.log(data);
     const opts = {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -17,7 +17,7 @@ selector.addEventListener("click", async () => {
     alert(response.message);
     if (response.statusCode === 200) {
       location.replace("/");
-      // localStorage.setItem("token", response.token);
+      //localStorage.setItem("token", response.token);
     }
   } catch (error) {
     alert(error.message);
