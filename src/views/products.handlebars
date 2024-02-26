@@ -7,15 +7,15 @@
           src="{{this.photo}}"
           style="height: 200px;"
           class="card-img-top object-fit-cover"
-          alt="{{this.name}}"
+          alt="{{this.title}}"
         />
         <div class="card-body d-flex flex-column justify-content-center">
-          <h5 class="card-title text-center">{{this.name}}</h5>
+          <h5 class="card-title text-center">{{this.title}}</h5>
           <p class="card-text text-center">
-            {{#if this.description}}
-              {{this.description}}
+            {{#if this.price}}
+              {{this.price}}
             {{else}}
-              Descripcion
+              Precio: $
             {{/if}}
           </p>
           <button type="button" class="btn btn-dark">Agregar al carrito</button>

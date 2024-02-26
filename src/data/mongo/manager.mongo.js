@@ -17,11 +17,11 @@ class MongoManager {
     }
   }
 
-  async read({ filter, orderAndPaginate }) {
+  async read({ filter, options }) {
     try {
-      const all = await this.model.paginate(filter, orderAndPaginate || 10);
-      if (all.totalPages === 0) {
-        const error = new Error("No hay usuarios / productos / ordenes");
+      const all = await this.model.paginate(filter, options);
+      if (all.totalDocs === 0) {
+        const error = new Error("No hay documentos");
         error.statusCode = 404;
         throw error;
       }

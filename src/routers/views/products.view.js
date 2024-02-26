@@ -1,19 +1,41 @@
 import { Router } from "express";
-import products from "../../data/fs/products.fs.js";
+
+import { products } from "../../data/mongo/manager.mongo.js";
+
+import passCallBack from "../../middlewares/passCallBack.mid.js";
+import isAdmin from "../../middlewares/isAdmin.mid.js";
 
 const productsRouter = Router();
 
-productsRouter.get("/", async (req, res, next) => {
+productsRouter.get(
+  "/products",
+  passCallBack("jwt"),
+  isAdmin,
+  (req, res, next) => {
+    try {
+      return res.render("products", { title: "PRODUCTS" });
+    } catch (error) {
+      next(error);
+    }
+  }
+);
+
+productsRouter.get("/new", passCallBack("jwt"), isAdmin, (req, res, next) => {
   try {
-    const all = await products.readProducts();
-    return res.render("products", { products: all });
+    return res.render("new", { title: "Crea un producto" });
   } catch (error) {
     next(error);
   }
 });
-productsRouter.get("/new", (req, res, next) => {
+
+productsRouter.get("/:pid", async (req, res, next) => {
   try {
-    return res.render("new");
+    const { pid } = req.params;
+    const one = await products.readOne(pid);
+    return res.render("detail", {
+      product: one,
+      title: one.title.toUpperCase(),
+    });
   } catch (error) {
     next(error);
   }
