@@ -7,18 +7,33 @@ import isAdmin from "../../middlewares/isAdmin.mid.js";
 
 const productsRouter = Router();
 
-productsRouter.get(
-  "/products",
-  passCallBack("jwt"),
-  isAdmin,
-  (req, res, next) => {
-    try {
-      return res.render("products", { title: "PRODUCTS" });
-    } catch (error) {
-      next(error);
+productsRouter.get("/", async (req, res, next) => {
+  try {
+    const options = {
+      limit: req.query.limit || 12,
+      page: req.query.page || 1,
+      sort: { title: 1 },
+      lean: true,
+    };
+    const filter = {};
+    if (req.query.title) {
+      filter.title = new RegExp(req.query.title.trim(), "i");
     }
+    if (req.query.sort === "desc") {
+      options.sort.title = "desc";
+    }
+    const all = await products.read({ filter, options });
+    return res.render("products", {
+      products: all.docs,
+      next: all.nextPage,
+      prev: all.prevPage,
+      title: "PRODUCTS",
+      filter: req.query.title,
+    });
+  } catch (error) {
+    next(error);
   }
-);
+});
 
 productsRouter.get("/new", passCallBack("jwt"), isAdmin, (req, res, next) => {
   try {
