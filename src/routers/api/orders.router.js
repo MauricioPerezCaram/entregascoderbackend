@@ -1,69 +1,42 @@
-import { Router, response } from "express";
-// import orders from "../../data/fs/ordersManager.fs.js";
+import { Router } from "express";
+//import orders from "../../data/fs/orders.fs.js";
 import { orders } from "../../data/mongo/manager.mongo.js";
+import isAdmin from "../../middlewares/isAdmin.mid.js";
+import passCallBackMid from "../../middlewares/passCallBack.mid.js";
 
 const ordersRouter = Router();
 
-// definir los endpoints (CRUD)
-ordersRouter.post("/", async (req, res, next) => {
-  try {
-    const data = req.body;
-    const response = await orders.create(data);
-    return res.json({
-      statusCode: 201,
-      response,
-    });
-  } catch (error) {
-    return next(error);
+ordersRouter.post(
+  "/",
+  passCallBackMid("jwt"),
+  isAdmin,
+  async (req, res, next) => {
+    try {
+      const data = req.body;
+      const response = await orders.create(data);
+      return res.json({ statusCode: 201, response });
+    } catch (error) {
+      return next(error);
+    }
   }
-});
+);
 
 ordersRouter.get("/", async (req, res, next) => {
   try {
-    const orderAndPaginate = {
+    const options = {
       limit: req.query.limit || 20,
       page: req.query.page || 1,
-      sort: { _id: 1 },
+      sort: { title: 1 },
+      lean: true,
     };
     const filter = {};
-    const all = await orders.read({ filter, orderAndPaginate });
-    return res.json({
-      statusCode: 200,
-      response: all,
-    });
-  } catch (error) {
-    return next(error);
-  }
-});
-
-ordersRouter.get("/total/:uid", async (req, res, next) => {
-  try {
-    const { uid } = req.params;
-    const report = await orders.reporTotal(uid);
-    return res.json({
-      statusCode: 200,
-      response: report,
-    });
-  } catch (error) {
-    return next(error);
-  }
-});
-
-ordersRouter.get("/", async (req, res, next) => {
-  try {
-    const orderAndPaginate = {
-      limit: req.query.limit || 20,
-      page: req.query.page || 1,
-      // sort: { _id: 1 },
-    };
-    const filter = {};
-    if (req.query._id) {
-      filter._id = new RegExp(req.query._id.trim(), "i");
+    if (req.query.title) {
+      filter.title = new RegExp(req.query.title.trim(), "i");
     }
-    if (req.query._id === "desc") {
-      orderAndPaginate.sort._id = -1;
+    if (req.query.sort === "desc") {
+      options.sort.title = "desc";
     }
-    const all = await orders.read({ filter, orderAndPaginate });
+    const all = await orders.read({ filter, options });
     return res.json({
       statusCode: 200,
       response: all,
@@ -73,22 +46,10 @@ ordersRouter.get("/", async (req, res, next) => {
   }
 });
 
-ordersRouter.get("/", async (req, res, next) => {
+ordersRouter.get("/:pid", async (req, res, next) => {
   try {
-    const all = await orders.read();
-    return res.json({
-      statusCode: 200,
-      response: all,
-    });
-  } catch (error) {
-    return next(error);
-  }
-});
-
-ordersRouter.get("/:oid", async (req, res, next) => {
-  try {
-    const { oid } = req.params;
-    const one = await orders.readOne(oid);
+    const { pid } = req.params;
+    const one = await orders.readOne(pid);
     return res.json({
       statusCode: 200,
       response: one,
@@ -98,24 +59,24 @@ ordersRouter.get("/:oid", async (req, res, next) => {
   }
 });
 
-ordersRouter.put("/:oid", async (req, res, next) => {
+ordersRouter.put("/:pid", async (req, res, next) => {
   try {
-    const { oid } = req.params;
+    const { pid } = req.params;
     const data = req.body;
-    const one = await orders.update(oid, data);
+    const response = await orders.update(pid, data);
     return res.json({
       statusCode: 200,
-      response: one,
+      response: response,
     });
   } catch (error) {
     return next(error);
   }
 });
 
-ordersRouter.delete("/:oid", async (req, res, next) => {
+ordersRouter.delete("/:pid", async (req, res, next) => {
   try {
-    const { oid } = req.params;
-    const response = await orders.destroy(oid);
+    const { pid } = req.params;
+    const response = await orders.destroy(pid);
     return res.json({
       statusCode: 200,
       response,
