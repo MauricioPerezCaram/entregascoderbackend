@@ -1,25 +1,19 @@
 import { Router } from "express";
-import { users } from "../../data/mongo/manager.mongo.js";
 import has8char from "../../middlewares/has8char.mid.js";
-import isValidPass from "../../middlewares/isValidPass.mid.js";
 import passport from "../../middlewares/passport.mid.js";
-import passCallBackMid from "../../middlewares/passCallBack.mid.js";
+import passCallBack from "../../middlewares/passCallBack.mid.js";
 
 const sessionRouter = Router();
 
-// Register
+//register
 sessionRouter.post(
   "/register",
   has8char,
-  // passport.authenticate("register", {
-  //   session: false,
-  //   failureRedirect: "/api/sessions/badauth",
-  // }),
-  passCallBackMid("register"),
+  passCallBack("register"),
   async (req, res, next) => {
     try {
       return res.json({
-        statusCode: 200,
+        statusCode: 201,
         message: "Registrado!",
       });
     } catch (error) {
@@ -28,38 +22,30 @@ sessionRouter.post(
   }
 );
 
-// Login
-sessionRouter.post(
-  "/login",
-  // passport.authenticate("login", {
-  //   session: false,
-  //   failureRedirect: "/api/sessions/badauth",
-  // }),
-  passCallBackMid("login"),
-  async (req, res, next) => {
-    try {
-      return res
-        .cookie("token", req.token, {
-          maxAge: 7 * 24 * 60 * 60,
-          httpOnly: true,
-        })
-        .json({
-          statusCode: 200,
-          message: "Iniciaste sesión correctamente",
-        });
-    } catch (error) {
-      return next(error);
-    }
+//login
+sessionRouter.post("/login", passCallBack("login"), async (req, res, next) => {
+  try {
+    return res
+      .cookie("token", req.token, {
+        maxAge: 7 * 24 * 60 * 60 * 1000,
+        httpOnly: true,
+      })
+      .json({
+        statusCode: 200,
+        message: "Loggeado con exito",
+      });
+  } catch (error) {
+    return next(error);
   }
-);
+});
 
-// Google
+//google
 sessionRouter.post(
   "/google",
   passport.authenticate("google", { scope: ["email", "profile"] })
 );
 
-// Google-Callback
+//google-callback
 sessionRouter.get(
   "/google/callback",
   passport.authenticate("google", {
@@ -70,7 +56,7 @@ sessionRouter.get(
     try {
       return res.json({
         statusCode: 200,
-        message: "Logged in with Google",
+        message: "Loggeado con google",
         session: req.session,
       });
     } catch (error) {
@@ -79,31 +65,25 @@ sessionRouter.get(
   }
 );
 
-// me
-sessionRouter.post("/", async (req, res, next) => {
-  try {
-    return res.json({
-      statusCode: 200,
-      message: "Session with email: " + req.session.email,
-    });
-  } catch (error) {
-    return next(error);
-  }
-});
-
-// signout
+//google
 sessionRouter.post(
-  "/signout",
-  // passport.authenticate("jwt", {
-  //   session: false,
-  //   failureRedirect: "/api/sessions/signout/cb",
-  // }),
-  passCallBackMid("jwt"),
+  "/github",
+  passport.authenticate("github", { scope: ["user:email"] })
+);
+
+//github-callback
+sessionRouter.get(
+  "/github/callback",
+  passport.authenticate("github", {
+    session: false,
+    failureRedirect: "/api/sessions/badauth",
+  }),
   async (req, res, next) => {
     try {
-      return res.clearCookie("token").json({
+      return res.json({
         statusCode: 200,
-        message: "Cerraste sesion",
+        message: "Loggeado con github!",
+        session: req.session,
       });
     } catch (error) {
       return next(error);
@@ -111,7 +91,36 @@ sessionRouter.post(
   }
 );
 
-// Bad auth
+//me
+sessionRouter.post("/", passCallBack("jwt"), async (req, res, next) => {
+  try {
+    const user = {
+      email: req.user.email,
+      role: req.user.role,
+      photo: req.user.photo,
+    };
+    return res.json({
+      statusCode: 200,
+      response: user,
+    });
+  } catch (error) {
+    return next(error);
+  }
+});
+
+//signout
+sessionRouter.post("/signout", passCallBack("jwt"), async (req, res, next) => {
+  try {
+    return res.clearCookie("token").json({
+      statusCode: 200,
+      message: "Cerraste sesion correctamente!",
+    });
+  } catch (error) {
+    return next(error);
+  }
+});
+
+//badauth
 sessionRouter.get("/badauth", (req, res, next) => {
   try {
     return res.json({
@@ -123,12 +132,12 @@ sessionRouter.get("/badauth", (req, res, next) => {
   }
 });
 
-// Sign out/cb
+//signout/cb
 sessionRouter.get("/signout/cb", (req, res, next) => {
   try {
     return res.json({
       statusCode: 400,
-      message: "Ya saliste de la sesión",
+      message: "No estas en una sesion activa",
     });
   } catch (error) {
     return next(error);
