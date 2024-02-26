@@ -5,9 +5,11 @@ selector.addEventListener("click", async () => {
       email: document.querySelector("#email").value,
       password: document.querySelector("#password").value,
       name: document.querySelector("#name").value,
-      photo: document.querySelector("#photo").value,
     };
-    // console.log(data);
+
+    document.querySelector("#photo").value &&
+      (data.photo = document.querySelector("#photo").value);
+
     const opts = {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -15,9 +17,10 @@ selector.addEventListener("click", async () => {
     };
     let response = await fetch("/api/sessions/register", opts);
     response = await response.json();
-    // console.log(response);
-    alert(response.message);
-    // response.session && location.replace("/sessions/login");
+    console.log(response);
+    response.statusCode === 201
+      ? location.replace("/sessions/login")
+      : alert("ERROR: " + response.message);
   } catch (error) {
     alert(error.message);
   }
