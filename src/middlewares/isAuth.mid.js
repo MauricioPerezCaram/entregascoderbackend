@@ -5,6 +5,8 @@ export default (req, res, next) => {
     const token = req.cookies.token;
     const userData = verifyToken(token);
     if (userData) {
+      req.session.isLoggedIn = true;
+      req.session.isAdmin = userData.role === 1;
       return next();
     } else {
       const error = new Error("Bad auth from middleware");

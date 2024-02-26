@@ -28,22 +28,32 @@
         >
           <span class="navbar-toggler-icon"></span>
         </button>
+        <a class="btn btn-light fs-5 m-1" href="/products">Productos</a>
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
           <div class="navbar-nav">
-            <a class="btn btn-light fs-5 m-1" href="/products">Productos</a>
-            <a class="btn btn-light fs-5 m-1" href="/products/new">Crear un
-              producto</a>
-            <a class="btn btn-light fs-5 m-1" href="/orders">Ordenes</a>
-
-            <a class="btn btn-light fs-5 m-1" href="/users">Perfiles</a>
-            <a class="btn btn-light fs-5 m-1" href="/users/register">Crea un
-              perfil</a>
-            <a class="btn btn-light fs-5 m-1" href="/users/login">Iniciar sesión</a>
-            <span class="btn btn-light fs-5 m-1" id="signout">Cerrar sesión</span>
+            {{#if isLoggedIn}}
+              <!-- Usuario loggeado -->
+              <a class="btn btn-light fs-5 m-1" href="/orders">Ordenes</a>
+              <a class="btn btn-light fs-5 m-1" href="/users/logout">Cerrar
+                sesión</a>
+              {{#if isAdmin}}
+                <!-- Administrador loggeado -->
+                <a class="btn btn-light fs-5 m-1" href="/products/new">Crear un
+                  producto</a>
+                <a class="btn btn-light fs-5 m-1" href="/users">Perfiles</a>
+                <a class="btn btn-light fs-5 m-1" href="/users/register">Crea un
+                  perfil</a>
+              {{/if}}
+            {{else}}
+              <!-- Usuario no loggeado -->
+              <a class="btn btn-light fs-5 m-1" href="/users/login">Iniciar
+                sesión</a>
+            {{/if}}
           </div>
         </div>
       </div>
     </nav>
+
     {{{body}}}
 
     <script

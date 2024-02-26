@@ -31,6 +31,8 @@ viewsRouter.get("/", async (req, res, next) => {
       prev: all.prevPage,
       title: "INDEX",
       filter: req.query.title,
+      isLoggedIn: req.session.isLoggedIn || false,
+      isAdmin: req.session.isAdmin || false,
     });
   } catch (error) {
     next(error);
