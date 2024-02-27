@@ -10,5 +10,6 @@ google.addEventListener("click", async () => {
     console.log(response);
   } catch (error) {
     alert(error.message);
+    console.log(error);
   }
 });
