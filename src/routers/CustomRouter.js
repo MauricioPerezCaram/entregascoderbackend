@@ -1,4 +1,6 @@
 import { Router } from "express";
+import jwt from "jsonwebtoken";
+import { users } from "../data/mongo/manager.mongo.js";
 
 export default class CustomRouter {
   constructor() {
@@ -56,20 +58,66 @@ export default class CustomRouter {
     return next();
   };
 
-  create(path, ...cbs) {
-    this.router.post(path, this.responses, this.applyCbs(cbs));
+  policies = (arrayOfPolicies) => async (req, res, next) => {
+    try {
+      if (arrayOfPolicies.includes("PUBLIC")) return next();
+      let token = req.coolies["token"];
+      if (!token) return res.error401();
+      else {
+        const data = jwt.verify(token, procces.env.SECRET);
+        if (!data) return res.error400("Mala autenticacion por el token");
+        else {
+          const { email, role } = data;
+          if (
+            (role === 0 && arrayOfPolicies.includes["USER"]) ||
+            (role === 1 && arrayOfPolicies.includes["ADMIN"]) ||
+            (role === 2 && arrayOfPolicies.includes["PREM"])
+          ) {
+            const user = await users.readByEmail(email);
+            req.user = user;
+            return next();
+          } else return res.error403();
+        }
+      }
+    } catch (error) {
+      return next(error);
+    }
+  };
+
+  create(path, policies, ...cbs) {
+    this.router.post(
+      path,
+      this.responses,
+      this.policies(policies),
+      this.applyCbs(cbs)
+    );
   }
 
-  read(path, ...cbs) {
-    this.router.get(path, this.responses, this.applyCbs(cbs));
+  read(path, policies, ...cbs) {
+    this.router.get(
+      path,
+      this.responses,
+      this.policies(policies),
+      this.applyCbs(cbs)
+    );
   }
 
-  update(path, ...cbs) {
-    this.router.put(path, this.responses, this.applyCbs(cbs));
+  update(path, policies, ...cbs) {
+    this.router.put(
+      path,
+      this.responses,
+      this.policies(policies),
+      this.applyCbs(cbs)
+    );
   }
 
-  destroy(path, ...cbs) {
-    this.router.delete(path, this.responses, this.applyCbs(cbs));
+  destroy(path, policies, ...cbs) {
+    this.router.delete(
+      path,
+      this.responses,
+      this.policies(policies),
+      this.applyCbs(cbs)
+    );
   }
 
   use(path, ...cbs) {

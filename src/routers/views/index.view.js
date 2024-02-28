@@ -13,7 +13,7 @@ export default class ViewsRouter extends CustomRouter {
     this.router.use("/users", usersRouter);
     this.router.use("/sessions", sessionsRouter);
     this.router.use("/orders", ordersRouter);
-    this.read("/", async (req, res, next) => {
+    this.read("/", ["PUBLIC"], async (req, res, next) => {
       try {
         const options = {
           limit: req.query.limit || 4,
