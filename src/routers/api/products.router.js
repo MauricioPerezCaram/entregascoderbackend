@@ -14,7 +14,8 @@ export default class ProductsRouter extends CustomRouter {
         try {
           const data = req.body;
           const response = await products.create(data);
-          return res.json({ statusCode: 201, response });
+          // return res.json({ statusCode: 201, response });
+          return res.success201(response);
         } catch (error) {
           return next(error);
         }
@@ -37,10 +38,7 @@ export default class ProductsRouter extends CustomRouter {
           options.sort.title = "desc";
         }
         const all = await products.read({ filter, options });
-        return res.json({
-          statusCode: 200,
-          response: all,
-        });
+        return res.success200(all);
       } catch (error) {
         return next(error);
       }
@@ -50,10 +48,7 @@ export default class ProductsRouter extends CustomRouter {
       try {
         const { pid } = req.params;
         const one = await products.readOne(pid);
-        return res.json({
-          statusCode: 200,
-          response: one,
-        });
+        return res.success200(one);
       } catch (error) {
         return next(error);
       }
@@ -64,10 +59,7 @@ export default class ProductsRouter extends CustomRouter {
         const { pid } = req.params;
         const data = req.body;
         const response = await products.update(pid, data);
-        return res.json({
-          statusCode: 200,
-          response: response,
-        });
+        return res.success200(response);
       } catch (error) {
         return next(error);
       }
@@ -77,10 +69,7 @@ export default class ProductsRouter extends CustomRouter {
       try {
         const { pid } = req.params;
         const response = await products.destroy(pid);
-        return res.json({
-          statusCode: 200,
-          response,
-        });
+        return res.success200(response);
       } catch (error) {
         return next(error);
       }
