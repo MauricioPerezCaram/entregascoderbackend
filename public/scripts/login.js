@@ -21,6 +21,5 @@ selector.addEventListener("click", async () => {
     }
   } catch (error) {
     alert(error.message);
-    console.log(error);
   }
 });
