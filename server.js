@@ -1,4 +1,4 @@
-import env from "./src/utils/env.util.js";
+import "dotenv/config.js";
 import express from "express";
 import { createServer } from "http";
 import { Server } from "socket.io";
@@ -9,9 +9,6 @@ import dbConnection from "./src/utils/db.js";
 import expressSesion from "express-session";
 import sessionFileStore from "session-file-store";
 import MongoStore from "connect-mongo";
-import args from "./src/utils/args.utils.js";
-
-console.log(env);
 
 import IndexRouter from "./src/routers/index.router.js";
 import errorHandler from "./src/middlewares/errorHandler.mid.js";
@@ -20,7 +17,7 @@ import __dirname from "./utils.js";
 import cookieParser from "cookie-parser";
 
 const server = express();
-const PORT = env.PORT || 8080;
+const PORT = process.env.PORT || 8080;
 const ready = () => {
   console.log("server ready on port " + PORT);
   dbConnection();
@@ -38,7 +35,7 @@ server.set("view engine", "handlebars");
 server.set("views", __dirname + "/src/views");
 
 //middlewares
-server.use(cookieParser(env.SECRET_KEY));
+server.use(cookieParser(process.env.SECRET_KEY));
 
 // MEMORY STORE
 // server.use(
@@ -67,12 +64,12 @@ server.use(cookieParser(env.SECRET_KEY));
 // MONGO STORE
 server.use(
   expressSesion({
-    secret: env.SECRET_KEY,
+    secret: process.env.SECRET_KEY,
     resave: true,
     saveUninitialized: true,
     store: new MongoStore({
       ttl: 7 * 24 * 60 * 60,
-      mongoUrl: env.DB_LINK,
+      mongoUrl: process.env.DB_LINK,
     }),
   })
 );
@@ -89,5 +86,3 @@ server.use(errorHandler);
 server.use(pathHandler);
 
 export { socketServer };
-
-console.log(args);
