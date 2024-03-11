@@ -1,5 +1,5 @@
 import { config } from "dotenv";
-import args from "./args.utils.js";
+import args from "./args.util.js";
 
 const { env } = args;
 const path =

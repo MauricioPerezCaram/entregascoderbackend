@@ -1,4 +1,4 @@
-import "dotenv/config.js";
+import env from "./src/utils/env.util.js";
 import express from "express";
 import { createServer } from "http";
 import { Server } from "socket.io";
@@ -10,6 +10,7 @@ import expressSesion from "express-session";
 import sessionFileStore from "session-file-store";
 import args from "./src/utils/args.util.js";
 
+console.log(env);
 import MongoStore from "connect-mongo";
 
 import IndexRouter from "./src/routers/index.router.js";
@@ -19,7 +20,7 @@ import __dirname from "./utils.js";
 import cookieParser from "cookie-parser";
 
 const server = express();
-const PORT = process.env.PORT || 8080;
+const PORT = env.PORT || 8080;
 const ready = () => {
   console.log("server ready on port " + PORT);
   dbConnection();
@@ -37,12 +38,12 @@ server.set("view engine", "handlebars");
 server.set("views", __dirname + "/src/views");
 
 //middlewares
-server.use(cookieParser(process.env.SECRET_KEY));
+server.use(cookieParser(env.SECRET_KEY));
 
 // MEMORY STORE
 // server.use(
 //   expressSesion({
-//     secret: "process.env.SECRET_SESSION",
+//     secret: "env.SECRET_SESSION",
 //     resave: true,
 //     saveUninitialized: true,
 //     cookie: { maxAge: 6000 },
@@ -52,7 +53,7 @@ server.use(cookieParser(process.env.SECRET_KEY));
 // FILE STORE
 // server.use(
 //   expressSesion({
-//     secret: "process.env.SECRET_SESSION",
+//     secret: "env.SECRET_SESSION",
 //     resave: true,
 //     saveUninitialized: true,
 //     store: new FileStore({
@@ -66,12 +67,12 @@ server.use(cookieParser(process.env.SECRET_KEY));
 // MONGO STORE
 server.use(
   expressSesion({
-    secret: process.env.SECRET_KEY,
+    secret: env.SECRET_KEY,
     resave: true,
     saveUninitialized: true,
     store: new MongoStore({
       ttl: 7 * 24 * 60 * 60,
-      mongoUrl: process.env.DB_LINK,
+      mongoUrl: env.DB_LINK,
     }),
   })
 );
