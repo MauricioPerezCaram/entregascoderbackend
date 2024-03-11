@@ -8,6 +8,8 @@ import socketUtils from "./src/utils/socket.utils.js";
 import dbConnection from "./src/utils/db.js";
 import expressSesion from "express-session";
 import sessionFileStore from "session-file-store";
+import args from "./src/utils/args.util.js";
+
 import MongoStore from "connect-mongo";
 
 import IndexRouter from "./src/routers/index.router.js";
@@ -86,3 +88,5 @@ server.use(errorHandler);
 server.use(pathHandler);
 
 export { socketServer };
+
+console.log(args);
