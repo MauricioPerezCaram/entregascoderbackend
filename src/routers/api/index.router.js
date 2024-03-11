@@ -6,6 +6,7 @@ import OrdersRouter from "./orders.router.js";
 // import cookiesRouter from "./cookies.router.api.js";
 import sessionRouter from "./sessions.api.router.js";
 import passport from "../../middlewares/passport.mid.js";
+import sum from "../../utils/sum.util.js";
 
 import passCallBackMid from "../../middlewares/passCallBack.mid.js";
 
@@ -20,6 +21,14 @@ export default class ApiRouter extends CustomRouter {
       this.router.use("/products", product.getRouter());
       this.router.use("/orders", passCallBackMid("jwt"), order.getRouter());
       this.router.use("/sessions", sessionRouter);
+      this.read("/sum", ["PUBLIC"], async (req, res) => {
+        try {
+          const response = sum();
+          return res.success200(response);
+        } catch (error) {
+          return next(error);
+        }
+      });
     }
   }
 }
