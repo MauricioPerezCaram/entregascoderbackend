@@ -4,6 +4,13 @@ import { users } from "../../data/mongo/manager.mongo.js";
 import propsUsers from "../../middlewares/propsUsers.mid.js";
 import isAdmin from "../../middlewares/isAdmin.mid.js";
 import passCallBackMid from "../../middlewares/passCallBack.mid.js";
+import {
+  create,
+  read,
+  readOne,
+  update,
+  destroy,
+} from "../../controllers/users.controller.js";
 
 export default class UsersRouter extends CustomRouter {
   init() {
@@ -11,80 +18,20 @@ export default class UsersRouter extends CustomRouter {
       "/",
       ["ADMIN", "PREM"],
       passCallBackMid("jwt"),
-      isAdmin,
       propsUsers,
-      async (req, res, next) => {
-        try {
-          const data = req.body;
-          const response = await users.create(data);
-          return res.json({
-            statusCode: 201,
-            response,
-          });
-        } catch (error) {
-          return next(error);
-        }
-      }
+      create
     );
 
-    this.read("/", ["PUBLIC"], async (req, res, next) => {
-      try {
-        const orderAndPaginate = {
-          limit: req.query.limit || 20,
-          page: req.query.page || 1,
-          sort: { name: 1 },
-        };
-        const filter = {};
-        if (req.query.email) {
-          filter.email = new RegExp(req.query.email.trim(), "i");
-        }
-        if (req.query.name) {
-          filter.name = new RegExp(req.query.name.trim(), "i");
-        }
-        if (req.query.name === "desc") {
-          orderAndPaginate.sort.name = -1;
-        }
-        const all = await users.read({ filter, orderAndPaginate });
-        return res.json({
-          statusCode: 200,
-          response: all,
-        });
-      } catch (error) {
-        return next(error);
-      }
-    });
+    this.read("/", ["PUBLIC"], read);
 
-    this.read("/:uid", ["ADMIN", "PREM"], async (req, res, next) => {
-      try {
-        const { uid } = req.params;
-        const one = await users.readOne(uid);
-        return res.json({
-          statusCode: 200,
-          response: one,
-        });
-      } catch (error) {
-        return next(error);
-      }
-    });
+    this.read("/:uid", ["ADMIN", "PREM"], readOne);
 
     this.update(
       "/:uid",
       ["ADMIN", "PREM"],
       passCallBackMid("jwt"),
       isAdmin,
-      async (req, res, next) => {
-        try {
-          const { uid } = req.params;
-          const data = req.body;
-          const one = await users.update(uid, data);
-          return res.json({
-            statusCode: 200,
-            response: one,
-          });
-        } catch (error) {
-          return next(error);
-        }
-      }
+      update
     );
 
     this.destroy(
@@ -92,18 +39,7 @@ export default class UsersRouter extends CustomRouter {
       [("ADMIN", "PREM")],
       passCallBackMid("jwt"),
       isAdmin,
-      async (req, res, next) => {
-        try {
-          const { uid } = req.params;
-          const response = await users.destroy(uid);
-          return res.json({
-            statusCode: 200,
-            response,
-          });
-        } catch (error) {
-          return next(error);
-        }
-      }
+      destroy
     );
   }
 }
