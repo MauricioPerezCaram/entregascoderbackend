@@ -2,23 +2,32 @@ import CustomRouter from "../CustomRouter.js";
 // import users from "../../data/fs/users.fs.js";
 import { users } from "../../data/mongo/manager.mongo.js";
 import propsUsers from "../../middlewares/propsUsers.mid.js";
+import isAdmin from "../../middlewares/isAdmin.mid.js";
+import passCallBackMid from "../../middlewares/passCallBack.mid.js";
 
 export default class UsersRouter extends CustomRouter {
   init() {
-    this.create("/", propsUsers, async (req, res, next) => {
-      try {
-        const data = req.body;
-        const response = await users.create(data);
-        return res.json({
-          statusCode: 201,
-          response,
-        });
-      } catch (error) {
-        return next(error);
+    this.create(
+      "/",
+      ["ADMIN", "PREM"],
+      passCallBackMid("jwt"),
+      isAdmin,
+      propsUsers,
+      async (req, res, next) => {
+        try {
+          const data = req.body;
+          const response = await users.create(data);
+          return res.json({
+            statusCode: 201,
+            response,
+          });
+        } catch (error) {
+          return next(error);
+        }
       }
-    });
+    );
 
-    this.read("/", async (req, res, next) => {
+    this.read("/", ["PUBLIC"], async (req, res, next) => {
       try {
         const orderAndPaginate = {
           limit: req.query.limit || 20,
@@ -45,7 +54,7 @@ export default class UsersRouter extends CustomRouter {
       }
     });
 
-    this.read("/:uid", async (req, res, next) => {
+    this.read("/:uid", ["ADMIN", "PREM"], async (req, res, next) => {
       try {
         const { uid } = req.params;
         const one = await users.readOne(uid);
@@ -58,31 +67,43 @@ export default class UsersRouter extends CustomRouter {
       }
     });
 
-    this.update("/:uid", async (req, res, next) => {
-      try {
-        const { uid } = req.params;
-        const data = req.body;
-        const one = await users.update(uid, data);
-        return res.json({
-          statusCode: 200,
-          response: one,
-        });
-      } catch (error) {
-        return next(error);
+    this.update(
+      "/:uid",
+      ["ADMIN", "PREM"],
+      passCallBackMid("jwt"),
+      isAdmin,
+      async (req, res, next) => {
+        try {
+          const { uid } = req.params;
+          const data = req.body;
+          const one = await users.update(uid, data);
+          return res.json({
+            statusCode: 200,
+            response: one,
+          });
+        } catch (error) {
+          return next(error);
+        }
       }
-    });
+    );
 
-    this.destroy("/:uid", async (req, res, next) => {
-      try {
-        const { uid } = req.params;
-        const response = await users.destroy(uid);
-        return res.json({
-          statusCode: 200,
-          response,
-        });
-      } catch (error) {
-        return next(error);
+    this.destroy(
+      "/:uid",
+      [("ADMIN", "PREM")],
+      passCallBackMid("jwt"),
+      isAdmin,
+      async (req, res, next) => {
+        try {
+          const { uid } = req.params;
+          const response = await users.destroy(uid);
+          return res.json({
+            statusCode: 200,
+            response,
+          });
+        } catch (error) {
+          return next(error);
+        }
       }
-    });
+    );
   }
 }
