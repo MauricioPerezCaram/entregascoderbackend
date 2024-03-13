@@ -61,17 +61,17 @@ export default class CustomRouter {
   policies = (arrayOfPolicies) => async (req, res, next) => {
     try {
       if (arrayOfPolicies.includes("PUBLIC")) return next();
-      let token = req.coolies["token"];
+      let token = req.cookies["token"];
       if (!token) return res.error401();
       else {
-        const data = jwt.verify(token, procces.env.SECRET);
-        if (!data) return res.error400("Mala autenticacion por el token");
+        const data = jwt.verify(token, process.env.SECRET);
+        if (!data) return res.error400("Bad auth by token!");
         else {
           const { email, role } = data;
           if (
-            (role === 0 && arrayOfPolicies.includes["USER"]) ||
-            (role === 1 && arrayOfPolicies.includes["ADMIN"]) ||
-            (role === 2 && arrayOfPolicies.includes["PREM"])
+            (role === 0 && arrayOfPolicies.includes("USER")) ||
+            (role === 1 && arrayOfPolicies.includes("ADMIN")) ||
+            (role === 2 && arrayOfPolicies.includes("PREM"))
           ) {
             const user = await users.readByEmail(email);
             req.user = user;
