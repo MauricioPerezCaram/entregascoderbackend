@@ -8,6 +8,7 @@ export default class OrdersRouter extends CustomRouter {
   init() {
     this.create(
       "/",
+      ["ADMIN", "PREM"],
       passCallBackMid("jwt"),
       isAdmin,
       async (req, res, next) => {
@@ -21,7 +22,7 @@ export default class OrdersRouter extends CustomRouter {
       }
     );
 
-    this.read("/", async (req, res, next) => {
+    this.read("/", ["PUBLIC"], async (req, res, next) => {
       try {
         const options = {
           limit: req.query.limit || 20,
@@ -46,7 +47,7 @@ export default class OrdersRouter extends CustomRouter {
       }
     });
 
-    this.read("/:pid", async (req, res, next) => {
+    this.read("/:pid", ["PUBLIC"], async (req, res, next) => {
       try {
         const { pid } = req.params;
         const one = await orders.readOne(pid);
@@ -59,7 +60,7 @@ export default class OrdersRouter extends CustomRouter {
       }
     });
 
-    this.update("/:pid", async (req, res, next) => {
+    this.update("/:pid", ["ADMIN", "PREM"], async (req, res, next) => {
       try {
         const { pid } = req.params;
         const data = req.body;
@@ -73,7 +74,7 @@ export default class OrdersRouter extends CustomRouter {
       }
     });
 
-    this.destroy("/:pid", async (req, res, next) => {
+    this.destroy("/:pid", ["ADMIN", "PREM"], async (req, res, next) => {
       try {
         const { pid } = req.params;
         const response = await orders.destroy(pid);
