@@ -2,13 +2,13 @@ import { users } from "../data/mongo/manager.mongo.js";
 
 class UsersController {
   constructor() {
-    this.model = users;
+    this.service = users;
   }
 
   create = async (req, res, next) => {
     try {
       const data = req.body;
-      const response = await this.model.create(data);
+      const response = await this.service.create(data);
       return res.json({
         statusCode: 201,
         response,
@@ -35,7 +35,7 @@ class UsersController {
       if (req.query.name === "desc") {
         orderAndPaginate.sort.name = -1;
       }
-      const all = await this.model.read({ filter, orderAndPaginate });
+      const all = await this.service.read({ filter, orderAndPaginate });
       return res.json({
         statusCode: 200,
         response: all,
@@ -48,7 +48,7 @@ class UsersController {
   readOne = async (req, res, next) => {
     try {
       const { uid } = req.params;
-      const one = await this.model.readOne(uid);
+      const one = await this.service.readOne(uid);
       return res.json({
         statusCode: 200,
         response: one,
@@ -62,7 +62,7 @@ class UsersController {
     try {
       const { uid } = req.params;
       const data = req.body;
-      const one = await this.model.update(uid, data);
+      const one = await this.service.update(uid, data);
       return res.json({
         statusCode: 200,
         response: one,
@@ -75,7 +75,7 @@ class UsersController {
   destroy = async (req, res, next) => {
     try {
       const { uid } = req.params;
-      const response = await this.model.destroy(uid);
+      const response = await this.service.destroy(uid);
       return res.json({
         statusCode: 200,
         response,

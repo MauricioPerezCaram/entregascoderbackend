@@ -2,13 +2,13 @@ import { orders } from "../data/mongo/manager.mongo.js";
 
 class OrdersController {
   constructor() {
-    this.model = orders;
+    this.service = orders;
   }
 
   create = async (req, res, next) => {
     try {
       const data = req.body;
-      const response = await orders.create(data);
+      const response = await this.service.create(data);
       return res.json({ statusCode: 201, response });
     } catch (error) {
       return next(error);
@@ -30,7 +30,7 @@ class OrdersController {
       if (req.query.sort === "desc") {
         options.sort.title = "desc";
       }
-      const all = await orders.read({ filter, options });
+      const all = await this.service.read({ filter, options });
       return res.json({
         statusCode: 200,
         response: all,
@@ -43,7 +43,7 @@ class OrdersController {
   readOne = async (req, res, next) => {
     try {
       const { pid } = req.params;
-      const one = await orders.readOne(pid);
+      const one = await this.service.readOne(pid);
       return res.json({
         statusCode: 200,
         response: one,
@@ -57,7 +57,7 @@ class OrdersController {
     try {
       const { pid } = req.params;
       const data = req.body;
-      const response = await orders.update(pid, data);
+      const response = await this.service.update(pid, data);
       return res.json({
         statusCode: 200,
         response: response,
@@ -70,7 +70,7 @@ class OrdersController {
   destroy = async (req, res, next) => {
     try {
       const { pid } = req.params;
-      const response = await orders.destroy(pid);
+      const response = await this.service.destroy(pid);
       return res.json({
         statusCode: 200,
         response,
