@@ -20,13 +20,9 @@ export default class OrdersRouter extends CustomRouter {
       isAdmin,
       create
     );
-
     this.read("/", ["PUBLIC"], read);
-
     this.read("/:pid", ["PUBLIC"], readOne);
-
     this.update("/:pid", ["ADMIN", "PREM"], update);
-
     this.destroy("/:pid", ["ADMIN", "PREM"], destroy);
   }
 }
