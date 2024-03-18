@@ -21,7 +21,7 @@ class UsersController {
   read = async (req, res, next) => {
     try {
       const orderAndPaginate = {
-        limit: req.query.limit || 20,
+        limit: req.query.limit || 5,
         page: req.query.page || 1,
         sort: { name: 1 },
       };

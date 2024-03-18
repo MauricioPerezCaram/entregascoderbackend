@@ -8,6 +8,7 @@ import socketUtils from "./src/utils/socket.utils.js";
 import dbConnection from "./src/utils/db.js";
 import expressSesion from "express-session";
 import sessionFileStore from "session-file-store";
+import cors from "cors";
 import args from "./src/utils/args.util.js";
 
 console.log(env);
@@ -77,6 +78,12 @@ server.use(
   })
 );
 
+server.use(
+  cors({
+    origin: true,
+    credentials: true,
+  })
+);
 server.use(express.json());
 server.use(express.urlencoded({ extended: true }));
 server.use(express.static(__dirname + "/public"));
