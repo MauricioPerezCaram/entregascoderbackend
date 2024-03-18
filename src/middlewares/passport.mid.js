@@ -63,38 +63,38 @@ passport.use(
   )
 );
 
-passport.use(
-  "google",
-  new GoogleStrategy(
-    {
-      passReqToCallback: true,
-      clientID: GOOGLE_ID,
-      clientSecret: GOOGLE_CLIENT,
-      callbackURL: "http://localhost:8080/api/sessions/google/callback",
-    },
-    async (req, accessToken, refreshToken, profile, done) => {
-      try {
-        console.log(profile);
-        let user = await users.readByEmail(profile.id);
-        if (user) {
-          req.session.email = user.email;
-          req.session.role = user.role;
-          return done(null, user);
-        } else {
-          user = {
-            email: profile.id,
-          };
-          user = await users.create(user);
-          req.session.email = user.email;
-          req.session.role = user.role;
-          return done(null, user);
-        }
-      } catch (error) {
-        return done(error);
-      }
-    }
-  )
-);
+// passport.use(
+//   "google",
+//   new GoogleStrategy(
+//     {
+//       passReqToCallback: true,
+//       clientID: GOOGLE_ID,
+//       clientSecret: GOOGLE_CLIENT,
+//       callbackURL: "http://localhost:8080/api/sessions/google/callback",
+//     },
+//     async (req, accessToken, refreshToken, profile, done) => {
+//       try {
+//         console.log(profile);
+//         let user = await users.readByEmail(profile.id);
+//         if (user) {
+//           req.session.email = user.email;
+//           req.session.role = user.role;
+//           return done(null, user);
+//         } else {
+//           user = {
+//             email: profile.id,
+//           };
+//           user = await users.create(user);
+//           req.session.email = user.email;
+//           req.session.role = user.role;
+//           return done(null, user);
+//         }
+//       } catch (error) {
+//         return done(error);
+//       }
+//     }
+//   )
+// );
 
 passport.use(
   "jwt",
