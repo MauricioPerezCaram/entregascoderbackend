@@ -22,7 +22,7 @@ export default class ProductsRouter extends CustomRouter {
     );
     this.read("/", ["PUBLIC"], read);
     this.read("/:pid", ["PUBLIC"], readOne);
-    this.update("/:pid", ["ADMIN", "PREM"], update);
-    this.destroy("/:pid", ["ADMIN", "PREM"], destroy);
+    this.update("/:pid", ["PUBLIC", "PREM"], update);
+    this.destroy("/:pid", ["PUBLIC", "PREM"], destroy);
   }
 }

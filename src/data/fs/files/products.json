@@ -33,5 +33,33 @@
     "photo": "f123s",
     "price": 250,
     "stock": 10
+  },
+  {
+    "_id": "799c36edf696c2d28c531756",
+    "title": "Desde FS repository",
+    "photo": "f123s",
+    "price": 250,
+    "stock": 10
+  },
+  {
+    "_id": "1596d0d589bc6a208dab264f",
+    "title": "Desde FS repository",
+    "photo": "f123s",
+    "price": 250,
+    "stock": 10
+  },
+  {
+    "_id": "2b90176cb182016e2bafd2b5",
+    "title": "Desde FS repository",
+    "photo": "f123s",
+    "price": 250,
+    "stock": 10
+  },
+  {
+    "_id": "025d89c7b985ae1e55308234",
+    "title": "Desde FS repository",
+    "photo": "f123s",
+    "price": 250,
+    "stock": 10
   }
 ]

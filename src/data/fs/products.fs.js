@@ -25,18 +25,11 @@ class ProductsManager {
   }
   async create(data) {
     try {
-      const product = {
-        id: crypto.randomBytes(12).toString("hex"),
-        title: data.title,
-        photo: data.photo,
-        price: data.price || 10,
-        stock: data.stock || 50,
-      };
-      this.products.push(product);
+      this.products.push(data);
       const jsonData = JSON.stringify(this.products, null, 2);
       await fs.promises.writeFile(this.path, jsonData);
-      console.log("create " + product.id);
-      return product;
+      console.log("create " + data.id);
+      return data;
     } catch (error) {
       console.log(error.message);
       return error.message;
@@ -57,7 +50,7 @@ class ProductsManager {
   }
   readOne(id) {
     try {
-      const one = this.products.find((each) => each.id === id);
+      const one = this.products.find((each) => each._id === id);
       if (!one) {
         throw new Error("No hay producto con el id " + id);
       } else {

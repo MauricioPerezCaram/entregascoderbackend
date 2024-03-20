@@ -1,7 +1,7 @@
-// import argsUtil from "../utils/args.util.js"
-// console.log(argsUtil);
+import argsUtil from "../utils/args.util.js";
+console.log(argsUtil);
 
-const enviroment = "prod";
+const enviroment = argsUtil.env;
 
 let dao = {};
 
