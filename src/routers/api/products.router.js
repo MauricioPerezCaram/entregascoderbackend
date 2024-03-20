@@ -15,9 +15,9 @@ export default class ProductsRouter extends CustomRouter {
   init() {
     this.create(
       "/",
-      ["ADMIN", "PREM"],
-      passCallBackMid("jwt"),
-      isAdmin,
+      ["PUBLIC", "PREM"],
+      // passCallBackMid("jwt"),
+      // isAdmin,
       create
     );
     this.read("/", ["PUBLIC"], read);

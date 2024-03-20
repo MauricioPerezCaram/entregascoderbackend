@@ -26,5 +26,12 @@
     "photo": "https://www.educima.com/imagen-numero-4-dl20175.jpg",
     "price": 10,
     "stock": 50
+  },
+  {
+    "id": "a887224718590033cfb032ae",
+    "title": "Desde fs connected",
+    "photo": "f123s",
+    "price": 250,
+    "stock": 10
   }
 ]

@@ -1,5 +1,6 @@
 import fs from "fs";
 import crypto from "crypto";
+import notFoundOne from "../../utils/notFoundOne.utils.js";
 
 class ProductsManager {
   static #perGain = 0.3;
@@ -22,7 +23,7 @@ class ProductsManager {
     this.products = [];
     this.init();
   }
-  async createProduct(data) {
+  async create(data) {
     try {
       const product = {
         id: crypto.randomBytes(12).toString("hex"),
@@ -35,13 +36,13 @@ class ProductsManager {
       const jsonData = JSON.stringify(this.products, null, 2);
       await fs.promises.writeFile(this.path, jsonData);
       console.log("create " + product.id);
-      return product.id;
+      return product;
     } catch (error) {
       console.log(error.message);
       return error.message;
     }
   }
-  readProducts() {
+  read({ filter, options }) {
     try {
       if (this.products.length === 0) {
         throw new Error("No hay productos");
@@ -54,7 +55,7 @@ class ProductsManager {
       return error.message;
     }
   }
-  readProductById(id) {
+  readOne(id) {
     try {
       const one = this.products.find((each) => each.id === id);
       if (!one) {
@@ -70,46 +71,32 @@ class ProductsManager {
       return error.message;
     }
   }
-  async destroyProductById(id) {
+
+  async update(pid, data) {
     try {
-      let one = this.products.find((each) => each.id === id);
-      if (!one) {
-        throw new Error("No hay producto para borrar con el id " + id);
-      } else {
-        this.products = this.products.filter((each) => each.id !== id);
-        const jsonData = JSON.stringify(this.products, null, 2);
-        await fs.promises.writeFile(this.path, jsonData);
-        console.log("Eliminado el producto con id " + id);
-        return id;
+      const one = this.readOne(pid);
+      notFoundOne(one);
+      for (let each in data) {
+        one[each] = data[each];
       }
+      const jsonData = JSON.stringify(this.products, null, 2);
+      await fs.promises.writeFile(this.path, jsonData);
+      return one;
     } catch (error) {
-      console.log(error.message);
-      return error.message;
+      throw error;
     }
   }
 
-  async updateProduct(quantity, pid) {
+  async destroy(id) {
     try {
-      const one = this.readProductById(pid);
-      if (one) {
-        if (one.stock >= quantity) {
-          one.stock = one.stock - quantity;
-          ProductsManager.#totalGain =
-            ProductsManager.#totalGain +
-            one.price * quantity * ProductsManager.#perGain;
-          const jsonData = JSON.stringify(this.products, null, 2);
-          await fs.promises.writeFile(this.path, jsonData);
-          console.log("Stock disponible " + one.stock);
-          return one.stock;
-        } else {
-          throw new Error("No hay stock");
-        }
-      } else {
-        throw new Error("No existe ese producto");
-      }
+      const one = this.readOne(id);
+      notFoundOne(one);
+      this.products = this.products.filter((each) => each._id !== id);
+      const jsonData = JSON.stringify(this.products, null, 2);
+      await fs.promises.writeFile(this.path, jsonData);
+      return one;
     } catch (error) {
-      console.log(error.message);
-      return error.message;
+      throw error;
     }
   }
 }
