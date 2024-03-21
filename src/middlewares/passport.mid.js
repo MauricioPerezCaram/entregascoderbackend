@@ -3,7 +3,7 @@ import { Strategy as LocalStrategy } from "passport-local";
 import { Strategy as GoogleStrategy } from "passport-google-oauth2";
 import { ExtractJwt, Strategy as JwtStrategy } from "passport-jwt";
 import { createHash, verifyHash } from "../utils/hash.utils.js";
-import { users } from "../data/mongo/manager.mongo.js";
+import users from "../data/mongo/manager.mongo.js";
 import { createToken } from "../utils/token.utils.js";
 
 const { GOOGLE_ID, GOOGLE_CLIENT, SECRET } = process.env;
@@ -96,29 +96,29 @@ passport.use(
 //   )
 // );
 
-passport.use(
-  "jwt",
-  new JwtStrategy(
-    {
-      jwtFromRequest: ExtractJwt.fromExtractors([
-        (req) => req?.cookies["token"],
-      ]),
-      secretOrKey: SECRET,
-    },
-    async (payload, done) => {
-      try {
-        const user = await users.readByEmail(payload.email);
-        if (user) {
-          user.password = null;
-          return done(null, user);
-        } else {
-          return done(null, false, info);
-        }
-      } catch (error) {
-        return done(error);
-      }
-    }
-  )
-);
+// passport.use(
+//   "jwt",
+//   new JwtStrategy(
+//     {
+//       jwtFromRequest: ExtractJwt.fromExtractors([
+//         (req) => req?.cookies["token"],
+//       ]),
+//       secretOrKey: SECRET,
+//     },
+//     async (payload, done) => {
+//       try {
+//         // const user = await users.readByEmail(payload.email);
+//         if (user) {
+//           user.password = null;
+//           return done(null, user);
+//         } else {
+//           return done(null, false, info);
+//         }
+//       } catch (error) {
+//         return done(error);
+//       }
+//     }
+//   )
+// );
 
 export default passport;

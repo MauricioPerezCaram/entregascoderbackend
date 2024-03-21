@@ -21,7 +21,7 @@ class MongoManager {
     try {
       const all = await this.model.paginate(filter, options);
       if (all.totalDocs === 0) {
-        const error = new Error("No hay documentos");
+        const error = new Error("No hay productos");
         error.statusCode = 404;
         throw error;
       }
@@ -131,9 +131,9 @@ class MongoManager {
   }
 }
 
-const users = new MongoManager(User);
-const products = new MongoManager(Product);
-const orders = new MongoManager(Order);
+// const users = new MongoManager(User);
+// const products = new MongoManager(Product);
+// const orders = new MongoManager(Order);
 
-export { users, products, orders };
+// export { users, products, orders };
 export default MongoManager;

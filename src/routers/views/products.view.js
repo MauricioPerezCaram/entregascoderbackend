@@ -1,6 +1,6 @@
 import { Router } from "express";
 
-import { products } from "../../data/mongo/manager.mongo.js";
+import products from "../../data/mongo/manager.mongo.js";
 
 import passCallBack from "../../middlewares/passCallBack.mid.js";
 import isAdmin from "../../middlewares/isAdmin.mid.js";
