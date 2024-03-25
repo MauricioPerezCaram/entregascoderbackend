@@ -1,41 +1,40 @@
-import { users } from "../data/mongo/manager.mongo.js";
-import sendEmail from "../utils/sendEmail.utils.js";
+import repository from "../repositories/users.rep.js";
 
 class UsersController {
   constructor() {
-    this.model = users;
+    this.repository = repository;
   }
 
   create = async (data) => {
     try {
-      const response = await this.model.create(data);
+      const response = await this.repository.create(data);
       return response;
     } catch (error) {
       throw error;
     }
   };
 
-  read = async ({ filter, orderAndPaginate }) => {
+  read = async ({ filter, options }) => {
     try {
-      const response = await this.model.read({ filter, orderAndPaginate });
+      const response = await this.repository.read({ filter, options });
       return response;
     } catch (error) {
       throw error;
     }
   };
 
-  readOne = async (uid) => {
+  readOne = async (pid) => {
     try {
-      const response = await this.model.readOne(uid);
+      const response = await this.repository.readOne(pid);
       return response;
     } catch (error) {
       throw error;
     }
   };
 
-  update = async (uid, data) => {
+  update = async (pid, data) => {
     try {
-      const response = await this.model.update(uid, data);
+      const response = await this.repository.update(pid, data);
       return response;
     } catch (error) {
       throw error;
@@ -44,16 +43,8 @@ class UsersController {
 
   destroy = async (pid) => {
     try {
-      const response = await this.model.destroy(uid);
+      const response = await this.repository.destroy(pid);
       return response;
-    } catch (error) {
-      throw error;
-    }
-  };
-
-  register = async (data) => {
-    try {
-      await sendEmail(data);
     } catch (error) {
       throw error;
     }
