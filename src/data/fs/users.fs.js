@@ -1,7 +1,7 @@
 import fs from "fs";
-import crypto from "crypto";
+import notFoundOne from "../../utils/notFoundOne.utils.js";
 
-class UsersManager {
+class Usersmanager {
   init() {
     try {
       const exists = fs.existsSync(this.path);
@@ -20,85 +20,76 @@ class UsersManager {
     this.users = [];
     this.init();
   }
-  async createUser(data) {
+  async create(data) {
     try {
-      const user = {
-        id: crypto.randomBytes(12).toString("hex"),
-        name: data.name,
-        photo: data.photo,
-        email: data.email,
-      };
-      this.users.push(user);
+      this.users.push(data);
       const jsonData = JSON.stringify(this.users, null, 2);
       await fs.promises.writeFile(this.path, jsonData);
-      console.log("create " + user.id);
-      return user.id;
+      console.log("create " + data.id);
+      return data;
     } catch (error) {
-      throw error;
+      console.log(error.message);
+      return error.message;
     }
   }
-  readUsers() {
+  read({ filter, options }) {
     try {
       if (this.users.length === 0) {
-        throw new Error("No hay usuarios");
+        throw new Error("No hay productos");
       } else {
         console.log(this.users);
         return this.users;
       }
     } catch (error) {
-      throw error;
+      console.log(error.message);
+      return error.message;
     }
   }
-  readUsersById(id) {
+  readOne(id) {
     try {
-      const one = this.users.find((each) => each.id === id);
+      const one = this.users.find((each) => each._id === id);
       if (!one) {
-        throw new Error("No hay usuario con el id " + id);
+        throw new Error("No hay producto con el id " + id);
       } else {
         console.log(
-          "Leer el usuario con id " + id + " " + JSON.stringify(one, null, 2)
+          "Leer el producto con id " + id + " " + JSON.stringify(one, null, 2)
         );
         return one;
       }
     } catch (error) {
-      throw error;
+      console.log(error.message);
+      return error.message;
     }
   }
-  async destroyUserById(id) {
+
+  async update(pid, data) {
     try {
-      let one = this.users.find((each) => each.id === id);
-      if (!one) {
-        throw new Error("No hay usuario para borrar con el id " + id);
-      } else {
-        this.users = this.users.filter((each) => each.id !== id);
-        const jsonData = JSON.stringify(this.users, null, 2);
-        await fs.promises.writeFile(this.path, jsonData);
-        console.log("Eliminado el usuario con id " + id);
-        return id;
+      const one = this.readOne(pid);
+      notFoundOne(one);
+      for (let each in data) {
+        one[each] = data[each];
       }
+      const jsonData = JSON.stringify(this.users, null, 2);
+      await fs.promises.writeFile(this.path, jsonData);
+      return one;
     } catch (error) {
       throw error;
     }
   }
 
-  async update(id, data) {
+  async destroy(id) {
     try {
-      let userToUpdate = this.users.find((each) => each.id === id);
-      if (!userToUpdate) {
-        throw new Error("No hay usuario con ese ID para cambiar " + id);
-      } else {
-        userToUpdate.name = data.newname || userToUpdate.name;
-        const jsonData = JSON.stringify(this.users, null, 2);
-        await fs.promises.writeFile(this.path, jsonData);
-
-        console.log("Usuario actualizado con id " + id);
-        return id;
-      }
+      const one = this.readOne(id);
+      notFoundOne(one);
+      this.users = this.users.filter((each) => each._id !== id);
+      const jsonData = JSON.stringify(this.users, null, 2);
+      await fs.promises.writeFile(this.path, jsonData);
+      return one;
     } catch (error) {
       throw error;
     }
   }
 }
 
-const users = new UsersManager("./src/data/fs/files/users.json");
+const users = new Usersmanager("./src/data/fs/files/users.json");
 export default users;

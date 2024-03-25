@@ -1,21 +1,20 @@
 import crypto from "crypto";
 import notFoundOne from "../../utils/notFoundOne.utils.js";
 
-class ProductManager {
-  static #products = [];
+class UserManager {
+  static #users = [];
 
   constructor() {}
   async create(data) {
     try {
-      const product = {
+      const user = {
         id: crypto.randomBytes(12).toString("hex"),
-        title: data.title,
+        name: data.name,
         photo: data.photo,
-        price: data.price,
-        stock: data.stock,
+        email: data.email,
       };
-      ProductManager.#products.push(product);
-      return product;
+      UserManager.#users.push(user);
+      return user;
     } catch (error) {
       throw error;
     }
@@ -23,12 +22,12 @@ class ProductManager {
 
   read({ filter, options }) {
     try {
-      if (ProductManager.#products.length === 0) {
+      if (UserManager.#users.length === 0) {
         const error = new Error("NOT FOUND!");
         error.statusCode = 404;
         throw error;
       } else {
-        return ProductManager.#products;
+        return UserManager.#users;
       }
     } catch (error) {
       throw error;
@@ -37,7 +36,7 @@ class ProductManager {
 
   readOne(id) {
     try {
-      const one = ProductManager.#products.find((each) => each.id === id);
+      const one = UserManager.#users.find((each) => each.id === id);
       if (!one) {
         const error = new Error("NOT FOUND!");
         error.statusCode = 404;
@@ -65,9 +64,7 @@ class ProductManager {
     try {
       const one = this.readOne(id);
       notFoundOne(one);
-      ProductManager.#products = ProductManager.#products.filter(
-        (each) => each.id !== id
-      );
+      UserManager.#users = UserManager.#users.filter((each) => each.id !== id);
       return one;
     } catch (error) {
       throw error;
@@ -75,5 +72,5 @@ class ProductManager {
   }
 }
 
-const products = new ProductManager();
-export default products;
+const users = new UserManager();
+export default users;

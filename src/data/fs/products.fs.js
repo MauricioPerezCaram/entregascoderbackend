@@ -1,10 +1,7 @@
 import fs from "fs";
-import crypto from "crypto";
 import notFoundOne from "../../utils/notFoundOne.utils.js";
 
 class ProductsManager {
-  static #perGain = 0.3;
-  static #totalGain = 0;
   init() {
     try {
       const exists = fs.existsSync(this.path);
