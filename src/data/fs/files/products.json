@@ -61,5 +61,12 @@
     "photo": "f123s",
     "price": 250,
     "stock": 10
+  },
+  {
+    "_id": "9f725b639e34699584ae6220",
+    "title": "Desde Mongo connected",
+    "photo": "f123s",
+    "price": 250,
+    "stock": 10
   }
 ]

@@ -3,7 +3,7 @@ import { Strategy as LocalStrategy } from "passport-local";
 import { Strategy as GoogleStrategy } from "passport-google-oauth2";
 import { ExtractJwt, Strategy as JwtStrategy } from "passport-jwt";
 import { createHash, verifyHash } from "../utils/hash.utils.js";
-import users from "../data/mongo/manager.mongo.js";
+import { users } from "../data/mongo/manager.mongo.js";
 import { createToken } from "../utils/token.utils.js";
 
 const { GOOGLE_ID, GOOGLE_CLIENT, SECRET } = process.env;

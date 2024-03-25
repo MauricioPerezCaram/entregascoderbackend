@@ -131,9 +131,9 @@ class MongoManager {
   }
 }
 
-// const users = new MongoManager(User);
-// const products = new MongoManager(Product);
-// const orders = new MongoManager(Order);
+const users = new MongoManager(User);
+const products = new MongoManager(Product);
+const orders = new MongoManager(Order);
 
-// export { users, products, orders };
+export { users, products, orders };
 export default MongoManager;

@@ -37,16 +37,16 @@ usersRouter.get("/", async (req, res, next) => {
 
 usersRouter.get("/new", passCallBack("jwt"), isAdmin, (req, res, next) => {
   try {
-    return res.render("new", { title: "Crea un producto" });
+    return res.render("new", { title: "Crea un usuario" });
   } catch (error) {
     next(error);
   }
 });
 
-usersRouter.get("/:pid", async (req, res, next) => {
+usersRouter.get("/:uid", async (req, res, next) => {
   try {
-    const { pid } = req.params;
-    const one = await users.readOne(pid);
+    const { uid } = req.params;
+    const one = await users.readOne(uid);
     return res.render("detail", {
       product: one,
       title: one.title.toUpperCase(),
