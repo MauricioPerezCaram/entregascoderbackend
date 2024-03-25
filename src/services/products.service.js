@@ -1,7 +1,3 @@
-// import products from "../data/mongo/manager.mongo.js";
-// import dao from "../data/index.factory.js";
-// const { products } = dao;
-
 import repository from "../repositories/products.rep.js";
 
 class ProductsController {
