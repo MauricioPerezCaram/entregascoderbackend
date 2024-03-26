@@ -1,25 +1,22 @@
-import productsService from "../services/products.service.js";
+import service from "../services/products.service.js";
 
 class ProductsController {
   constructor() {
-    this.service = productsService;
+    this.service = service;
   }
-
   create = async (req, res, next) => {
     try {
       const data = req.body;
       const response = await this.service.create(data);
-      // return res.json({ statusCode: 201, response });
       return res.success201(response);
     } catch (error) {
       return next(error);
     }
   };
-
   read = async (req, res, next) => {
     try {
       const options = {
-        limit: req.query.limit || 5,
+        limit: req.query.limit || 8,
         page: req.query.page || 1,
         sort: { title: 1 },
         lean: true,
@@ -37,7 +34,6 @@ class ProductsController {
       return next(error);
     }
   };
-
   readOne = async (req, res, next) => {
     try {
       const { pid } = req.params;
@@ -47,7 +43,6 @@ class ProductsController {
       return next(error);
     }
   };
-
   update = async (req, res, next) => {
     try {
       const { pid } = req.params;
@@ -58,7 +53,6 @@ class ProductsController {
       return next(error);
     }
   };
-
   destroy = async (req, res, next) => {
     try {
       const { pid } = req.params;

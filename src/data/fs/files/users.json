@@ -19,12 +19,17 @@
   },
   {
     "_id": "e24bec247b6e84383d255371",
-    "name": "nuevo factory",
+    "name": "updateado",
     "photo": "https://cdn-icons-png.flaticon.com/512/9131/9131529.png"
   },
   {
     "_id": "61040f5494526cb19adb8d2c",
     "name": "updateado",
+    "photo": "https://cdn-icons-png.flaticon.com/512/9131/9131529.png"
+  },
+  {
+    "_id": "9fe370d31d941f6f846387e8",
+    "name": "FS",
     "photo": "https://cdn-icons-png.flaticon.com/512/9131/9131529.png"
   }
 ]

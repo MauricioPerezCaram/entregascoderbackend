@@ -7,6 +7,7 @@ class UserDTO {
       (this._id = crypto.randomBytes(12).toString("hex"));
     this.name = data.name;
     this.photo = data.photo;
+    this.email = data.email;
   }
 }
 

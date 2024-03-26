@@ -23,27 +23,27 @@ class UsersController {
     }
   };
 
-  readOne = async (pid) => {
+  readOne = async (id) => {
     try {
-      const response = await this.repository.readOne(pid);
+      const response = await this.repository.readOne(id);
       return response;
     } catch (error) {
       throw error;
     }
   };
 
-  update = async (pid, data) => {
+  update = async (id, data) => {
     try {
-      const response = await this.repository.update(pid, data);
+      const response = await this.repository.update(id, data);
       return response;
     } catch (error) {
       throw error;
     }
   };
 
-  destroy = async (pid) => {
+  destroy = async (id) => {
     try {
-      const response = await this.repository.destroy(pid);
+      const response = await this.repository.destroy(id);
       return response;
     } catch (error) {
       throw error;
