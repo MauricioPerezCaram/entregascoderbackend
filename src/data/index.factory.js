@@ -1,39 +1,45 @@
 import argsUtil from "../utils/args.util.js";
-console.log(argsUtil);
+import dbConnection from "../utils/db.js";
 
-const enviroment = argsUtil.env;
+const environment = argsUtil.env;
 
 let dao = {};
 
-switch (enviroment) {
+switch (environment) {
   case "test":
-    console.log("MEMORY connected");
+    //vamos a usar MEMORY
+    console.log("MEMORY CONNECTED");
     const { default: productsMemory } = await import(
       "./memory/products.memory.js"
     );
     const { default: usersMemory } = await import("./memory/users.memory.js");
-    dao = { products: productsMemory };
-    dao = { users: usersMemory };
-
+    dao = { products: productsMemory, users: usersMemory };
     break;
+
   case "dev":
-    console.log("FS connected");
+    //vamos a usar FS
+    console.log("FS CONNECTED");
     const { default: productsFs } = await import("./fs/products.fs.js");
     const { default: usersFs } = await import("./fs/users.fs.js");
-    dao = { products: productsFs };
-    dao = { users: usersFs };
+    dao = {
+      products: productsFs,
+      users: usersFs,
+    };
     break;
+
   case "prod":
-    console.log("MONGO connected");
+    //vamos a usar MONGO
+    //aca es necesario configurar la conexión de mongo
+    dbConnection().then(() => console.log("MONGO CONNECTED"));
     const { default: productsMongo } = await import(
       "./mongo/products.mongo.js"
     );
     const { default: usersMongo } = await import("./mongo/users.mongo.js");
-    dao = { products: productsMongo };
-    dao = { users: usersMongo };
-    break;
 
-  default:
+    dao = {
+      products: productsMongo,
+      users: usersMongo,
+    };
     break;
 }
 
