@@ -1,7 +1,7 @@
 import { Router } from "express";
 import jwt from "jsonwebtoken";
 import dao from "../data/index.factory.js";
-// const { users } = dao;
+const { users } = dao;
 
 export default class CustomRouter {
   constructor() {
@@ -74,7 +74,7 @@ export default class CustomRouter {
             (role === 1 && arrayOfPolicies.includes("ADMIN")) ||
             (role === 2 && arrayOfPolicies.includes("PREM"))
           ) {
-            const user = await users.readByEmail(email);
+            const user = await users.readOne(email);
             req.user = user;
             return next();
           } else return res.error403();
