@@ -16,29 +16,29 @@ export default class UsersRouter extends CustomRouter {
   init() {
     this.create(
       "/",
-      ["ADMIN", "PREM"],
-      passCallBackMid("jwt"),
-      propsUsers,
+      ["PUBLIC", "PREM"],
+      // passCallBackMid("jwt"),
+      // isAdmin,
       create
     );
 
     this.read("/", ["PUBLIC"], read);
 
-    this.read("/:uid", ["ADMIN", "PREM"], readOne);
+    this.read("/:uid", ["PUBLIC", "PREM"], readOne);
 
     this.update(
       "/:uid",
-      ["ADMIN", "PREM"],
-      passCallBackMid("jwt"),
-      isAdmin,
+      ["PUBLIC", "PREM"],
+      // passCallBackMid("jwt"),
+      // isAdmin,
       update
     );
 
     this.destroy(
       "/:uid",
-      [("ADMIN", "PREM")],
-      passCallBackMid("jwt"),
-      isAdmin,
+      [("PUBLIC", "PREM")],
+      // passCallBackMid("jwt"),
+      // isAdmin,
       destroy
     );
   }

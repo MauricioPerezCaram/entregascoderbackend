@@ -1,8 +1,8 @@
-import users from "../data/mongo/manager.mongo.js";
+import usersService from "../services/users.service.js";
 
 class UsersController {
   constructor() {
-    this.service = users;
+    this.service = usersService;
   }
 
   create = async (req, res, next) => {

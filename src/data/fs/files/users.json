@@ -16,5 +16,15 @@
     "name": "Alfredo",
     "photo": "https://static.vecteezy.com/system/resources/previews/004/477/307/non_2x/young-man-with-beard-avatar-character-icon-free-vector.jpg",
     "email": "Email Alfredo"
+  },
+  {
+    "_id": "e24bec247b6e84383d255371",
+    "name": "nuevo factory",
+    "photo": "https://cdn-icons-png.flaticon.com/512/9131/9131529.png"
+  },
+  {
+    "_id": "61040f5494526cb19adb8d2c",
+    "name": "updateado",
+    "photo": "https://cdn-icons-png.flaticon.com/512/9131/9131529.png"
   }
 ]
