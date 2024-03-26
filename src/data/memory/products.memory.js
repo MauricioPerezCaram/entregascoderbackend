@@ -49,9 +49,9 @@ class ProductManager {
       throw error;
     }
   }
-  async update(pid, data) {
+  async update(id, data) {
     try {
-      const one = this.readOne(pid);
+      const one = this.readOne(id);
       notFoundOne(one);
       for (let each in data) {
         one[each] = data[each];
