@@ -1,20 +1,21 @@
 import crypto from "crypto";
 import notFoundOne from "../../utils/notFoundOne.utils.js";
 
-class UserManager {
-  static #users = [];
+class ProductManager {
+  static #products = [];
 
   constructor() {}
   async create(data) {
     try {
-      const user = {
+      const product = {
         id: crypto.randomBytes(12).toString("hex"),
-        name: data.name,
+        title: data.title,
         photo: data.photo,
-        email: data.email,
+        price: data.price,
+        stock: data.stock,
       };
-      UserManager.#users.push(user);
-      return user;
+      ProductManager.#products.push(product);
+      return product;
     } catch (error) {
       throw error;
     }
@@ -22,12 +23,12 @@ class UserManager {
 
   read({ filter, options }) {
     try {
-      if (UserManager.#users.length === 0) {
+      if (ProductManager.#products.length === 0) {
         const error = new Error("NOT FOUND!");
         error.statusCode = 404;
         throw error;
       } else {
-        return UserManager.#users;
+        return ProductManager.#products;
       }
     } catch (error) {
       throw error;
@@ -36,7 +37,7 @@ class UserManager {
 
   readOne(id) {
     try {
-      const one = UserManager.#users.find((each) => each.id === id);
+      const one = ProductManager.#products.find((each) => each.id === id);
       if (!one) {
         const error = new Error("NOT FOUND!");
         error.statusCode = 404;
@@ -48,9 +49,9 @@ class UserManager {
       throw error;
     }
   }
-  async update(pid, data) {
+  async update(id, data) {
     try {
-      const one = this.readOne(pid);
+      const one = this.readOne(id);
       notFoundOne(one);
       for (let each in data) {
         one[each] = data[each];
@@ -64,7 +65,9 @@ class UserManager {
     try {
       const one = this.readOne(id);
       notFoundOne(one);
-      UserManager.#users = UserManager.#users.filter((each) => each.id !== id);
+      ProductManager.#products = ProductManager.#products.filter(
+        (each) => each.id !== id
+      );
       return one;
     } catch (error) {
       throw error;
@@ -72,5 +75,5 @@ class UserManager {
   }
 }
 
-const users = new UserManager();
-export default users;
+const products = new ProductManager();
+export default products;
