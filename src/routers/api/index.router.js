@@ -7,9 +7,9 @@ import ProductsRouter from "./products.router.js";
 // import OrdersRouter from "./orders.router.js";
 // import cookiesRouter from "./cookies.router.api.js";
 import sessionRouter from "./sessions.api.router.js";
-// import passport from "../../middlewares/passport.mid.js";
-
-// import passCallBackMid from "../../middlewares/passCallBack.mid.js";
+import passport from "../../middlewares/passport.mid.js";
+import sendSms from "../../utils/sendSMS.utils.js";
+import passCallBackMid from "../../middlewares/passCallBack.mid.js";
 
 const product = new ProductsRouter();
 const user = new UsersRouter();
@@ -28,6 +28,17 @@ export default class ApiRouter extends CustomRouter {
           const child = fork("./src/utils/sum.util.js");
           child.send("start");
           child.on("message", (result) => res.success200(result));
+        } catch (error) {
+          return next(error);
+        }
+      });
+      this.use("/sms", async (req, res, next) => {
+        try {
+          await sendSms("+542612458545");
+          return res.json({
+            statusCode: 200,
+            message: "SMS enviado",
+          });
         } catch (error) {
           return next(error);
         }

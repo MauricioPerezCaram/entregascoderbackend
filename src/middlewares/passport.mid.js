@@ -13,12 +13,10 @@ passport.use(
       try {
         let one = await repository.readByEmail(email);
         if (one) {
-          return done(null, false, {
-            message: "El correo electrónico ya está registrado",
-            statusCode: 401,
-          });
+          return done(null, false, { statusCode: 401 });
         } else {
           const user = await repository.create(req.body);
+          console.log(user);
           return done(null, user);
         }
       } catch (error) {
