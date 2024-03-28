@@ -16,11 +16,11 @@ class OrdersRep {
   read = async ({ filter, options }) =>
     await this.model.read({ filter, options });
 
-  readOne = async (id) => await this.model.readOne(id);
+  readOne = async (oid) => await this.model.readOne(oid);
 
-  update = async (id, data) => await this.model.update(id, data);
+  update = async (oid, data) => await this.model.update(oid, data);
 
-  destroy = async (id) => await this.model.destroy(id);
+  destroy = async (oid) => await this.model.destroy(oid);
 }
 
 const repository = new OrdersRep();
