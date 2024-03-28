@@ -5,8 +5,8 @@ class OrderDTO {
   constructor(data) {
     argsUtil.env !== "prod" &&
       (this._id = crypto.randomBytes(12).toString("hex"));
-    this.uid = data.uid;
-    this.pid = data.pid;
+    this.user_id = data.user_id;
+    this.product_id = data.product_id;
   }
 }
 

@@ -23,27 +23,27 @@ class OrdersController {
     }
   };
 
-  readOne = async (pid) => {
+  readOne = async (oid) => {
     try {
-      const response = await this.repository.readOne(pid);
+      const response = await this.repository.readOne(oid);
       return response;
     } catch (error) {
       throw error;
     }
   };
 
-  update = async (pid, data) => {
+  update = async (oid, data) => {
     try {
-      const response = await this.repository.update(pid, data);
+      const response = await this.repository.update(oid, data);
       return response;
     } catch (error) {
       throw error;
     }
   };
 
-  destroy = async (pid) => {
+  destroy = async (oid) => {
     try {
-      const response = await this.repository.destroy(pid);
+      const response = await this.repository.destroy(oid);
       return response;
     } catch (error) {
       throw error;

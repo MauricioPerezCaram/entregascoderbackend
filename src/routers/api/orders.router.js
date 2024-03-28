@@ -13,16 +13,10 @@ import {
 
 export default class OrdersRouter extends CustomRouter {
   init() {
-    this.create(
-      "/",
-      ["ADMIN", "PREM"],
-      passCallBackMid("jwt"),
-      isAdmin,
-      create
-    );
+    this.create("/", ["PUBLIC", "PREM"], create);
     this.read("/", ["PUBLIC"], read);
-    this.read("/:pid", ["PUBLIC"], readOne);
-    this.update("/:pid", ["ADMIN", "PREM"], update);
-    this.destroy("/:pid", ["ADMIN", "PREM"], destroy);
+    this.read("/:oid", ["PUBLIC"], readOne);
+    this.update("/:oid", ["PUBLIC", "PREM"], update);
+    this.destroy("/:oid", ["PUBLIC", "PREM"], destroy);
   }
 }
