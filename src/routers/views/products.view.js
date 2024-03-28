@@ -3,7 +3,6 @@ import { Router } from "express";
 import service from "../../services/products.service.js";
 
 import passCallBack from "../../middlewares/passCallBack.mid.js";
-import isAdmin from "../../middlewares/isAdmin.mid.js";
 
 const productsRouter = Router();
 

@@ -1,6 +1,5 @@
 import { Router } from "express";
-
-import orders from "../../data/mongo/manager.mongo.js";
+import service from "../../services/orders.service.js";
 
 const ordersRouter = Router();
 
@@ -19,7 +18,7 @@ ordersRouter.get("/", async (req, res, next) => {
     if (req.query.sort === "desc") {
       options.sort.title = "desc";
     }
-    const all = await orders.read({ filter, options });
+    const all = await service.read({ filter, options });
     return res.render("orders", {
       orders: all.docs,
       next: all.nextPage,
@@ -35,7 +34,7 @@ ordersRouter.get("/", async (req, res, next) => {
 ordersRouter.get("/:oid", async (req, res, next) => {
   try {
     const { oid } = req.params;
-    const one = await orders.readOne(oid);
+    const one = await service.readOne(oid);
     return res.render("detail", {
       order: one,
       title: one.title.toUpperCase(),
