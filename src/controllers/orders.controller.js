@@ -36,8 +36,8 @@ class OrdersController {
   };
   readOne = async (req, res, next) => {
     try {
-      const { eid } = req.params;
-      const one = await this.service.readOne(eid);
+      const { oid } = req.params;
+      const one = await this.service.readOne(oid);
       return res.success200(one);
     } catch (error) {
       return next(error);
@@ -45,9 +45,9 @@ class OrdersController {
   };
   update = async (req, res, next) => {
     try {
-      const { eid } = req.params;
+      const { oid } = req.params;
       const data = req.body;
-      const response = await this.service.update(eid, data);
+      const response = await this.service.update(oid, data);
       return res.success200(response);
     } catch (error) {
       return next(error);
@@ -55,8 +55,8 @@ class OrdersController {
   };
   destroy = async (req, res, next) => {
     try {
-      const { eid } = req.params;
-      const response = await this.service.destroy(eid);
+      const { oid } = req.params;
+      const response = await this.service.destroy(oid);
       return res.success200(response);
     } catch (error) {
       return next(error);

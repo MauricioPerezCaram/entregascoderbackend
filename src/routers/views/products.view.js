@@ -35,7 +35,7 @@ productsRouter.get("/", async (req, res, next) => {
   }
 });
 
-productsRouter.get("/new", passCallBack("jwt"), isAdmin, (req, res, next) => {
+productsRouter.get("/new", passCallBack("jwt"), (req, res, next) => {
   try {
     return res.render("new", { title: "Crea un producto" });
   } catch (error) {

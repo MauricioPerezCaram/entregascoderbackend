@@ -1,6 +1,6 @@
 import { Router } from "express";
 
-import users from "../../data/mongo/manager.mongo.js";
+import service from "../../services/users.service.js";
 
 import passCallBack from "../../middlewares/passCallBack.mid.js";
 import isAdmin from "../../middlewares/isAdmin.mid.js";
@@ -22,7 +22,7 @@ usersRouter.get("/", async (req, res, next) => {
     if (req.query.sort === "desc") {
       options.sort.title = "desc";
     }
-    const all = await users.read({ filter, options });
+    const all = await service.read({ filter, options });
     return res.render("users", {
       users: all.docs,
       next: all.nextPage,

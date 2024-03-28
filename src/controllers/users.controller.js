@@ -36,8 +36,8 @@ class UsersController {
   };
   readOne = async (req, res, next) => {
     try {
-      const { id } = req.params;
-      const one = await this.service.readOne(id);
+      const { uid } = req.params;
+      const one = await this.service.readOne(uid);
       return res.success200(one);
     } catch (error) {
       return next(error);
