@@ -1,9 +1,8 @@
 import { Router } from "express";
 
-import products from "../../data/mongo/manager.mongo.js";
+import service from "../../services/products.service.js";
 
 import passCallBack from "../../middlewares/passCallBack.mid.js";
-import isAdmin from "../../middlewares/isAdmin.mid.js";
 
 const productsRouter = Router();
 
@@ -22,7 +21,7 @@ productsRouter.get("/", async (req, res, next) => {
     if (req.query.sort === "desc") {
       options.sort.title = "desc";
     }
-    const all = await products.read({ filter, options });
+    const all = await service.read({ filter, options });
     return res.render("products", {
       products: all.docs,
       next: all.nextPage,
@@ -35,7 +34,7 @@ productsRouter.get("/", async (req, res, next) => {
   }
 });
 
-productsRouter.get("/new", passCallBack("jwt"), isAdmin, (req, res, next) => {
+productsRouter.get("/new", passCallBack("jwt"), (req, res, next) => {
   try {
     return res.render("new", { title: "Crea un producto" });
   } catch (error) {
@@ -46,7 +45,7 @@ productsRouter.get("/new", passCallBack("jwt"), isAdmin, (req, res, next) => {
 productsRouter.get("/:pid", async (req, res, next) => {
   try {
     const { pid } = req.params;
-    const one = await products.readOne(pid);
+    const one = await service.readOne(pid);
     return res.render("detail", {
       product: one,
       title: one.title.toUpperCase(),
