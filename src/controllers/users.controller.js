@@ -55,8 +55,8 @@ class UsersController {
   };
   destroy = async (req, res, next) => {
     try {
-      const { id } = req.params;
-      const response = await this.service.destroy(id);
+      const { uid } = req.params;
+      const response = await this.service.destroy(uid);
       return res.success200(response);
     } catch (error) {
       return next(error);
