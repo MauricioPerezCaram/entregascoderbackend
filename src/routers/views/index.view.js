@@ -1,6 +1,6 @@
 import CustomRouter from "../CustomRouter.js";
 
-import products from "../../data/mongo/manager.mongo.js";
+import service from "../../services/products.service.js";
 
 import usersRouter from "./users.view.js";
 import sessionsRouter from "./sessions.view.js";
@@ -28,7 +28,7 @@ export default class ViewsRouter extends CustomRouter {
         if (req.query.sort === "desc") {
           options.sort.title = "desc";
         }
-        const all = await products.read({ filter, options });
+        const all = await service.read({ filter, options });
         return res.render("index", {
           products: all.docs,
           next: all.nextPage,
