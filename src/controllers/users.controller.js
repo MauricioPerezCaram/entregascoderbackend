@@ -45,9 +45,9 @@ class UsersController {
   };
   update = async (req, res, next) => {
     try {
-      const { id } = req.params;
+      const { uid } = req.params;
       const data = req.body;
-      const response = await this.service.update(id, data);
+      const response = await this.service.update(uid, data);
       return res.success200(response);
     } catch (error) {
       return next(error);
