@@ -4,7 +4,8 @@ async function sendEmail(data) {
   try {
     const transport = createTransport({
       service: "gmail",
-      port: env.port,
+      port: env.PORT,
+      // port: process.env.PORT,
       auth: {
         user: process.env.GOOGLE_EMAIL,
         pass: process.env.GOOGLE_PASSOWRD,
@@ -14,7 +15,7 @@ async function sendEmail(data) {
       from: `Apple Store Mendoza<${process.env.GOOGLE_EMAIL}>`,
       to: data.email,
       subject: `USUARIO ${data.name.toUpperCase()} REGISTRADO`,
-      html: <h1>Usuario Registrado</h1>,
+      html: "<h1>Usuario Registrado</h1>",
     });
   } catch (error) {
     throw error;

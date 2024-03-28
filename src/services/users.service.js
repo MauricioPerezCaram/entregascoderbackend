@@ -1,4 +1,5 @@
 import repository from "../repositories/users.rep.js";
+import sendEmail from "../utils/sendEmail.utils.js";
 
 class UsersController {
   constructor() {
@@ -45,6 +46,14 @@ class UsersController {
     try {
       const response = await this.repository.destroy(id);
       return response;
+    } catch (error) {
+      throw error;
+    }
+  };
+
+  register = async (data) => {
+    try {
+      await sendEmail(data);
     } catch (error) {
       throw error;
     }

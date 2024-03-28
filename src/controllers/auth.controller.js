@@ -5,8 +5,8 @@ class AuthController {
     this.service = service;
   }
   register = async (req, res, next) => {
-    const { email, name, verifiedCode } = req.user;
-    await this.service.register({ email, name, verifiedCode });
+    const { email, name, password } = req.body;
+    await this.service.register({ email, name, password });
     try {
       return res.json({
         statusCode: 201,
