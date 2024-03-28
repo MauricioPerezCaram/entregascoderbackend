@@ -14,32 +14,14 @@ import {
 
 export default class UsersRouter extends CustomRouter {
   init() {
-    this.create(
-      "/",
-      ["PUBLIC", "PREM"],
-      // passCallBackMid("jwt"),
-      // isAdmin,
-      create
-    );
+    this.create("/", ["PUBLIC", "PREM"], passCallBackMid("jwt"), create);
 
     this.read("/", ["PUBLIC"], read);
 
     this.read("/:uid", ["PUBLIC", "PREM"], readOne);
 
-    this.update(
-      "/:uid",
-      ["PUBLIC", "PREM"],
-      // passCallBackMid("jwt"),
-      // isAdmin,
-      update
-    );
+    this.update("/:uid", ["PUBLIC", "PREM"], passCallBackMid("jwt"), update);
 
-    this.destroy(
-      "/:uid",
-      [("PUBLIC", "PREM")],
-      // passCallBackMid("jwt"),
-      // isAdmin,
-      destroy
-    );
+    this.destroy("/:uid", ["PUBLIC", "PREM"], passCallBackMid("jwt"), destroy);
   }
 }
