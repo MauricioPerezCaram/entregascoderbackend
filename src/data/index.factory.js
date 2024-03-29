@@ -13,7 +13,9 @@ switch (environment) {
       "./memory/products.memory.js"
     );
     const { default: usersMemory } = await import("./memory/users.memory.js");
-    const { default: ordersMemory } = await import("./memory/orders.memory.js");
+    const { default: ordersMemory } = await import(
+      "./memory/ordersManager.memory.js"
+    );
     dao = {
       products: productsMemory,
       users: usersMemory,
