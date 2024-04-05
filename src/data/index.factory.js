@@ -37,8 +37,6 @@ switch (environment) {
     break;
 
   case "prod":
-    //vamos a usar MONGO
-    //aca es necesario configurar la conexión de mongo
     dbConnection().then(() => console.log("MONGO CONNECTED"));
     const { default: productsMongo } = await import(
       "./mongo/products.mongo.js"
