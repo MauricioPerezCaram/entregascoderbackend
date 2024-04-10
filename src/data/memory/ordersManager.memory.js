@@ -89,5 +89,3 @@ orders.create({
   stock: 33,
 });
 orders.create({ title: "Ipad", photo: "Ipad Foto", price: 44, stock: 44 });
-console.log(orders.read());
-console.log(orders.readOne(3));

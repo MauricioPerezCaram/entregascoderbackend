@@ -68,5 +68,12 @@
     "photo": "f123s",
     "price": 250,
     "stock": 10
+  },
+  {
+    "_id": "9c8147959dda5d5e63a31f84",
+    "title": "Updeteado 3",
+    "photo": "f123s",
+    "price": 250,
+    "stock": 10
   }
 ]

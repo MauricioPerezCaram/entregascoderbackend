@@ -1,7 +1,7 @@
 import crypto from "crypto";
 import notFoundOne from "../../utils/notFoundOne.utils.js";
 
-class UserManager {
+class Usersmanager {
   static #users = [];
 
   constructor() {}
@@ -13,30 +13,28 @@ class UserManager {
         photo: data.photo,
         email: data.email,
       };
-      UserManager.#users.push(user);
+      Usersmanager.#users.push(user);
       return user;
     } catch (error) {
       throw error;
     }
   }
-
   read({ filter, options }) {
     try {
-      if (UserManager.#users.length === 0) {
+      if (Usersmanager.#users.length === 0) {
         const error = new Error("NOT FOUND!");
         error.statusCode = 404;
         throw error;
       } else {
-        return UserManager.#users;
+        return Usersmanager.#users;
       }
     } catch (error) {
       throw error;
     }
   }
-
   readOne(id) {
     try {
-      const one = UserManager.#users.find((each) => each.id === id);
+      const one = Usersmanager.#users.find((each) => each.id === id);
       if (!one) {
         const error = new Error("NOT FOUND!");
         error.statusCode = 404;
@@ -48,9 +46,9 @@ class UserManager {
       throw error;
     }
   }
-  async update(id, data) {
+  async update(eid, data) {
     try {
-      const one = this.readOne(id);
+      const one = this.readOne(eid);
       notFoundOne(one);
       for (let each in data) {
         one[each] = data[each];
@@ -64,7 +62,9 @@ class UserManager {
     try {
       const one = this.readOne(id);
       notFoundOne(one);
-      UserManager.#users = UserManager.#users.filter((each) => each.id !== id);
+      Usersmanager.#users = Usersmanager.#users.filter(
+        (each) => each.id !== id
+      );
       return one;
     } catch (error) {
       throw error;
@@ -72,5 +72,5 @@ class UserManager {
   }
 }
 
-const users = new UserManager();
+const users = new Usersmanager();
 export default users;
