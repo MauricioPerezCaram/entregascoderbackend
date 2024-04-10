@@ -14,7 +14,7 @@ import {
 
 export default class UsersRouter extends CustomRouter {
   init() {
-    this.create("/", ["PUBLIC", "PREM"], passCallBackMid("jwt"), create);
+    this.create("/", ["PUBLIC"], create);
 
     this.read("/", ["PUBLIC"], read);
 
