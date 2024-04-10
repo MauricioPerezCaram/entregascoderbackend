@@ -1,4 +1,6 @@
 import service from "../services/users.service.js";
+import CustomError from "../utils/errors/CustomError.js";
+import errors from "../utils/errors/CustomError.js";
 
 class UsersController {
   constructor() {
@@ -10,7 +12,7 @@ class UsersController {
       const response = await this.service.create(data);
       return res.success201(response);
     } catch (error) {
-      return next(error);
+      CustomError.new(errors.notFound);
     }
   };
   read = async (req, res, next) => {
@@ -31,7 +33,7 @@ class UsersController {
       const all = await this.service.read({ filter, options });
       return res.success200(all);
     } catch (error) {
-      return next(error);
+      CustomError.new(errors.notFound);
     }
   };
   readOne = async (req, res, next) => {
@@ -40,7 +42,7 @@ class UsersController {
       const one = await this.service.readOne(uid);
       return res.success200(one);
     } catch (error) {
-      return next(error);
+      CustomError.new(errors.notFound);
     }
   };
   update = async (req, res, next) => {
@@ -50,7 +52,7 @@ class UsersController {
       const response = await this.service.update(uid, data);
       return res.success200(response);
     } catch (error) {
-      return next(error);
+      CustomError.new(errors.notFound);
     }
   };
   destroy = async (req, res, next) => {
@@ -59,7 +61,7 @@ class UsersController {
       const response = await this.service.destroy(uid);
       return res.success200(response);
     } catch (error) {
-      return next(error);
+      CustomError.new(errors.notFound);
     }
   };
 }

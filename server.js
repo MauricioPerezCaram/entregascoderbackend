@@ -10,6 +10,7 @@ import expressSesion from "express-session";
 import sessionFileStore from "session-file-store";
 import cors from "cors";
 import args from "./src/utils/args.util.js";
+import compression from "express-compression";
 
 console.log(env);
 import MongoStore from "connect-mongo";
@@ -88,6 +89,11 @@ server.use(express.json());
 server.use(express.urlencoded({ extended: true }));
 server.use(express.static(__dirname + "/public"));
 server.use(morgan("dev"));
+server.use(
+  compression({
+    brotli: { enabled: true, zlib: {} },
+  })
+);
 
 //endpoints
 const router = new IndexRouter();

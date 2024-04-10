@@ -1,9 +1,10 @@
-function errorHandler(error, req, res, next) {
-  console.log(error);
-  return res.json({
+const errorHandler = (error, req, res, next) => {
+  console.error(error);
+  return res.status(error.statusCode || 500).json({
     statusCode: error.statusCode || 500,
-    message: `${req.method} ${req.url} ${error.message}`,
+    url: `${req.method} ${req.url}`,
+    message: error.message,
   });
-}
+};
 
 export default errorHandler;

@@ -75,5 +75,17 @@
     "photo": "f123s",
     "price": 250,
     "stock": 10
+  },
+  {
+    "_id": "57f8626b4c51a6e4eec3017d",
+    "photo": "f123s",
+    "price": 250,
+    "stock": 10
+  },
+  {
+    "_id": "2b5af7b2d2595336f4379ba0",
+    "photo": "f123s",
+    "price": 250,
+    "stock": 10
   }
 ]

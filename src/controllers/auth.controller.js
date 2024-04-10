@@ -1,4 +1,6 @@
 import service from "../services/users.service.js";
+import CustomError from "../utils/errors/CustomError.js";
+import errors from "../utils/errors/CustomError.js";
 
 class AuthController {
   constructor() {
