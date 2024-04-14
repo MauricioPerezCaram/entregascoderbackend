@@ -31,37 +31,49 @@ class UsersController {
         options.sort.title = "desc";
       }
       const all = await this.service.read({ filter, options });
-      return res.success200(all);
-    } catch (error) {
+      if (all.docs.length > 0) {
+        return res.success200(all);
+      }
       CustomError.new(errors.notFound);
+    } catch (error) {
+      return next(error);
     }
   };
   readOne = async (req, res, next) => {
     try {
       const { uid } = req.params;
       const one = await this.service.readOne(uid);
-      return res.success200(one);
-    } catch (error) {
+      if (one) {
+        return res.success200(one);
+      }
       CustomError.new(errors.notFound);
+    } catch (error) {
+      return next(error);
     }
   };
   update = async (req, res, next) => {
     try {
       const { uid } = req.params;
       const data = req.body;
-      const response = await this.service.update(uid, data);
-      return res.success200(response);
-    } catch (error) {
+      const one = await this.service.update(uid, data);
+      if (one) {
+        return res.success200(one);
+      }
       CustomError.new(errors.notFound);
+    } catch (error) {
+      return next(error);
     }
   };
   destroy = async (req, res, next) => {
     try {
       const { uid } = req.params;
-      const response = await this.service.destroy(uid);
-      return res.success200(response);
-    } catch (error) {
+      const one = await this.service.destroy(uid);
+      if (one) {
+        return res.success200(one);
+      }
       CustomError.new(errors.notFound);
+    } catch (error) {
+      return next(error);
     }
   };
 }

@@ -2,8 +2,8 @@ import { connect } from "mongoose";
 
 const dbConnection = async () => {
   try {
+    console.log("URI de la base de datos:", process.env.DB_LINK);
     await connect(process.env.DB_LINK);
-    console.log("Conectado a la base de datos");
   } catch (error) {
     console.log(error);
   }

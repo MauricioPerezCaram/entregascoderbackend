@@ -31,7 +31,10 @@ class OrdersController {
         options.sort.title = "desc";
       }
       const all = await this.service.read({ filter, options });
-      return res.success200(all);
+      if (all.docs.length > 0) {
+        return res.success200(all);
+      }
+      CustomError.new(errors.notFound);
     } catch (error) {
       return next(error);
     }
@@ -40,7 +43,10 @@ class OrdersController {
     try {
       const { oid } = req.params;
       const one = await this.service.readOne(oid);
-      return res.success200(one);
+      if (one) {
+        return res.success200(one);
+      }
+      CustomError.new(errors.notFound);
     } catch (error) {
       return next(error);
     }
@@ -49,8 +55,11 @@ class OrdersController {
     try {
       const { oid } = req.params;
       const data = req.body;
-      const response = await this.service.update(oid, data);
-      return res.success200(response);
+      const one = await this.service.update(oid, data);
+      if (one) {
+        return res.success200(one);
+      }
+      CustomError.new(errors.notFound);
     } catch (error) {
       return next(error);
     }
@@ -58,8 +67,11 @@ class OrdersController {
   destroy = async (req, res, next) => {
     try {
       const { oid } = req.params;
-      const response = await this.service.destroy(oid);
-      return res.success200(response);
+      const one = await this.service.destroy(oid);
+      if (one) {
+        return res.success200(one);
+      }
+      CustomError.new(errors.notFound);
     } catch (error) {
       return next(error);
     }

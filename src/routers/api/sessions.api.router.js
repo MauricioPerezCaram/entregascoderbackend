@@ -113,7 +113,7 @@ sessionRouter.post("/signout", passCallBack("jwt"), async (req, res, next) => {
   try {
     return res.clearCookie("token").json({
       statusCode: 200,
-      message: "Cerraste sesion correctamente!",
+      message: "Cerraste sesión correctamente!",
     });
   } catch (error) {
     return next(error);

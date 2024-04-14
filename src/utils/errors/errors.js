@@ -3,8 +3,11 @@ const errors = {
   token: { message: "Invalid verified token!", statusCode: 400 },
   auth: { message: "Credenciales invalidas", statusCode: 401 },
   forbidden: { message: "Prohibido", statusCode: 403 },
-  notFound: { message: "No encontrado", statusCode: 404 },
-  fatal: { message: "Fatal", statusCode: 500 },
+  notFound: {
+    message: "Documento no encontrado",
+    statusCode: 404,
+  },
+  fatal: { message: "Error fatal", statusCode: 500 },
 };
 
 export default errors;

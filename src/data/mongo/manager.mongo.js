@@ -1,7 +1,8 @@
-import User from "./models/user.model.js";
-import Product from "./models/products.model.js";
-import Order from "./models/orders.model.js";
-import notFoundOne from "../../utils/notFoundOne.utils.js";
+// import User from "./models/user.model.js";
+// import Product from "./models/products.model.js";
+// import Order from "./models/orders.model.js";
+import CustomError from "../../utils/errors/CustomError.js";
+import errors from "../../utils/errors/errors.js";
 import { Types } from "mongoose";
 
 class MongoManager {
@@ -78,7 +79,6 @@ class MongoManager {
   async readOne(id) {
     try {
       const one = await this.model.findById(id);
-      notFoundOne(one);
       return one;
     } catch (error) {
       throw error;
@@ -88,7 +88,6 @@ class MongoManager {
   async readByEmail(email) {
     try {
       const one = await this.model.findOne({ email });
-      // notFoundOne(one);
       return one;
     } catch (error) {
       throw error;
@@ -99,9 +98,9 @@ class MongoManager {
     try {
       const opt = { new: true };
       const one = await this.model.findByIdAndUpdate(id, data, opt);
-      notFoundOne(one);
       return one;
     } catch (error) {
+      CustomError.new(errors.notFound);
       throw error;
     }
   }
@@ -109,7 +108,6 @@ class MongoManager {
   async destroy(id) {
     try {
       const one = await this.model.findByIdAndDelete(id);
-      notFoundOne(one);
       return one;
     } catch (error) {
       throw error;

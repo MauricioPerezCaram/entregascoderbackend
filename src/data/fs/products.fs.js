@@ -1,6 +1,6 @@
 import fs from "fs";
-import notFoundOne from "../../utils/notFoundOne.utils.js";
-
+import CustomError from "../../utils/errors/CustomError.js";
+import errors from "../../utils/errors/errors.js";
 class ProductsManager {
   init() {
     try {
