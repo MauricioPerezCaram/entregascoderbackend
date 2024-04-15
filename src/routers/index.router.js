@@ -11,5 +11,19 @@ export default class IndexRouter extends CustomRouter {
   init() {
     this.router.use("/api", apiRouter);
     this.router.use("/", viewsRouter);
+    this.router.get("/simplex", (req, res) => {
+      let total = 1;
+      for (let i = 1; i < 100; i++) {
+        total = i * i;
+      }
+      return res.send({ total });
+    });
+    this.router.get("/complex", (req, res) => {
+      let total = 1;
+      for (let i = 1; i < 1000000000; i++) {
+        total = i * i;
+      }
+      return res.send({ total });
+    });
   }
 }
