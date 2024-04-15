@@ -1,5 +1,6 @@
 import { faker } from "@faker-js/faker";
 import repository from "../../repositories/users.rep.js";
+import winston from "../../utils/logger/winston.utils.js";
 
 function usersMock() {
   return {
@@ -17,9 +18,9 @@ async function createMocks() {
   try {
     const data = usersMock();
     await repository.create(data);
-    console.log("Mock de usuario creado");
+    winston.INFO("Mock de usuario creado");
   } catch (error) {
-    console.log(error);
+    winston.INFO(error);
   }
 }
 createMocks();

@@ -1,9 +1,10 @@
 import { socketServer } from "../../server.js";
 import products from "../data/fs/products.fs.js";
 import propsProductsUtils from "./propsProducts.utils.js";
+import winston from "../utils/logger/winston.utils.js";
 
 export default (socket) => {
-  console.log("client " + socket.id + " connected");
+  winston.INFO("client " + socket.id + " connected");
   socket.emit("products", products.readProducts());
   socket.on("newProduct", async (data) => {
     try {
@@ -11,7 +12,7 @@ export default (socket) => {
       await products.createProduct(data);
       socketServer.emit("products", products.readProducts());
     } catch (error) {
-      console.log(error);
+      winston.INFO(error);
     }
   });
 };

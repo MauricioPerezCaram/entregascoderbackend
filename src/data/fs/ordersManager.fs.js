@@ -1,5 +1,6 @@
 import fs from "fs";
 import crypto from "crypto";
+import winston from "../../src/utils/logger/winston.utils.js";
 
 class OrdersManager {
   static #perGain = 0.3;
@@ -35,10 +36,8 @@ class OrdersManager {
       this.orders.push(order);
       const jsonData = JSON.stringify(this.orders, null, 2);
       await fs.promises.writeFile(this.path, jsonData);
-      console.log("create " + order.id);
       return order.id;
     } catch (error) {
-      console.log(error.message);
       return error.message;
     }
   }
@@ -48,11 +47,9 @@ class OrdersManager {
       if (this.orders.length === 0) {
         throw new Error("No hay ordenenes cargadas");
       } else {
-        console.log(this.orders);
         return this.orders;
       }
     } catch (error) {
-      console.log(error.message);
       return error.message;
     }
   }
@@ -63,13 +60,12 @@ class OrdersManager {
       if (!one) {
         throw new Error("No hay orden con el id " + id);
       } else {
-        console.log(
+        winston.INFO(
           "Leer el orden con id " + id + " " + JSON.stringify(one, null, 2)
         );
         return one;
       }
     } catch (error) {
-      console.log(error.message);
       return error.message;
     }
   }
@@ -85,7 +81,7 @@ class OrdersManager {
         const jsonData = JSON.stringify(this.orders, null, 2);
         await fs.promises.writeFile(this.path, jsonData);
 
-        console.log("Orden actualizada con id " + id);
+        winston.INFO("Orden actualizada con id " + id);
         return id;
       }
     } catch (error) {
@@ -102,11 +98,11 @@ class OrdersManager {
         this.orders = this.orders.filter((each) => each.id !== id);
         const jsonData = JSON.stringify(this.orders, null, 2);
         await fs.promises.writeFile(this.path, jsonData);
-        console.log("Eliminado el orden con id " + id);
+        winston.INFO("Eliminado el orden con id " + id);
         return id;
       }
     } catch (error) {
-      console.log(error.message);
+      winston.INFO(error.message);
       return error.message;
     }
   }

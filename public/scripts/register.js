@@ -14,7 +14,6 @@ selector.addEventListener("click", async () => {
     };
     let response = await fetch("/api/sessions/register", opts);
     response = await response.json();
-    console.log(response);
     if (response.statusCode === 201) {
       alert("Usuario creado!"); // Agregado: Muestra un alerta de éxito
       location.replace("/sessions/login");

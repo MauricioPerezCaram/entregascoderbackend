@@ -1,3 +1,5 @@
+import winston from "../../src/utils/logger/winston.utils.js";
+
 const google = document.querySelector("#google");
 google.addEventListener("click", async () => {
   try {
@@ -7,9 +9,7 @@ google.addEventListener("click", async () => {
     };
     let response = await fetch("/api/sessions/google", opts);
     response = await response.json();
-    console.log(response);
   } catch (error) {
-    alert(error.message);
-    console.log(error);
+    winston.INFO(error);
   }
 });

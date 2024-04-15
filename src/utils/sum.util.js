@@ -1,3 +1,4 @@
+import winston from "../utils/logger/winston.utils.js";
 function sum() {
   let counter = 0;
   for (let i = 0; i < 5e9; i++) {
@@ -8,6 +9,6 @@ function sum() {
 
 process.on("message", () => {
   const counter = sum();
-  console.log("Child process id: " + process.pid);
+  winston.INFO("Child process id: " + process.pid);
   process.send(counter);
 });
