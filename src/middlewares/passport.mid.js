@@ -4,6 +4,7 @@ import { Strategy as JwtStrategy, ExtractJwt } from "passport-jwt";
 import { verifyHash } from "../utils/hash.utils.js";
 import { createToken } from "../utils/token.utils.js";
 import repository from "../repositories/users.rep.js";
+import winston from "../utils/logger/winston.utils.js";
 
 passport.use(
   "register",
@@ -16,7 +17,7 @@ passport.use(
           return done(null, false, { statusCode: 401 });
         } else {
           const user = await repository.create(req.body);
-          console.log(user);
+          winston.INFO(user);
           return done(null, user);
         }
       } catch (error) {

@@ -1,3 +1,5 @@
+import winston from "../../src/utils/logger/winston.utils.js";
+
 document.querySelector("#signout").addEventListener("click", async () => {
   try {
     const token = localStorage.getItem("token");
@@ -15,6 +17,6 @@ document.querySelector("#signout").addEventListener("click", async () => {
       alert("No estas en una sesion activa");
     }
   } catch (error) {
-    console.log(error);
+    winston.INFO(error);
   }
 });

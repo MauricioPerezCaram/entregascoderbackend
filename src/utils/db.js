@@ -1,11 +1,11 @@
 import { connect } from "mongoose";
+import winston from "../utils/logger/winston.utils.js";
 
 const dbConnection = async () => {
   try {
-    console.log("URI de la base de datos:", process.env.DB_LINK);
     await connect(process.env.DB_LINK);
   } catch (error) {
-    console.log(error);
+    winston.INFO(error);
   }
 };
 

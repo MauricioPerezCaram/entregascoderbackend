@@ -1,5 +1,6 @@
 import argsUtil from "../utils/args.util.js";
 import dbConnection from "../utils/db.js";
+import winston from "../../src/utils/logger/winston.utils.js";
 
 const environment = argsUtil.env;
 
@@ -8,7 +9,7 @@ let dao = {};
 switch (environment) {
   case "test":
     //vamos a usar MEMORY
-    console.log("MEMORY CONNECTED");
+    winston.INFO("MEMORY CONNECTED");
     const { default: productsMemory } = await import(
       "./memory/products.memory.js"
     );
@@ -25,7 +26,7 @@ switch (environment) {
 
   case "dev":
     //vamos a usar FS
-    console.log("FS CONNECTED");
+    winston.INFO("FS CONNECTED");
     const { default: productsFs } = await import("./fs/products.fs.js");
     const { default: ordersFs } = await import("./fs/ordersManager.fs.js");
     const { default: usersFs } = await import("./fs/users.fs.js");
@@ -37,7 +38,7 @@ switch (environment) {
     break;
 
   case "prod":
-    dbConnection().then(() => console.log("MONGO CONNECTED"));
+    dbConnection().then(() => winston.INFO("MONGO CONNECTED"));
     const { default: productsMongo } = await import(
       "./mongo/products.mongo.js"
     );

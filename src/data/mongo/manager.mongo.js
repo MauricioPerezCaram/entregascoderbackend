@@ -1,9 +1,7 @@
-// import User from "./models/user.model.js";
-// import Product from "./models/products.model.js";
-// import Order from "./models/orders.model.js";
 import CustomError from "../../utils/errors/CustomError.js";
 import errors from "../../utils/errors/errors.js";
 import { Types } from "mongoose";
+import winston from "../../utils/logger/winston.utils.js";
 
 class MongoManager {
   constructor(model) {
@@ -117,7 +115,7 @@ class MongoManager {
   async stats({ filter }) {
     try {
       let stats = await this.model.find(filter).explain("executionStats");
-      console.log(stats);
+      winston.INFO(stats);
       stats = {
         quantity: stats.executionStats.nReturned,
         time: stats.executionStats.executionTimeMillis,

@@ -1,4 +1,5 @@
 import fs from "fs";
+import winston from "../../utils/logger/winston.utils.js";
 
 class Usersmanager {
   init() {
@@ -24,10 +25,10 @@ class Usersmanager {
       this.users.push(data);
       const jsonData = JSON.stringify(this.users, null, 2);
       await fs.promises.writeFile(this.path, jsonData);
-      console.log("create " + data.id);
+      winston.INFO("create " + data.id);
       return data;
     } catch (error) {
-      console.log(error.message);
+      winston.INFO(error.message);
       return error.message;
     }
   }
@@ -36,11 +37,11 @@ class Usersmanager {
       if (this.users.length === 0) {
         throw new Error("No hay productos");
       } else {
-        console.log(this.users);
+        winston.INFO(this.users);
         return this.users;
       }
     } catch (error) {
-      console.log(error.message);
+      winston.INFO(error.message);
       return error.message;
     }
   }
@@ -50,13 +51,13 @@ class Usersmanager {
       if (!one) {
         throw new Error("No hay producto con el id " + id);
       } else {
-        console.log(
+        winston.INFO(
           "Leer el producto con id " + id + " " + JSON.stringify(one, null, 2)
         );
         return one;
       }
     } catch (error) {
-      console.log(error.message);
+      winston.INFO(error.message);
       return error.message;
     }
   }

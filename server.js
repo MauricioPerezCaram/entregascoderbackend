@@ -11,8 +11,6 @@ import sessionFileStore from "session-file-store";
 import cors from "cors";
 import args from "./src/utils/args.util.js";
 import compression from "express-compression";
-
-console.log(env);
 import MongoStore from "connect-mongo";
 
 import IndexRouter from "./src/routers/index.router.js";
@@ -20,12 +18,13 @@ import errorHandler from "./src/middlewares/errorHandler.mid.js";
 import pathHandler from "./src/middlewares/pathHandler.mid.js";
 import __dirname from "./utils.js";
 import cookieParser from "cookie-parser";
+import wintsonLog from "./src/utils/logger/index.js";
 import winston from "./src/middlewares/winston.js";
 
 const server = express();
 const PORT = env.PORT || 8080;
 const ready = () => {
-  console.log("server ready on port " + PORT);
+  wintsonLog.INFO("server ready on port " + PORT);
   dbConnection();
 };
 const httpServer = createServer(server);
@@ -79,5 +78,3 @@ server.use(errorHandler);
 server.use(pathHandler);
 
 export { socketServer };
-
-console.log(args);

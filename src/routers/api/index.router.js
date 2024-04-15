@@ -14,6 +14,7 @@ import passCallBackMid from "../../middlewares/passCallBack.mid.js";
 const product = new ProductsRouter();
 const user = new UsersRouter();
 const order = new OrdersRouter();
+import winston from "../../utils/logger/winston.utils.js";
 
 export default class ApiRouter extends CustomRouter {
   init() {
@@ -24,7 +25,7 @@ export default class ApiRouter extends CustomRouter {
       this.use("/sessions", sessionRouter);
       this.read("/sum", ["PUBLIC"], async (req, res) => {
         try {
-          console.log("Global process id: " + process.pid);
+          winston.INFO("Global process id: " + process.pid);
           const child = fork("./src/utils/sum.util.js");
           child.send("start");
           child.on("message", (result) => res.success200(result));

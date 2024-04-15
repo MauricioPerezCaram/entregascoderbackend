@@ -1,6 +1,8 @@
 import fs from "fs";
 import CustomError from "../../utils/errors/CustomError.js";
 import errors from "../../utils/errors/errors.js";
+import winston from "../../utils/logger/winston.utils.js";
+
 class ProductsManager {
   init() {
     try {
@@ -25,10 +27,10 @@ class ProductsManager {
       this.products.push(data);
       const jsonData = JSON.stringify(this.products, null, 2);
       await fs.promises.writeFile(this.path, jsonData);
-      console.log("create " + data.id);
+      winston.INFO("create " + data.id);
       return data;
     } catch (error) {
-      console.log(error.message);
+      winston.INFO(error.message);
       return error.message;
     }
   }
@@ -37,11 +39,11 @@ class ProductsManager {
       if (this.products.length === 0) {
         throw new Error("No hay productos");
       } else {
-        console.log(this.products);
+        winston.INFO(this.products);
         return this.products;
       }
     } catch (error) {
-      console.log(error.message);
+      winston.INFO(error.message);
       return error.message;
     }
   }
@@ -51,13 +53,13 @@ class ProductsManager {
       if (!one) {
         throw new Error("No hay producto con el id " + id);
       } else {
-        console.log(
+        winston.INFO(
           "Leer el producto con id " + id + " " + JSON.stringify(one, null, 2)
         );
         return one;
       }
     } catch (error) {
-      console.log(error.message);
+      winston.INFO(error.message);
       return error.message;
     }
   }
