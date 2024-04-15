@@ -1,5 +1,4 @@
 import fs from "fs";
-import notFoundOne from "../../utils/notFoundOne.utils.js";
 
 class Usersmanager {
   init() {

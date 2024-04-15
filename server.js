@@ -20,6 +20,7 @@ import errorHandler from "./src/middlewares/errorHandler.mid.js";
 import pathHandler from "./src/middlewares/pathHandler.mid.js";
 import __dirname from "./utils.js";
 import cookieParser from "cookie-parser";
+import winston from "./src/middlewares/winston.js";
 
 const server = express();
 const PORT = env.PORT || 8080;
@@ -42,31 +43,6 @@ server.set("views", __dirname + "/src/views");
 //middlewares
 server.use(cookieParser(env.SECRET_KEY));
 
-// MEMORY STORE
-// server.use(
-//   expressSesion({
-//     secret: "env.SECRET_SESSION",
-//     resave: true,
-//     saveUninitialized: true,
-//     cookie: { maxAge: 6000 },
-//   })
-// );
-
-// FILE STORE
-// server.use(
-//   expressSesion({
-//     secret: "env.SECRET_SESSION",
-//     resave: true,
-//     saveUninitialized: true,
-//     store: new FileStore({
-//       path: "./src/data/fs/files/sessions",
-//       ttl: 10,
-//       retries: 2,
-//     }),
-//   })
-// );
-
-// MONGO STORE
 server.use(
   expressSesion({
     secret: env.SECRET_KEY,
@@ -89,6 +65,7 @@ server.use(express.json());
 server.use(express.urlencoded({ extended: true }));
 server.use(express.static(__dirname + "/public"));
 server.use(morgan("dev"));
+server.use(winston);
 server.use(
   compression({
     brotli: { enabled: true, zlib: {} },
