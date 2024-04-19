@@ -1,6 +1,6 @@
 import winstonLog from "../utils/logger/index.js";
 
-function wintson(req, res, next) {
+function winston(req, res, next) {
   try {
     req.logger = winstonLog;
     const message = `${req.method} ${req.url} - ${new Date().toLocaleString()}`;
@@ -11,4 +11,4 @@ function wintson(req, res, next) {
   }
 }
 
-export default wintson;
+export default winston;
