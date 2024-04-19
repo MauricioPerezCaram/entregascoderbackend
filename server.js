@@ -18,15 +18,16 @@ import errorHandler from "./src/middlewares/errorHandler.mid.js";
 import pathHandler from "./src/middlewares/pathHandler.mid.js";
 import __dirname from "./utils.js";
 import cookieParser from "cookie-parser";
-import wintsonLog from "./src/utils/logger/index.js";
+import winstonLog from "./src/utils/logger/index.js";
 import winston from "./src/middlewares/winston.js";
 
 const server = express();
 const PORT = env.PORT || 8080;
 const ready = () => {
-  wintsonLog.INFO("server ready on port " + PORT);
+  winstonLog.INFO("Servidor andando en el puerto " + PORT);
   dbConnection();
 };
+
 const httpServer = createServer(server);
 const socketServer = new Server(httpServer);
 httpServer.listen(PORT, ready);
