@@ -11,6 +11,8 @@ import sessionFileStore from "session-file-store";
 import cors from "cors";
 import args from "./src/utils/args.util.js";
 import compression from "express-compression";
+import cluster from "cluster";
+import { cpus } from "os";
 import MongoStore from "connect-mongo";
 
 import IndexRouter from "./src/routers/index.router.js";
@@ -31,7 +33,6 @@ const ready = () => {
 
 const httpServer = createServer(server);
 const socketServer = new Server(httpServer);
-httpServer.listen(PORT, ready);
 socketServer.on("connection", socketUtils);
 
 const FileStore = sessionFileStore(expressSesion);
@@ -80,3 +81,16 @@ server.use(errorHandler);
 server.use(pathHandler);
 
 export { socketServer };
+
+console.log(cluster.isPrimary);
+if (cluster.isPrimary) {
+  console.log("Primary id: " + process.pid);
+  const numberOfProccess = cpus().length;
+  console.log("Cantidad de procesadores de mi cpu: " + numberOfProccess);
+  for (let i = 1; i <= numberOfProccess; i++) {
+    cluster.fork();
+  }
+} else {
+  console.log("Worker id: " + process.pid);
+  httpServer.listen(PORT, ready);
+}

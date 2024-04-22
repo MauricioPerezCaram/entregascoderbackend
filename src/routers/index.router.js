@@ -1,3 +1,4 @@
+import winston from "../utils/logger/index.js";
 import CustomRouter from "./CustomRouter.js";
 import ApiRouter from "./api/index.router.js";
 import ViewsRouter from "./views/index.view.js";
@@ -12,11 +13,16 @@ export default class IndexRouter extends CustomRouter {
     this.router.use("/api", apiRouter);
     this.router.use("/", viewsRouter);
     this.router.get("/simplex", (req, res) => {
-      let total = 1;
-      for (let i = 1; i < 100; i++) {
-        total = i * i;
+      winston.INFO(process.pid);
+      try {
+        let total = 1;
+        for (let i = 1; i < 100; i++) {
+          total = i * i;
+        }
+        return res.send({ total });
+      } catch (error) {
+        return next(error);
       }
-      return res.send({ total });
     });
     this.router.get("/complex", (req, res) => {
       let total = 1;
