@@ -25,7 +25,8 @@ const server = express();
 const PORT = env.PORT || 8080;
 const ready = () => {
   winstonLog.INFO("Servidor andando en el puerto " + PORT);
-  dbConnection();
+  const db = env.DB_LINK;
+  dbConnection(db);
 };
 
 const httpServer = createServer(server);

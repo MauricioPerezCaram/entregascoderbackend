@@ -1,6 +1,6 @@
 import fs from "fs";
 import crypto from "crypto";
-import winston from "../../src/utils/logger/winston.utils.js";
+import winston from "../../utils/logger/winston.utils.js";
 
 class OrdersManager {
   static #perGain = 0.3;
