@@ -12,7 +12,8 @@
     "performance": "artillery run ./test/flow/flow.yaml --output ./test/flow/flow.json",
     "report": "artillery report ./test/flow/flow.json.html",
     "image": "docker build -t apple-store-mza .",
-    "container": "docker run -p 8080:8080 apple-store-mza"
+    "container": "docker run -p 8080:8080 apple-store-mza",
+    "orquestra": "kubectl apply -f ./orquestra.yaml"
   },
   "keywords": [],
   "author": "",

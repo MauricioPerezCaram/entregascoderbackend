@@ -1,0 +1,32 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: apple-store-mza
+spec:
+  selector:
+    app: apple-store-mza
+  ports:
+    - port: 80
+      targetPort: 8080
+  type: LoadBalancer
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: apple-store-mza
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: apple-store-mza
+  template:
+    metadata:
+      labels:
+        app: apple-store-mza
+    spec:
+      containers:
+        - name: apple-store-mza
+          image: mauricioperezcaram/apple-store-mza:1.0.0
+          ports:
+            - containerPort: 8080
+          imagePullPolicy: Always
