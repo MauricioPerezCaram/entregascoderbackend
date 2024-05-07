@@ -91,3 +91,28 @@
 [33mWARN[39m: GET /f123s not found path
 [33mWARN[39m: GET /Swagger not found path
 [33mWARN[39m: GET /favicon.ico not found path
+[33mWARN[39m: GET /styles.css not found path
+[33mWARN[39m: GET /favicon.ico not found path
+[33mWARN[39m: Documento no encontrado
+[33mWARN[39m: Documento no encontrado
+[33mWARN[39m: Documento no encontrado
+[33mWARN[39m: Documento no encontrado
+[33mWARN[39m: Documento no encontrado
+[33mWARN[39m: Documento no encontrado
+[33mWARN[39m: Documento no encontrado
+[33mWARN[39m: Documento no encontrado
+[33mWARN[39m: Documento no encontrado
+[33mWARN[39m: Documento no encontrado
+[33mWARN[39m: Documento no encontrado
+[31mERROR[39m: Cast to ObjectId failed for value ":uid" (type string) at path "_id" for model "products"
+[31mERROR[39m: Cast to ObjectId failed for value ":uid" (type string) at path "_id" for model "products"
+[33mWARN[39m: Documento no encontrado
+[33mWARN[39m: Documento no encontrado
+[33mWARN[39m: Documento no encontrado
+[31mERROR[39m: Cast to ObjectId failed for value ":uid" (type string) at path "_id" for model "products"
+[33mWARN[39m: Documento no encontrado
+[31mERROR[39m: Cast to ObjectId failed for value ":uid" (type string) at path "_id" for model "products"
+[33mWARN[39m: Documento no encontrado
+[31mERROR[39m: Cast to ObjectId failed for value ":uid" (type string) at path "_id" for model "products"
+[33mWARN[39m: Documento no encontrado
+[31mERROR[39m: Cast to ObjectId failed for value ":uid" (type string) at path "_id" for model "products"

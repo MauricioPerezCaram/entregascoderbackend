@@ -38,8 +38,7 @@ paths:
     post:
       summary: Para registrar un producto
       tags:
-        - Producto
-      #Aca debería agregarle security min 1.17.30 clase profe
+        - Productos
       requestBody:
         required: true
         description: Data del producto
@@ -47,13 +46,56 @@ paths:
           application/json:
             schema:
               $ref: "#/components/schemas/Products"
+      responses:
+        "201":
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/responses/res201"
+    get:
+      summary: Para ver los productos
+      tags:
+        - Productos
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Products"
+  /api/products/:uid:
+    put:
+      summary: Para buscar un producto
+      tags:
+        - Productos
       parameters:
-        - name: pid
+        - name: _id
           in: path
           required: true
-          description: description
+          description: ID del producto
           schema:
-            $type: String
+            type: string
+      responses:
+        "201":
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/responses/res201"
+    delete:
+      summary: Para eliminar un producto
+      tags:
+        - Productos
+      parameters:
+        - name: productId
+          in: path
+          required: true
+          description: ID del producto a eliminar
+          schema:
+            type: string
       responses:
         "201":
           description: Success
