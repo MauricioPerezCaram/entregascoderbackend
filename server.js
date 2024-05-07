@@ -3,6 +3,8 @@ import express from "express";
 import { createServer } from "http";
 import { Server } from "socket.io";
 import morgan from "morgan";
+import swaggerJSDoc from "swagger-jsdoc";
+import { serve, setup } from "swagger-ui-express";
 import { engine } from "express-handlebars";
 import socketUtils from "./src/utils/socket.utils.js";
 import dbConnection from "./src/utils/db.js";
@@ -19,6 +21,7 @@ import IndexRouter from "./src/routers/index.router.js";
 import errorHandler from "./src/middlewares/errorHandler.mid.js";
 import pathHandler from "./src/middlewares/pathHandler.mid.js";
 import __dirname from "./utils.js";
+import options from "./src/utils/swagger.js";
 import cookieParser from "cookie-parser";
 import winstonLog from "./src/utils/logger/index.js";
 import winston from "./src/middlewares/winston.js";
@@ -56,6 +59,9 @@ server.use(
     }),
   })
 );
+
+const specs = swaggerJSDoc(options);
+server.use("/api/docs", serve, setup(specs));
 
 server.use(
   cors({

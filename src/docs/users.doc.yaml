@@ -1,0 +1,57 @@
+components:
+  schemas:
+    Users:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Nombre del usuario
+        lastname:
+          type: string
+          description: Apellido del usuario
+        email:
+          type: string
+          description: Email del usuario
+        photo:
+          type: string
+          description: Foto del usuario
+      example:
+        name: Mauricio
+        lastname: Perez Caram
+        email: mauricio@gmail.com
+        photo: Foto Mauricio
+
+  responses:
+    res201:
+      description: Created
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              status:
+                type: string
+                description: Successful
+              payload:
+                $ref: "#/components/schemas/Users"
+paths:
+  /api/users:
+    post:
+      summary: Para registrar un usuario
+      tags:
+        - usuario
+      #Aca debería agregarle security min 1.17.30 clase profe
+      requestBody:
+        required: true
+        description: Data del usuario
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Users"
+      responses:
+        "201":
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/responses/res201"

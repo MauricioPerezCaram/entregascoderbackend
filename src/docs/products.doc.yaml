@@ -1,0 +1,63 @@
+components:
+  schemas:
+    Products:
+      type: object
+      properties:
+        title:
+          type: string
+          description: Nombre del producto
+        photo:
+          type: string
+          description: Foto del producto
+        price:
+          type: number
+          description: Precio del producto
+        stock:
+          type: number
+          description: Stock del producto
+      example:
+        title: Banana
+        photo: https://acdn.mitiendanube.com/stores/001/219/229/products/banana1-39d62a544fc16a2b8016025979095295-640-0.jpg
+        price: 25
+        stock: 60
+  responses:
+    res201:
+      description: Created
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              status:
+                type: string
+                description: Successful
+              payload:
+                $ref: "#/components/schemas/Products"
+paths:
+  /api/products:
+    post:
+      summary: Para registrar un producto
+      tags:
+        - Producto
+      #Aca debería agregarle security min 1.17.30 clase profe
+      requestBody:
+        required: true
+        description: Data del producto
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Products"
+      parameters:
+        - name: pid
+          in: path
+          required: true
+          description: description
+          schema:
+            $type: String
+      responses:
+        "201":
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/responses/res201"
