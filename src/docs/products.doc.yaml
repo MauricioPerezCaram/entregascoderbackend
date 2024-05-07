@@ -47,6 +47,13 @@ paths:
           application/json:
             schema:
               $ref: "#/components/schemas/Products"
+      parameters:
+        - name: pid
+          in: path
+          required: true
+          description: description
+          schema:
+            $type: String
       responses:
         "201":
           description: Success
