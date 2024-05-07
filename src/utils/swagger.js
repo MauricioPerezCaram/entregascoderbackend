@@ -5,7 +5,7 @@ const options = {
     openapi: "3.0.1",
     info: {
       title: "Apple Sotre Mendoza",
-      description: "Documentacion de la API",
+      description: "Documentacion de la API Apple Store Mendoza",
     },
   },
   apis: [`${__dirname}/src/docs/*.yaml`],
