@@ -9,8 +9,7 @@ describe("Testeando Modelo Productos", () => {
 
   before(() => {
     if (typeof productsDao === "function") {
-      model = new MongoManager(productsDao); // Pasa el modelo a MongoManager
-    } else {
+      model = new MongoManager(productsDao);
       model = productsDao;
     }
   });
