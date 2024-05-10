@@ -46,7 +46,7 @@ switch (environment) {
     const { default: usersMongo } = await import("./mongo/users.mongo.js");
 
     dao = {
-      products: productsMongo,
+      Products: productsMongo,
       users: usersMongo,
       orders: ordersMongo,
     };
