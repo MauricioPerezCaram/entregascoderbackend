@@ -18,10 +18,10 @@ export default class UsersRouter extends CustomRouter {
 
     this.read("/", ["PUBLIC"], read);
 
-    this.read("/:uid", ["PUBLIC", "PREM"], readOne);
+    this.read("/:uid", ["PUBLIC"], readOne);
 
-    this.update("/:uid", ["PUBLIC", "PREM"], passCallBackMid("jwt"), update);
+    this.update("/:uid", ["PUBLIC"], update);
 
-    this.destroy("/:uid", ["PUBLIC", "PREM"], passCallBackMid("jwt"), destroy);
+    this.destroy("/:uid", ["PUBLIC"], destroy);
   }
 }

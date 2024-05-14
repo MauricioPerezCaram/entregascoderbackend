@@ -77,7 +77,7 @@ paths:
           required: true
           description: ID del usuario
           schema:
-            type: string
+            type: number
       responses:
         "201":
           description: Success
@@ -95,7 +95,7 @@ paths:
           required: true
           description: ID del usuario a eliminar
           schema:
-            type: string
+            type: number
       responses:
         "201":
           description: Success

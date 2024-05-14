@@ -1,25 +1,25 @@
 components:
   schemas:
-    Products:
+    Orders:
       type: object
       properties:
-        title:
+        user_id:
           type: string
-          description: Nombre del producto
-        photo:
+          description: ID del usuario
+        product_id:
           type: string
-          description: Foto del producto
-        price:
-          type: number
-          description: Precio del producto
-        stock:
-          type: number
-          description: Stock del producto
+          description: ID de la orden
+        quantity:
+          type: string
+          description: Cantidad de ordenes seleccionadas
+        state:
+          type: string
+          description: Estado de la orden
       example:
-        title: Banana
-        photo: https://acdn.mitiendanube.com/stores/001/219/229/products/banana1-39d62a544fc16a2b8016025979095295-640-0.jpg
-        price: 25
-        stock: 60
+        user_id: 65dcd511e7375831668fe578
+        product_id: 65dcd511e7375831668fe578
+        quantity: 25
+        state: paid
   responses:
     res201:
       description: Created
@@ -32,20 +32,20 @@ components:
                 type: string
                 description: Successful
               payload:
-                $ref: "#/components/schemas/Products"
+                $ref: "#/components/schemas/Orders"
 paths:
-  /api/products:
+  /api/orders:
     post:
-      summary: Para registrar un producto
+      summary: Para registrar una orden
       tags:
-        - Productos
+        - Ordenes
       requestBody:
         required: true
-        description: Data del producto
+        description: Data de la orden
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/Products"
+              $ref: "#/components/schemas/Orders"
       responses:
         "201":
           description: Success
@@ -54,9 +54,9 @@ paths:
               schema:
                 $ref: "#/components/responses/res201"
     get:
-      summary: Para ver los productos
+      summary: Para ver los Ordenes
       tags:
-        - Productos
+        - Ordenes
       responses:
         "200":
           description: Success
@@ -65,17 +65,17 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: "#/components/schemas/Products"
-  /api/products/:uid:
+                  $ref: "#/components/schemas/Orders"
+  /api/orders/:_id:
     put:
-      summary: Para buscar un producto
+      summary: Para buscar una orden
       tags:
-        - Productos
+        - Ordenes
       parameters:
-        - name: id
+        - name: _id
           in: path
           required: true
-          description: ID del producto
+          description: ID de la orden
           schema:
             type: string
       responses:
@@ -86,14 +86,14 @@ paths:
               schema:
                 $ref: "#/components/responses/res201"
     delete:
-      summary: Para eliminar un producto
+      summary: Para eliminar un orden
       tags:
-        - Productos
+        - Ordenes
       parameters:
-        - name: productId
+        - name: orderId
           in: path
           required: true
-          description: ID del producto a eliminar
+          description: ID de la orden a eliminar
           schema:
             type: string
       responses:
