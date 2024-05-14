@@ -11,7 +11,6 @@ function verifyToken(token) {
   if (token) {
     const data = jwt.verify(token, process.env.SECRET);
     return data;
-    // FALTA AGREGAR QUE PASA SI NO ENCUENTRA TOKEN
   }
   const error = new Error("bad auth token");
   error.statusCode = 401;
