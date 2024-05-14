@@ -6,21 +6,20 @@ components:
         name:
           type: string
           description: Nombre del usuario
-        lastname:
-          type: string
-          description: Apellido del usuario
-        email:
-          type: string
-          description: Email del usuario
         photo:
           type: string
           description: Foto del usuario
+        email:
+          type: string
+          description: Email del usuario
+        password:
+          type: string
+          description: Stock del usuario
       example:
-        name: Mauricio
-        lastname: Perez Caram
-        email: mauricio@gmail.com
-        photo: Foto Mauricio
-
+        name: UsiaroRamdom
+        photo: https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ9n9z91IIZKpfFWikFbhe70KXsjeJR1t93DGkBC4fEbg&s
+        email: UsiaroRamdom@hotmail.com
+        password: hola1234
   responses:
     res201:
       description: Created
@@ -39,8 +38,7 @@ paths:
     post:
       summary: Para registrar un usuario
       tags:
-        - usuario
-      #Aca debería agregarle security min 1.17.30 clase profe
+        - Usuarios
       requestBody:
         required: true
         description: Data del usuario
@@ -48,6 +46,56 @@ paths:
           application/json:
             schema:
               $ref: "#/components/schemas/Users"
+      responses:
+        "201":
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/responses/res201"
+    get:
+      summary: Para ver los Usuarios
+      tags:
+        - Usuarios
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Users"
+  /api/users/:uid:
+    put:
+      summary: Para buscar un usuario
+      tags:
+        - Usuarios
+      parameters:
+        - name: _id
+          in: path
+          required: true
+          description: ID del usuario
+          schema:
+            type: string
+      responses:
+        "201":
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/responses/res201"
+    delete:
+      summary: Para eliminar un usuario
+      tags:
+        - Usuarios
+      parameters:
+        - name: productId
+          in: path
+          required: true
+          description: ID del usuario a eliminar
+          schema:
+            type: string
       responses:
         "201":
           description: Success
