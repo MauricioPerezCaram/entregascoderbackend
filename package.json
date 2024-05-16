@@ -9,6 +9,7 @@
     "test": "nodemon ./server.js --env test",
     "mocha": "mocha ./test/mocha",
     "chai": "mocha ./test/chai",
+    "super": "mocha ./test/supertest",
     "simplex": "artillery quick --count 40 --num 50 'http://localhost:8080/simplex' -o ./test/quick/simplex.json",
     "complex": "artillery quick --count 40 --num 50 'http://localhost:8080/complex' -o ./test/quick/complex.json",
     "performance": "artillery run ./test/flow/flow.yaml --output ./test/flow/flow.json",
@@ -56,7 +57,8 @@
     "passport-google-oauth2": "^0.2.0",
     "passport-jwt": "^4.0.1",
     "passport-local": "^1.0.0",
-    "socket.io": "^4.7.5"
+    "socket.io": "^4.7.5",
+    "supertest": "^7.0.0"
   },
   "description": ""
 }
