@@ -8,7 +8,7 @@ class UserDTO {
     this.name = data.name;
     this.email = data.email;
     this.password = createHash(data.password);
-    this.role = data.role || "USER";
+    this.role = data.role || 1;
     this.verified = data.verified || false;
     this.verifiedCode = crypto.randomBytes(12).toString("base64");
     process.env.PERSISTENTE !== "MONGO" && (this.createdAt = new Date());

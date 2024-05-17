@@ -11,7 +11,7 @@ class UsersRep {
   read = async ({ filter, options }) =>
     await this.model.read({ filter, options });
   readOne = async (id) => await this.model.readOne(id);
-  readByEmail = async (email) => await this.model.readByEmail(email);
+  readByEmail = async (email) => await this.model.readByField(email);
   update = async (id, data) => await this.model.update(id, data);
   destroy = async (id) => await this.model.destroy(id);
 }
